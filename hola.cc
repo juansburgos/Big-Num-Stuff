@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
 
-    vector<string> msg {"Mokotrole"};
+    vector<string> msg {"Moole"};
 
     for (const string& word : msg)
     {
