@@ -7,6 +7,8 @@ using namespace std;
 
 //Metodos de clase
 
+
+
 bignum operator+(const bignum&, const bignum&){
 
 }

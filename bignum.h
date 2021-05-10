@@ -11,6 +11,10 @@ class bignum{
         unsigned short *digits;
 
     public:
+        bignum();
+        bignum(*digits);
+        ~bignum();
+
         friend bignum operator+(const bignum&, const bignum&);
         friend bignum operator-(const bignum&, const bignum&);
         friend bignum operator*(const bignum&, const bignum&);
