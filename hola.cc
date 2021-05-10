@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
 
-    vector<string> msg {"Puede ser pa? puede"};
+    vector<string> msg {"Puede ser pa? .123"};
 
     for (const string& word : msg)
     {
