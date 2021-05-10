@@ -14,4 +14,8 @@ int main()
         cout << word << " ";
     }
     cout << endl;
+
+    return 0
+
+
 }
