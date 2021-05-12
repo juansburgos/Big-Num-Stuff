@@ -8,7 +8,7 @@
 #define OPT_SEEN      1
 #define OPT_MANDATORY 2
 
-struct option_t {
+struct option_t{
 	int has_arg;
 	const char *short_name;
 	const char *long_name;
@@ -17,7 +17,7 @@ struct option_t {
 	int flags;
 };
 
-class cmdline {
+class cmdline{
 	// Este atributo apunta a la tabla que describe todas
 	// las opciones a procesar. Por el momento, sólo puede
 	// ser modificado mediante contructor, y debe finalizar

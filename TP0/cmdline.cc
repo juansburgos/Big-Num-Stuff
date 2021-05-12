@@ -9,10 +9,10 @@
 
 using namespace std;
 
-cmdline::cmdline() {
+cmdline::cmdline(){
 }
 
-cmdline::cmdline(option_t *table) : option_table(table) {
+cmdline::cmdline(option_t *table) : option_table(table){
 	/* 
 	- Lo mismo que hacer:
 
@@ -28,11 +28,11 @@ cmdline::cmdline(option_t *table) : option_table(table) {
 	*/
 }
 
-void cmdline::parse(int argc, char * const argv[]) {
+void cmdline::parse(int argc, char * const argv[]){
 #define END_OF_OPTIONS(p)   \
 	((p)->short_name == 0   \
-	 && (p)->long_name == 0 \
-	 && (p)->parse == 0)
+		&& (p)->long_name == 0 \
+		&& (p)->parse == 0)
 
 	// Primer pasada por la secuencia de opciones: marcamos 
 	// todas las opciones, como no procesadas. Ver código de
@@ -45,12 +45,12 @@ void cmdline::parse(int argc, char * const argv[]) {
 	// si se trata de una opción corta, o larga. Luego,
 	// llamamos a la función de parseo correspondiente.
 	//
-	for (int i = 1; i < argc; ++i) {
+	for (int i = 1; i < argc; ++i){
 		// Todos los parámetros de este programa deben
 		// pasarse en forma de opciones. Encontrar un
 		// parámetro no-opción es un error.
 		//
-		if (argv[i][0] != '-') {
+		if (argv[i][0] != '-'){
 			cerr << "Invalid non-option argument: " << argv[i] << endl;
 			exit(1);
 		}
@@ -77,12 +77,12 @@ void cmdline::parse(int argc, char * const argv[]) {
 	// (1) no hayan figurado explícitamente en la línea 
 	// de comandos, y (2) tengan valor por defecto.
 	//
-	for (option_t *op = option_table; !END_OF_OPTIONS(op); ++op) {
+	for (option_t *op = option_table; !END_OF_OPTIONS(op); ++op){
 #define OPTION_NAME(op) \
-	(op->short_name ? op->short_name : op->long_name)
+		(op->short_name ? op->short_name : op->long_name)
 		if (op->flags & OPT_SEEN)
 			continue;
-		if (op->flags & OPT_MANDATORY) {
+		if (op->flags & OPT_MANDATORY){
 			cerr << "Option " << "-" << OPTION_NAME(op) << " is mandatory." << "\n";
 			exit(1);
 		}
@@ -92,14 +92,14 @@ void cmdline::parse(int argc, char * const argv[]) {
 	}
 }
 
-int cmdline::do_long_opt(const char *opt, const char *arg) {
+int cmdline::do_long_opt(const char *opt, const char *arg){
 	// Recorremos la tabla de opciones, y buscamos la
 	// entrada larga que se corresponda con la opción de 
 	// línea de comandos. De no encontrarse, indicamos el
 	// error.
 	//
-	for (option_t *op = option_table; op->long_name != 0; ++op) {
-		if (string(opt) == string(op->long_name)) {
+	for (option_t *op = option_table; op->long_name != 0; ++op){
+		if (string(opt) == string(op->long_name)){
 			// Marcamos esta opción como usada en
 			// forma explícita, para evitar tener
 			// que inicializarla con el valor por
@@ -107,7 +107,7 @@ int cmdline::do_long_opt(const char *opt, const char *arg) {
 			//
 			op->flags |= OPT_SEEN;
 
-			if (op->has_arg) {
+			if (op->has_arg){
 				// Como se trada de una opción
 				// con argumento, verificamos que
 				// el mismo haya sido provisto.
@@ -140,7 +140,7 @@ int cmdline::do_long_opt(const char *opt, const char *arg) {
 	return -1;
 }
 
-int cmdline::do_short_opt(const char *opt, const char *arg) {
+int cmdline::do_short_opt(const char *opt, const char *arg){
 	option_t *op;
 
 	// Recorremos la tabla de opciones, y buscamos la
@@ -148,8 +148,8 @@ int cmdline::do_short_opt(const char *opt, const char *arg) {
 	// línea de comandos. De no encontrarse, indicamos el
 	// error.
 	//
-	for (op = option_table; op->short_name != 0; ++op) {
-		if (string(opt) == string(op->short_name)) {
+	for (op = option_table; op->short_name != 0; ++op){
+		if (string(opt) == string(op->short_name)){
 			// Marcamos esta opción como usada en
 			// forma explícita, para evitar tener
 			// que inicializarla con el valor por
@@ -157,7 +157,7 @@ int cmdline::do_short_opt(const char *opt, const char *arg) {
 			//
 			op->flags |= OPT_SEEN;
 
-			if (op->has_arg) {
+			if (op->has_arg){
 				// Como se trata de una opción
 				// con argumento, verificamos que
 				// el mismo haya sido provisto.
