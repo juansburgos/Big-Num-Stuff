@@ -89,7 +89,7 @@ istream& operator>>(std::istream&, bignum&){
 }
 */
 
-void print_bignum(const bignum &bn){
+void print_bignum(const bignum &bn){ /*Funcion para probar cargas (BORRAR AL TERMINAR)*/
 
     if (bn.sign == true){
         cout << '-';

@@ -19,7 +19,7 @@ class bignum{
         bignum(const bignum&);
         
 
-        friend void print_bignum(bignum const &bn);/*Para probar datos cargados*/
+        friend void print_bignum(bignum const &bn);/*Para probar datos cargados(BORRAR)*/
         bignum const &operator=(const bignum&);
 
         /*
