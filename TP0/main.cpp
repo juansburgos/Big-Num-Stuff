@@ -17,6 +17,7 @@
 /***** Bibliotecas Propias ***************************************************/
 #include "cmdline.h"
 #include "bignum.h"
+#include "bool.h"
 
 
 /***** Elementos Globales ****************************************************/
