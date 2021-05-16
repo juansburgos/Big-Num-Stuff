@@ -1,4 +1,4 @@
-CFLAGS=-g -pedantic -Wall -ansi
+CFLAGS=-g -pedantic -Werror -Wall -ansi
 CC=g++
 
 all: tp0 clear
@@ -22,7 +22,6 @@ clear:
 	rm *.o
 
 install:
-	cp TP0 ../TP0
+	cp tp0 ../tp0
 
-run:
-	./tp0	
+
