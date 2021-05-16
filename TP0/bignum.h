@@ -10,7 +10,7 @@ class bignum{
     private:
         bool sign; //false es + y true es -//
         unsigned short *digits;
-        size_t size = 0; /*cantidad de digitos sin signo*/
+        size_t size ; /*cantidad de digitos sin signo*/
 
     public:
       

@@ -1,4 +1,4 @@
-CFLAGS=-pedantic -Wall 
+CFLAGS=-g -pedantic -Wall -ansi
 CC=g++
 
 all: tp0 clear
@@ -6,20 +6,23 @@ all: tp0 clear
 tp0: main.o bignum.o bool.o cmdline.o 
 	$(CC) $(CFLAGS) -o main.o bignum.o bool.o cmdline.o 
 
-main.o: main.cc cmdline.h bignum.h bool.h 
-	$(CC) $(CFLAGS) -o main.o -c main.cc
+main.o: main.cpp cmdline.h bignum.h bool.h 
+	$(CC) $(CFLAGS) -o main.o  -c main.cpp 
 
-bool.o: bool.cc  bool.h
-	$(CC) $(CFLAGS) -o bool.o -c bool.cc
+bool.o: bool.cpp  bool.h
+	$(CC) $(CFLAGS) -o bool.o  -c bool.cpp 
 
-bignum.o: bignum.cc  bignum.h
-	$(CC) $(CFLAGS) -o bignum.o -c bignum.cc
+bignum.o: bignum.cpp  bignum.h
+	$(CC) $(CFLAGS) -o bignum.o  -c bignum.cpp 
 
-cmdline.o: cmdline.cc  cmdline.h
-	$(CC) $(CFLAGS) -o cmdline.o -c cmdline.cc
+cmdline.o: cmdline.cpp cmdline.h
+	$(CC) $(CFLAGS) -o cmdline.o  -c cmdline.cpp 
 
 clear:
 	rm *.o
 
 install:
-	cp tp0 ../tp0
+	cp TP0 ../TP0
+
+run:
+	./tp0	

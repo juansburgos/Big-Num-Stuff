@@ -23,7 +23,7 @@ bignum::bignum(const string& n){
     size_t i,begin = 0;
     sign = false ;
 
-    if (sign = is_negative(n)){
+    if ((sign = is_negative(n))){
         begin = 1 ;
     }
 
