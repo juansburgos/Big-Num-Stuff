@@ -2,7 +2,7 @@
 #define _BIGNUM_H_INCLUDED_
 
 #include <iostream>
-
+#include <string>
     
 //Def de clases
 
@@ -14,11 +14,11 @@ class bignum{
 
     public:
         bignum();
-        bignum(const string n);
+        bignum(string const );
         bignum(bignum const &);
         
 
-        friend void print_bignum(bignum const &bn);/*Para probar datos cargados (BORRAR)*/
+        friend void print_bignum(bignum const &bn);/*Para probar datos cargados*/
         bignum const &operator=(const bignum&);
 
         /*

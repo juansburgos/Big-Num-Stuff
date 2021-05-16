@@ -39,7 +39,7 @@ void print_bignum(const bignum &bn){
 
 /***** Función main **********************************************************/
 int main(int argc, char const *argv[]){
-
+    std::string;
     string a = "-145";
     string b = "323";
 

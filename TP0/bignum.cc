@@ -1,11 +1,12 @@
-#include <bignum.h>
+#include "bignum.h"
+#include "bool.h"
 #include <iostream>
 #include <cmath>
 #include <string>
-#include <bool.h>
+
 
 using namespace std;
-
+using std::string;
 
 //bignum.cpp
 //Metodos de clase
@@ -90,3 +91,17 @@ istream& operator>>(std::istream&, bignum&){
 
 }
 */
+
+void print_bignum(const bignum &bn){
+
+    if (bn.sign == true){
+        cout << '-';
+    }
+    
+    for (size_t i = 0; i < bn.size; i++){
+        cout << bn.digits[i];
+    }
+
+    cout << endl;
+    
+}
