@@ -36,7 +36,7 @@ bignum::bignum(const string& n){
 
 }
 
-bignum::bignum(const bignum &b) : sign(b.sign),size(b.size),digits(b.digits)
+bignum::bignum(const bignum &b) : sign(b.sign),digits(b.digits),size(b.size)
 {
 }
  

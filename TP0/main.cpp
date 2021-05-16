@@ -17,11 +17,10 @@
 /***** Bibliotecas Propias ***************************************************/
 #include "cmdline.h"
 #include "bignum.h"
-#include "bool.h"
+
 
 /***** Elementos Globales ****************************************************/
 using namespace std;
-
 
 /***** Función main **********************************************************/
 int main(int argc, char const *argv[]){
