@@ -2,11 +2,8 @@
 #include "bool.h"
 #include <iostream>
 #include <cmath>
-#include <string>
-
 
 using namespace std;
-using std::string;
 
 //bignum.cpp
 //Metodos de clase
@@ -21,7 +18,7 @@ bignum::bignum(){
 
 }
 
-bignum::bignum(const string n){
+bignum::bignum(const string& n){
 
     size_t i,begin = 0;
     sign = false ;

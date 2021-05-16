@@ -17,6 +17,7 @@
 /***** Bibliotecas Propias ***************************************************/
 #include "cmdline.h"
 #include "bignum.h"
+#include "bool.h"
 
 /***** Elementos Globales ****************************************************/
 using namespace std;
@@ -39,9 +40,9 @@ void print_bignum(const bignum &bn){
 
 /***** Función main **********************************************************/
 int main(int argc, char const *argv[]){
-    std::string;
-    string a = "-145";
-    string b = "323";
+    
+    const std::string a = "-145";
+    const std::string b = "323";
 
     bignum x(a),y(b),z;
     

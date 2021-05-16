@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-    
+using namespace std;
 //Def de clases
 
 class bignum{
@@ -13,9 +13,10 @@ class bignum{
         size_t size; /*cantidad de digitos sin signo*/
 
     public:
+      
         bignum();
-        bignum(string const );
-        bignum(bignum const &);
+        bignum(const string& n);
+        bignum(const bignum&);
         
 
         friend void print_bignum(bignum const &bn);/*Para probar datos cargados*/
