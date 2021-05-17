@@ -31,9 +31,6 @@
 
  	bignum x(a),y(b),z;
 
-	//print_bignum(x);
-	//print_bignum(y);
-	//print_bignum(z);
 	cout << "salida X: " << x << endl;
 	cout << "salida Y: " << y << endl;
 	cout << "salida Z: " << z << endl;
@@ -41,8 +38,6 @@
 	z = x;
 
 	cout << "salida Z: " << z << endl;
-
-	//print_bignum(z);
 
 	if(x>y) {
 		cout << "X > Y" << endl;

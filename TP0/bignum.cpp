@@ -12,10 +12,8 @@ using namespace std;
 bignum::bignum(){
 
 	sign = false;
-	size = 1;
-	digits = new unsigned short[size];
-	digits[0] = 0;
-
+	size = 0;
+	digits = nullptr;
 }
 
 bignum::bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
@@ -49,8 +47,8 @@ bignum::bignum(const bignum &b) : sign(b.sign),digits(b.digits),size(b.size) {
 }
 
 bignum::~bignum(){
-	
-	if (digits){
+
+	if (digits!=nullptr){
 		delete [ ] digits;
 	}
 
@@ -74,53 +72,44 @@ bignum const & bignum::operator=(const bignum &b){
 
 /* Falta considerar el caso de que un número sea negativo */
 bignum operator+(const bignum &b1, const bignum &b2){
-	bignum *nuevo = new bignum();
-	if(b1.sign != b2.sign) {
-		if(b1.sign == true) {
-			bignum _b1(b1);
-			_b1.sign = !b1.sign;
-			*nuevo = b2-_b1;
-		}
-		else {
-			bignum _b2(b2);
-			_b2.sign = !b2.sign;
-			*nuevo = b1-_b2;
-		}
+
+	size_t i;
+	unsigned short carry = 0;
+
+	unsigned short *auxdig = new unsigned short [auxsize]
+	if(b1.size >= b2.size){
+
 	}
-	else {
-		bool sign = b1.sign; 
-		
-		size_t size = (b1.size >= b2.size)?b1.size:b2.size;
-		unsigned short *digits = new unsigned short[size];
-		
-		// Inicialmente el carry es 0
-		unsigned short carry = 0;
+	else{
 
-		// Calculo la suma
-		for (size_t i = size; i >= 1; i--) {
-			// Cargo el resto
-			digits[i-1] = (b1.digits[i-1] + b2.digits[i-1] + carry)%10;
-			// Me quedo con el carry para el siguiente
-			carry = (b1.digits[i-1] + b2.digits[i-1] + carry)/10;
-		}
-
-		// Si el carry es 1
-		if(carry == 1) {
-			unsigned short *digits2 = new unsigned short[size+1];
-			// Desplazo
-			for (int i = size; i >= 1; i--) {
-				digits2[i] = digits[i-1];
-			}
-			// y Agrego el carry
-			digits2[0] = carry;
-			// Vuelvo al original
-			digits = digits2;
-		}
-
-		// Armo el bignum y lo devuelvo
-		nuevo = new bignum(sign,size,digits);
 	}
-	return *nuevo;
+
+
+	// Calculo la suma
+	for (i = auxsize-1; i >= 0; i--) {
+		// Cargo el resto
+		auxdig[i] = (b1.digits[i] + b2.digits[i] + carry)%10;
+		// Me quedo con el carry para el siguiente
+		carry = (b1.digits[i] + b2.digits[i] + carry)/10;
+	}
+
+	// Si el carry es 1
+	if(carry == 1) {
+		unsigned short digits2[auxsize+1]{0};
+		// Desplazo
+		for (i = size; i >= 1; i--) {
+			digits2[i] = digits[i-1];
+		}
+		// y Agrego el carry
+		digits2[0] = carry;
+		// Vuelvo al original
+		auxdig = digits2;
+	}
+
+	// Armo el bignum y lo devuelvo
+	bignum nuevo(sign,size,auxdig);
+	delete [] auxdig;
+	return nuevo;
 }
 
 bignum operator-(const bignum&b1, const bignum&b2){
@@ -165,7 +154,7 @@ bignum operator-(const bignum&b1, const bignum&b2){
 		if(carry == 1) {
 			sign = !sign;
 		}
-		
+
 		// Armo el bignum y lo devuelvo
 		nuevo = new bignum(sign,size,digits);
 	}
@@ -225,11 +214,11 @@ void print_bignum(const bignum &bn){ /*Funcion para probar cargas (BORRAR AL TER
 	if (bn.sign == true){
 		cout << '-';
 	}
-	
+
 	for (size_t i = 0; i < bn.size; i++){
 		cout << bn.digits[i];
 	}
 
 	cout << endl;
-	
+
 }
