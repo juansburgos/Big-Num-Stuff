@@ -26,12 +26,11 @@ using namespace std;
 /***** Función main **********************************************************/
 int main(int argc, char const *argv[]){
     
-    const std::string a = "-145";
-    const std::string b = "323";
+    const string a = "-145";
+    const string b = "323";
 
     bignum x(a),y(b),z;
     
-
     print_bignum(x);
     print_bignum(y);
     print_bignum(z);
@@ -39,6 +38,10 @@ int main(int argc, char const *argv[]){
     z = x;
     
     print_bignum(z);
+
+    cout << "salida X: " << x << endl;
+    cout << "salida Y: " << y << endl;
+    cout << "salida Z: " << z << endl;
 
 	return 0;
 }
