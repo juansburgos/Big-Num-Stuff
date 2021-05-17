@@ -1,10 +1,10 @@
 /*****************************************************************************
  * TP0 - Algoritmos y Programación II                                        *
  * Alumnos:                                                                  *
- *          Kevin                                                            *
- *          Pablo                                                            *
- *          Juan                                                             *
- *          Potenza, Nicolás A.     - #97024                                 *
+ *          Grattan Plunkett, Kevin Anthony - #100487                        *
+ *          Mokorel Pablo                   - #103029                        *
+ *          Burgos, Juan Sebastián          - #100113                        *
+ *          Potenza, Nicolás A.             - # 97024                        *
  *                                                                           *
  *****************************************************************************/
 
