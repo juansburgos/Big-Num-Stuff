@@ -8,40 +8,61 @@
  *                                                                           *
  *****************************************************************************/
 
-/***** Bibliotecas Estándar **************************************************/
-#include <string>
-#include <cstdlib>
-#include <iostream>
-#include <cmath>
+ /***** Bibliotecas Estándar **************************************************/
+ #include <string>
+ #include <cstdlib>
+ #include <iostream>
+ #include <cmath>
 
-/***** Bibliotecas Propias ***************************************************/
-#include "cmdline.h"
-#include "bignum.h"
-#include "bool.h"
+ /***** Bibliotecas Propias ***************************************************/
+ #include "cmdline.h"
+ #include "bignum.h"
+ #include "bool.h"
 
 
-/***** Elementos Globales ****************************************************/
-using namespace std;
+ /***** Elementos Globales ****************************************************/
+ using namespace std;
 
-/***** Función main **********************************************************/
-int main(int argc, char const *argv[]){
-    
-    const string a = "-145";
-    const string b = "323";
+ /***** Función main **********************************************************/
+ int main(int argc, char const *argv[]){
 
-    bignum x(a),y(b),z;
-    
-    print_bignum(x);
-    print_bignum(y);
-    print_bignum(z);
+ 	const string a = "-145";
+ 	const string b = "323";
 
-    z = x;
-    
-    print_bignum(z);
+ 	bignum x(a),y(b),z;
 
-    cout << "salida X: " << x << endl;
-    cout << "salida Y: " << y << endl;
-    cout << "salida Z: " << z << endl;
+	//print_bignum(x);
+	//print_bignum(y);
+	//print_bignum(z);
+	cout << "salida X: " << x << endl;
+	cout << "salida Y: " << y << endl;
+	cout << "salida Z: " << z << endl;
+
+	z = x;
+
+	cout << "salida Z: " << z << endl;
+
+	//print_bignum(z);
+
+	if(x>y) {
+		cout << "X > Y" << endl;
+	}
+	else {
+		cout << "X <= Y" << endl;
+	}
+
+	z = x + y;
+	cout << "Z = X + Y = " << z << endl;
+
+	z = y + x;
+	cout << "Z = Y + X = " << z << endl;
+
+	z = x - y;
+	cout << "Z = X - Y = " << z << endl;
+
+	z = y - x;
+	cout << "Z = Y - X = " << z << endl;
+
 
 	return 0;
 }

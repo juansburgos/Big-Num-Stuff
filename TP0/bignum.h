@@ -14,6 +14,7 @@ private:
 
 public:
 	bignum();
+	bignum(const bool &sign,const size_t &size,const unsigned short *digits);
 	bignum(const string& n);
 	bignum(const bignum&);
 
@@ -21,15 +22,13 @@ public:
 	friend void print_bignum(bignum const &bn);/*Para probar datos cargados(BORRAR)*/
 
 	bignum const & operator=(const bignum&);
-
-	friend ostream& operator<<(ostream&, const bignum&);
-
-	/*
 	friend bignum operator+(const bignum&, const bignum&);
 	friend bignum operator-(const bignum&, const bignum&);
 	friend bignum operator*(const bignum&, const bignum&);
-	friend std::istream& operator>>(std::istream&, bignum&);
-	*/
+	friend bool operator>(const bignum&, const bignum&);
+
+	friend ostream& operator<<(ostream&, const bignum&);
+	friend istream& operator>>(istream&, bignum&);
 
 	~bignum();
 };
