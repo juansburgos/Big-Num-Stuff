@@ -27,11 +27,11 @@ public:
 	friend Bignum operator+(const Bignum&, const Bignum&);
 	friend Bignum operator-(const Bignum&, const Bignum&);
 	friend Bignum operator*(const Bignum&, const Bignum&);
-	friend bool operator>(const Bignum&, const Bignum&);
 
 	friend ostream& operator<<(ostream&, const Bignum&);
 	friend istream& operator>>(istream&, Bignum&);
 
+	friend bool operator>(const Bignum&, const Bignum&);
 	friend bool operator==(const Bignum&, const Bignum&);
 	//Métodos auxiliares
 	friend void printBignum(Bignum const &bn);

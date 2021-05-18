@@ -47,16 +47,16 @@
 	}
 
 	z = x + y;
-	cout << "Z = X + Y = " << z << endl;
+	cout << "Z = X + Y = " << x << " + " << y << " = " << z << endl << endl;
 
 	z = y + x;
-	cout << "Z = Y + X = " << z << endl;
+	cout << "Z = Y + X = " << y << " + " << x << " = "  << z << endl << endl;
 
 	z = x - y;
-	cout << "Z = X - Y = " << z << endl;
+	cout << "Z = X - Y = " << x << " - " << y << " = "  << z << endl << endl;
 
 	z = y - x;
-	cout << "Z = Y - X = " << z << endl;
+	cout << "Z = Y - X = " << y << " - " << x << " = "  << z << endl << endl;
 
 
 	return 0;

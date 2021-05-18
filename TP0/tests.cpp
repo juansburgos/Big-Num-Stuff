@@ -58,6 +58,58 @@ bool test_equal_operator2(){
   return (z == x) & (z == y); //Si no se utiliza assert, utilizar error=False.
 }
 
+//Test 1 para probar operadores + y -
+bool test_plus_minus_operators1(){
+  const string a = "-145";
+  const string b = "323";
+  const string res = "178";
+  Bignum x(a),y(b),r(res),z;
+
+  z = x + y;
+
+  cout << "z = x + y" << endl;
+  return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
+//Test 2 para probar operadores + y -
+bool test_plus_minus_operators2(){
+  const string a = "-145";
+  const string b = "323";
+  const string res = "178";
+  Bignum x(a),y(b),r(res),z;
+
+  z = y + x;
+
+  cout << "z = y + x" << endl;
+  return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
+//Test 3 para probar operadores + y -
+bool test_plus_minus_operators3(){
+  const string a = "-145";
+  const string b = "323";
+  const string res = "-468";
+  Bignum x(a),y(b),r(res),z;
+
+  z = x - y;
+
+  cout << "z = x - y" << endl;
+  return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
+//Test 4 para probar operadores + y -
+bool test_plus_minus_operators4(){
+  const string a = "-145";
+  const string b = "323";
+  const string res = "468";
+  Bignum x(a),y(b),r(res),z;
+
+  z = y - x;
+
+  cout << "z = y - x" << endl;
+  return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
 int main(int argc, char const *argv[]){
   /*
     COMPILACION: make all_test
@@ -73,6 +125,10 @@ int main(int argc, char const *argv[]){
 
   TEST(test_equal_operator1);
   TEST(test_equal_operator2);
+  TEST(test_plus_minus_operators1);
+  TEST(test_plus_minus_operators2);
+  TEST(test_plus_minus_operators3);
+  TEST(test_plus_minus_operators4);
 
   print_results();
 }

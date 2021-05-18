@@ -9,48 +9,55 @@ using namespace std;
 	Contructor por defecto.
 	PRECONDICIONES: Ninguna.
 	POSTCONDICIONES: Como condición empty se setea digits como un puntero nulo.
-*/
-Bignum::Bignum(){
+	*/
+	Bignum::Bignum(){
 
-	sign = false;
-	size = 0;
-	digits = nullptr;
-}
-
-Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
-	sign = _sign;
-	size_t z = zerocount(_digits, _size);
-	size = _size-z;
-	digits = new unsigned short[size];
-	for(size_t i = 0; i < size; i++) {
-		digits[i] = _digits[i+z];
-	}
-}
-
-Bignum::Bignum(const string& n){
-
-	size_t i,begin = 0;
-	sign = false ;
-
-	if ((sign = is_negative(n))){
-		begin = 1;
+		sign = false;
+		size = 0;
+		digits = nullptr;
 	}
 
-	size = n.size() - begin;
-	digits = new unsigned short[size];
-
-	for (i = 0; i < size; i++){
-		if(isdigit(n[i+begin])==false){
-			exit(1);
+	Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
+		sign = _sign;
+		size_t z = zerocount(_digits, _size);
+		size = _size-z;
+		digits = new unsigned short[size];
+		for(size_t i = 0; i < size; i++) {
+			digits[i] = _digits[i+z];
 		}
-		digits[i] = n[i+begin] - '0';
 	}
 
-}
+	Bignum::Bignum(const string& n){
 
-Bignum::Bignum(const Bignum &b) : sign(b.sign),digits(b.digits),size(b.size) {}
+		size_t i,begin = 0;
+		sign = false ;
 
-Bignum::~Bignum(){
+		if ((sign = is_negative(n))){
+			begin = 1;
+		}
+
+		size = n.size() - begin;
+		digits = new unsigned short[size];
+
+		for (i = 0; i < size; i++){
+			if(isdigit(n[i+begin])==false){
+				exit(1);
+			}
+			digits[i] = n[i+begin] - '0';
+		}
+
+	}
+
+	Bignum::Bignum(const Bignum &b) {
+		sign = b.sign;
+		size = b.size;
+		digits = new unsigned short[size];
+		for (size_t i = 0; i < size; i++){
+			digits[i] = b.digits[i];
+		}
+	}
+
+	Bignum::~Bignum(){
 
 	//Chequeo si digitos es vacio.
 	if (digits==nullptr){
@@ -73,28 +80,79 @@ Bignum& Bignum::operator=(const Bignum &b){
 	return *this;
 }
 
-/* Falta considerar el caso de que un número sea negativo */
 Bignum operator+(const Bignum &b1, const Bignum &b2){
+	Bignum nuevo;
+	if(b1.sign != b2.sign) {
+		if(b1.sign == true) {
+			Bignum _b1(b1);
+			_b1.sign = !b1.sign;
+			nuevo = b2-_b1;
+			_b1.~Bignum();
+		}
+		else {
+			Bignum _b2(b2);
+			_b2.sign = !b2.sign;
+			nuevo = b1-_b2;
+			_b2.~Bignum();
+		}
+	}
+	else {
+		bool sign = b1.sign;
+		
+		size_t size = (b1.size >= b2.size)?b1.size:b2.size;
+		unsigned short *digits = new unsigned short[size];
+		
+		// Inicialmente el carry es 0
+		unsigned short carry = 0;
 
-	return Bignum();
+		// Calculo la suma
+		for (size_t i = size; i >= 1; i--) {
+			// Cargo el resto
+			digits[i-1] = (b1.digits[i-1] + b2.digits[i-1] + carry)%10;
+			// Me quedo con el carry para el siguiente
+			carry = (b1.digits[i-1] + b2.digits[i-1] + carry)/10;
+		}
+
+		// Si el carry es 1
+		if(carry == 1) {
+			unsigned short *digits2 = new unsigned short[size+1];
+			// Desplazo
+			for (int i = size; i >= 1; i--) {
+				digits2[i] = digits[i-1];
+			}
+			// y Agrego el carry
+			digits2[0] = carry;
+			// Armo el Bignum y lo devuelvo
+			nuevo = Bignum(sign,size,digits2);
+			delete[] digits2;
+		}
+		else {
+			// Armo el bignum y lo devuelvo
+			nuevo = Bignum(sign,size,digits);
+		}
+		delete[] digits;
+	}
+	return nuevo;
 }
 
-Bignum operator-(const Bignum&b1, const Bignum&b2){
-	Bignum *nuevo = new Bignum();
+Bignum operator-(const Bignum &b1, const Bignum &b2){
+	Bignum nuevo;
 	if(b2>b1){
-		*nuevo = b2-b1;
-		nuevo->sign = !nuevo->sign;
+		nuevo = b2-b1;
+		nuevo.sign = !nuevo.sign;
 	}
 	else if(b2.sign == true) {
 		Bignum _b2(b2);
 		_b2.sign = !b2.sign;
-		*nuevo = b1+_b2;
+		nuevo = b1+_b2;
+		_b2.~Bignum();
 	}
 	else if(b1.sign == true) {
 		Bignum _b1(b1);
 		_b1.sign = !b1.sign;
-		*nuevo = _b1+b2;
-		nuevo->sign = !nuevo->sign;
+		nuevo = _b1+b2;
+		nuevo.sign = !nuevo.sign;
+		_b1.~Bignum();
 	}
 	else {
 		bool sign = b1.sign;
@@ -121,14 +179,14 @@ Bignum operator-(const Bignum&b1, const Bignum&b2){
 		if(carry == 1) {
 			sign = !sign;
 		}
-
-		// Armo el Bignum y lo devuelvo
-		nuevo = new Bignum(sign,size,digits);
+		nuevo.sign = sign;
+		nuevo.size = size;
+		nuevo.digits = digits;
 	}
-	return *nuevo;
+	return nuevo;
 }
 
-Bignum operator*(const Bignum&b1, const Bignum&b2){
+Bignum operator*(const Bignum &b1, const Bignum &b2){
 	Bignum nuevo;
 
 	return nuevo;
