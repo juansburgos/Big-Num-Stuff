@@ -17,7 +17,7 @@
  /***** Bibliotecas Propias ***************************************************/
  #include "cmdline.h"
  #include "bignum.h"
- #include "bool.h"
+ #include "utils.h"
 
 
  /***** Elementos Globales ****************************************************/
@@ -29,7 +29,7 @@
  	const string a = "-145";
  	const string b = "323";
 
- 	bignum x(a),y(b),z;
+ 	Bignum x(a),y(b),z;
 
 	cout << "salida X: " << x << endl;
 	cout << "salida Y: " << y << endl;
