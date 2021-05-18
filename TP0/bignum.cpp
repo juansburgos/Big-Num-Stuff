@@ -120,6 +120,7 @@ Bignum operator+(const Bignum &b1, const Bignum &b2){
 			for (int i = size; i >= 1; i--) {
 				digits2[i] = digits[i-1];
 			}
+			size++;
 			// y Agrego el carry
 			digits2[0] = carry;
 			// Armo el Bignum y lo devuelvo
