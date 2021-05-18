@@ -16,12 +16,22 @@ bignum::bignum(){
 	digits = nullptr;
 }
 
+size_t zerocount(const unsigned short *digits, const size_t &size){
+	for(size_t i = 0; i < size; i++){
+		if(digits[i]!=0){
+			return i;
+		}
+	}
+	return size;
+}
+
 bignum::bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
-	size = _size;
 	sign = _sign;
+	size_t z = zerocount(_digits, _size);
+	size = _size-z;
 	digits = new unsigned short[size];
 	for(size_t i = 0; i < size; i++) {
-		digits[i] = _digits[i];
+		digits[i] = _digits[i+z];
 	}
 }
 
@@ -38,6 +48,9 @@ bignum::bignum(const string& n){
 	digits = new unsigned short[size];
 
 	for (i = 0; i < size; i++){
+		if(isdigit(n[i+begin])==false){
+			exit(1);
+		}
 		digits[i] = n[i+begin] - '0';
 	}
 
@@ -162,9 +175,9 @@ bignum operator-(const bignum&b1, const bignum&b2){
 }
 
 bignum operator*(const bignum&b1, const bignum&b2){
-	bignum *nuevo = new bignum();
+	bignum nuevo;
 
-	return *nuevo;
+	return nuevo;
 }
 
 bool operator>(const bignum &b1, const bignum &b2){
