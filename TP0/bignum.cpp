@@ -51,6 +51,7 @@ using namespace std;
 	Bignum::Bignum(const Bignum &b) {
 		sign = b.sign;
 		size = b.size;
+		digits = new unsigned short[size];
 
 		for (size_t i = 0; i < size; i++){
 			digits[i] = b.digits[i];
@@ -90,13 +91,11 @@ Bignum operator+(const Bignum &b1, const Bignum &b2){
 			Bignum _b1(b1);
 			_b1.sign = !b1.sign;
 			nuevo = b2-_b1;
-			_b1.~Bignum();
 		}
 		else {
 			Bignum _b2(b2);
 			_b2.sign = !b2.sign;
 			nuevo = b1-_b2;
-			_b2.~Bignum();
 		}
 	}
 	else {
@@ -149,18 +148,15 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 		Bignum _b2(b2);
 		_b2.sign = !b2.sign;
 		nuevo = b1+_b2;
-		_b2.~Bignum();
 	}
 	else if(b1.sign == true) {
 		Bignum _b1(b1);
 		_b1.sign = !b1.sign;
 		nuevo = _b1+b2;
 		nuevo.sign = !nuevo.sign;
-		_b1.~Bignum();
 	}
 	else {
 		bool sign = b1.sign;
-
 		size_t size = (b1.size >= b2.size)?b1.size:b2.size;
 		unsigned short *digits = new unsigned short[size];
 
@@ -183,9 +179,8 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 		if(carry == 1) {
 			sign = !sign;
 		}
-		nuevo.sign = sign;
-		nuevo.size = size;
-		nuevo.digits = digits;
+		nuevo = Bignum(sign,size,digits);
+		delete[] digits;
 	}
 	return nuevo;
 }
