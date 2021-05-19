@@ -64,3 +64,6 @@ else
 install:
 	cp tp0 ../tp0
 endif
+
+leak_test:
+	valgrind -s --leak-check=full ./run_test
