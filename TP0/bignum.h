@@ -23,7 +23,7 @@ public:
 	~Bignum();
 
 	//Operadores
-	Bignum& operator=(const Bignum&);
+	Bignum const& operator=(const Bignum&);
 	friend Bignum operator+(const Bignum&, const Bignum&);
 	friend Bignum operator-(const Bignum&, const Bignum&);
 	friend Bignum operator*(const Bignum&, const Bignum&);

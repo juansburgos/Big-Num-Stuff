@@ -51,7 +51,7 @@ using namespace std;
 	Bignum::Bignum(const Bignum &b) {
 		sign = b.sign;
 		size = b.size;
-		digits = new unsigned short[size];
+
 		for (size_t i = 0; i < size; i++){
 			digits[i] = b.digits[i];
 		}
@@ -66,13 +66,16 @@ using namespace std;
 	delete [] digits;
 }
 
-Bignum& Bignum::operator=(const Bignum &b){
-
+Bignum const& Bignum::operator=(const Bignum &b){
+	
 	sign = b.sign;
 	size = b.size;
-
+	if (digits){
+		delete [] digits;
+	}
+	
 	digits = new unsigned short[size];
-
+	
 	for (size_t i = 0; i < size; i++){
 		digits[i] = b.digits[i];
 	}

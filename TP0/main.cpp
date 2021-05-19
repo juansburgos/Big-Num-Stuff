@@ -31,12 +31,14 @@
 
  	Bignum x(a),y(b),z;
 
-	/*cout << "salida X: " << x << endl;
+	cout << "salida X: " << x << endl;
 	cout << "salida Y: " << y << endl;
 	cout << "salida Z: " << z << endl;
 
 	z = x;
 
+	cout << "salida Z: " << z << endl;
+/*
 	cout << "salida Z: " << z << endl;
 
 	if(x>y) {
@@ -45,7 +47,7 @@
 	else {
 		cout << "X <= Y" << endl;
 	}
-
+	
 	z = x + y;
 	cout << "Z = X + Y = " << x << " + " << y << " = " << z << endl << endl;
 
@@ -59,6 +61,7 @@
 	cout << "Z = Y - X = " << y << " - " << x << " = "  << z << endl << endl;
 */
     z = x*y;
+
     cout << z << endl;
 	return 0;
 }
