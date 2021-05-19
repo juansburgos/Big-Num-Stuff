@@ -18,6 +18,22 @@ size_t zerocount(const unsigned short *digits, const size_t &size){
 	return size;
 }
 
+size_t zerocount(const string s, const size_t &begin){
+
+	size_t i=0,index=0;
+
+	if (begin == 1){
+		i = 1;
+	}
+	
+	while (s[i] == '0' ){
+			index++;
+			i++;
+	}
+	
+	return index;
+}
+
 /*
 	PRECONDICIONES: Se pide que los vectores a,b tengan la misma longitud.
 	POSCONDICIONES: Devuelve si son iguales o no.

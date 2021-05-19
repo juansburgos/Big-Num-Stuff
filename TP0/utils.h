@@ -10,4 +10,5 @@ using namespace std;
 bool is_negative(const string &s);
 size_t zerocount(const unsigned short *digits, const size_t &size);
 bool is_digits_equal(const unsigned short *a, const unsigned short *b);
+size_t zerocount(const string s, const size_t &begin);
 #endif

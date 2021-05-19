@@ -17,32 +17,45 @@ Bignum::Bignum(){
 }
 
 Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
+
 	sign = _sign;
 	size_t z = zerocount(_digits, _size);
+
+	if ( z == _size ){
+		size = 0;
+		sign = false;
+		digits = nullptr;
+	}
+
+	else{
 	size = _size-z;
 	digits = new unsigned short[size];
 	for(size_t i = 0; i < size; i++) {
 		digits[i] = _digits[i+z];
 	}
+
+	}
 }
 
 Bignum::Bignum(const string& n){
 
-	size_t i,begin = 0;
+	size_t i,begin = 0,z;
 	sign = false ;
 
 	if ((sign = is_negative(n))){
 		begin = 1;
 	}
 
-	size = n.size() - begin;
+	z = zerocount(n , begin);
+	size = n.size() - begin - z;
+
 	digits = new unsigned short[size];
 
 	for (i = 0; i < size; i++){
-		if(isdigit(n[i+begin])==false){
+		if( isdigit(n[i+begin+z]) == false ){
 			exit(1);
 		}
-		digits[i] = n[i+begin] - '0';
+		digits[i] = n[i+begin+z] - '0';
 	}
 
 }
