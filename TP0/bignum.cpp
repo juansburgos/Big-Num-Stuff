@@ -26,14 +26,12 @@ Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digi
 		sign = false;
 		digits = nullptr;
 	}
-
 	else{
-	size = _size-z;
-	digits = new unsigned short[size];
-	for(size_t i = 0; i < size; i++) {
-		digits[i] = _digits[i+z];
+		size = _size-z;
+		digits = new unsigned short[size];
+		for(size_t i = 0; i < size; i++) {
+			digits[i] = _digits[i+z];
 	}
-
 	}
 }
 
@@ -150,18 +148,18 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 		nuevo = b2-b1;
 		nuevo.sign = !nuevo.sign;
 	}
-	else if(b2.sign == true) {
+	else if(b2.sign == true){
 		Bignum _b2(b2);
 		_b2.sign = !b2.sign;
-		nuevo = b1+_b2;
+		nuevo = b1 + _b2;
 	}
-	else if(b1.sign == true) {
+	else if(b1.sign == true){
 		Bignum _b1(b1);
 		_b1.sign = !b1.sign;
 		nuevo = _b1+b2;
 		nuevo.sign = !nuevo.sign;
 	}
-	else {
+	else{
 		bool sign = b1.sign;
 		size_t size = (b1.size >= b2.size)?b1.size:b2.size;
 		unsigned short *digits = new unsigned short[size];
@@ -200,6 +198,12 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 }
 
 Bignum operator*(const Bignum&b1, const Bignum&b2){
+
+	if(b1.size == 0 || b2.size == 0){
+		Bignum nuevo("0");
+		return nuevo;
+	}
+
 	bool signo;
 	size_t tamano = (b1.size + b2.size);
 	unsigned short carry = 0, *auxdig = new unsigned short [tamano]{0};
@@ -231,11 +235,12 @@ bool operator>(const Bignum &b1, const Bignum &b2){
 	else if(b1.sign == false && b2.sign == true) {
 		return true;
 	}
+	//323 es positivo
 	else if (b1.sign == false) {
 		if(b1.size > b2.size){
 			return true;
 		}
-		else{
+		else if(b2.size > b1.size){
 			return false;
 		}
 	}
@@ -243,10 +248,10 @@ bool operator>(const Bignum &b1, const Bignum &b2){
 		if(b1.size < b2.size){
 			return true;
 		}
-		else{
+		else if(b2.size < b1.size){
 			return false;
 		}
-	} 
+	}
 	for(size_t i = 0; i < b1.size; i++) {
 		if(b1.digits[i] > b2.digits[i]) {
 			if(b1.sign == true){
@@ -269,6 +274,9 @@ bool operator>(const Bignum &b1, const Bignum &b2){
 }
 
 ostream& operator<<(ostream &out, const Bignum &b) {
+	if(b.size==0){
+		out << "0";
+	}
 	if(b.sign) out << '-';
 	for (size_t i = 0; i < b.size; i++){
 		out << b.digits[i];
