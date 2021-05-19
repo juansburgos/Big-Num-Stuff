@@ -6,60 +6,58 @@
 using namespace std;
 
 /*
-	Contructor por defecto.
-	PRECONDICIONES: Ninguna.
-	POSTCONDICIONES: Como condición empty se setea digits como un puntero nulo.
-	*/
-	Bignum::Bignum(){
+Contructor por defecto.
+PRECONDICIONES: Ninguna.
+POSTCONDICIONES: Como condición empty se setea digits como un puntero nulo.
+*/
+Bignum::Bignum(){
+	sign = false;
+	size = 0;
+	digits = nullptr;
+}
 
-		sign = false;
-		size = 0;
-		digits = nullptr;
+Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
+	sign = _sign;
+	size_t z = zerocount(_digits, _size);
+	size = _size-z;
+	digits = new unsigned short[size];
+	for(size_t i = 0; i < size; i++) {
+		digits[i] = _digits[i+z];
+	}
+}
+
+Bignum::Bignum(const string& n){
+
+	size_t i,begin = 0;
+	sign = false ;
+
+	if ((sign = is_negative(n))){
+		begin = 1;
 	}
 
-	Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
-		sign = _sign;
-		size_t z = zerocount(_digits, _size);
-		size = _size-z;
-		digits = new unsigned short[size];
-		for(size_t i = 0; i < size; i++) {
-			digits[i] = _digits[i+z];
+	size = n.size() - begin;
+	digits = new unsigned short[size];
+
+	for (i = 0; i < size; i++){
+		if(isdigit(n[i+begin])==false){
+			exit(1);
 		}
+		digits[i] = n[i+begin] - '0';
 	}
 
-	Bignum::Bignum(const string& n){
+}
 
-		size_t i,begin = 0;
-		sign = false ;
+Bignum::Bignum(const Bignum &b) {
+	sign = b.sign;
+	size = b.size;
+	digits = new unsigned short[size];
 
-		if ((sign = is_negative(n))){
-			begin = 1;
-		}
-
-		size = n.size() - begin;
-		digits = new unsigned short[size];
-
-		for (i = 0; i < size; i++){
-			if(isdigit(n[i+begin])==false){
-				exit(1);
-			}
-			digits[i] = n[i+begin] - '0';
-		}
-
+	for (size_t i = 0; i < size; i++){
+		digits[i] = b.digits[i];
 	}
+}
 
-	Bignum::Bignum(const Bignum &b) {
-		sign = b.sign;
-		size = b.size;
-		digits = new unsigned short[size];
-
-		for (size_t i = 0; i < size; i++){
-			digits[i] = b.digits[i];
-		}
-	}
-
-	Bignum::~Bignum(){
-
+Bignum::~Bignum(){
 	//Chequeo si digitos es vacio.
 	if (digits==nullptr){
 		return;
@@ -68,15 +66,14 @@ using namespace std;
 }
 
 Bignum const& Bignum::operator=(const Bignum &b){
-	
 	sign = b.sign;
 	size = b.size;
 	if (digits){
 		delete [] digits;
 	}
-	
+
 	digits = new unsigned short[size];
-	
+
 	for (size_t i = 0; i < size; i++){
 		digits[i] = b.digits[i];
 	}
@@ -108,11 +105,19 @@ Bignum operator+(const Bignum &b1, const Bignum &b2){
 		unsigned short carry = 0;
 
 		// Calculo la suma
-		for (size_t i = size; i >= 1; i--) {
-			// Cargo el resto
-			digits[i-1] = (b1.digits[i-1] + b2.digits[i-1] + carry)%10;
-			// Me quedo con el carry para el siguiente
-			carry = (b1.digits[i-1] + b2.digits[i-1] + carry)/10;
+		for (size_t i = 1; i <= size; i++) {
+			if(b1.size-i > size) {
+				digits[size-i] = (b2.digits[b2.size-i] + carry)%10;	// Cargo el resto
+				carry = (b2.digits[b2.size-i] + carry)/10;	// Me quedo con el carry para el siguiente
+			}
+			else if(b2.size-i > size){
+				digits[size-i] = (b1.digits[b1.size-i] + carry)%10;	// Cargo el resto
+				carry = (b1.digits[b1.size-i] + carry)/10;	// Me quedo con el carry para el siguiente
+			}
+			else{
+				digits[size-i] = (b1.digits[b1.size-i] + b2.digits[b2.size-i] + carry)%10;	// Cargo el resto
+				carry = (b1.digits[b1.size-i] + b2.digits[b2.size-i] + carry)/10;	// Me quedo con el carry para el siguiente
+			}
 		}
 
 		// Si el carry es 1
@@ -239,13 +244,11 @@ bool operator>(const Bignum &b1, const Bignum &b2){
 }
 
 ostream& operator<<(ostream &out, const Bignum &b) {
-
 	if(b.sign) out << '-';
 	for (size_t i = 0; i < b.size; i++){
 		out << b.digits[i];
 	}
 	return out;
-
 }
 
 istream& operator>>(istream &in, Bignum &b){
@@ -257,7 +260,6 @@ bool operator==(const Bignum &a, const Bignum &b){
 }
 
 void printBignum(const Bignum &bn){ /*Funcion para probar cargas (BORRAR AL TERMINAR)*/
-
 	if (bn.sign == true){
 		cout << '-';
 	}
@@ -267,7 +269,6 @@ void printBignum(const Bignum &bn){ /*Funcion para probar cargas (BORRAR AL TERM
 	}
 
 	cout << endl;
-
 }
 
 bool Bignum::isEmpty(){

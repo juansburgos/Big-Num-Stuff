@@ -24,11 +24,12 @@ void print_results(){
 //Estructura de un TEST
 void TEST(bool (*f)()){
 
-	cout << "<Test " << ok_tests <<">" << endl;
-
 	total_test++;
-	if(f() == true)
-	ok_tests++;
+	cout << "<Test " << total_test <<">" << endl;
+
+	if(f() == true) {
+		ok_tests++;
+	}
 
 	test_score();
 	ps();
@@ -93,7 +94,7 @@ bool test_plus_minus_operators3(){
 
 	z = x - y;
 
-	cout << "z = x - y" << endl;
+	cout << "z = " << x << " - " << y << " = " << z << endl;
 	return (z == r); //Si no se utiliza assert, utilizar error=False.
 }
 
@@ -106,11 +107,11 @@ bool test_plus_minus_operators4(){
 
 	z = y - x;
 
-	cout << "z = y - x" << endl;
+	cout << "z = " << y << " - " << x << " = " << z << endl;
 	return (z == r); //Si no se utiliza assert, utilizar error=False.
 }
 
-//Test 3 para probar operadores + y -
+//Test 5 para probar operadores + y -
 bool test_plus_minus_operators5(){
 	const string a = "99";
 	const string b = "10";
@@ -119,7 +120,98 @@ bool test_plus_minus_operators5(){
 
 	z = x + y;
 
-	cout << "z = 90 + 10 = " << z << endl;
+	cout << "z = " << x << " + " << y << " = " << z << endl;
+	return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
+//Test 6 para probar operadores + y -
+bool test_plus_minus_operators6(){
+	const string a = "123";
+	const string b = "10";
+	const string res = "133";
+	Bignum x(a),y(b),r(res),z;
+
+	z = x + y;
+
+	cout << "z = " << x << " + " << y << " = " << z << endl;
+	return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
+//Test 7 para probar operadores + y -
+bool test_plus_minus_operators7(){
+	const string a = "10";
+	const string b = "123";
+	const string res = "133";
+	Bignum x(a),y(b),r(res),z;
+
+	z = x + y;
+
+	cout << "z = " << x << " + " << y << " = " << z << endl;
+	return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
+//Test 8 para probar operadores + y -
+bool test_plus_minus_operators8(){
+	const string a = "120";
+	const string b = "50";
+	const string res = "70";
+	Bignum x(a),y(b),r(res),z;
+
+	z = x - y;
+
+	cout << "z = " << x << " - " << y << " = " << z << endl;
+	return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
+//Test 9 para probar operadores + y -
+bool test_plus_minus_operators9(){
+	const string a = "50";
+	const string b = "120";
+	const string res = "-70";
+	Bignum x(a),y(b),r(res),z;
+
+	z = x - y;
+
+	cout << "z = " << x << " - " << y << " = " << z << endl;
+	return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
+//Test 1 para probar el operador *
+bool test_multiplication_operator1(){
+	const string a = "50";
+	const string b = "120";
+	const string res = "6000";
+	Bignum x(a),y(b),r(res),z;
+
+	z = x * y;
+
+	cout << "z = " << x << " * " << y << " = " << z << endl;
+	return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
+//Test 2 para probar el operador *
+bool test_multiplication_operator2(){
+	const string a = "-50";
+	const string b = "120";
+	const string res = "-6000";
+	Bignum x(a),y(b),r(res),z;
+
+	z = x * y;
+
+	cout << "z = " << x << " * " << y << " = " << z << endl;
+	return (z == r); //Si no se utiliza assert, utilizar error=False.
+}
+
+//Test 3 para probar el operador *
+bool test_multiplication_operator3(){
+	const string a = "-50";
+	const string b = "0";
+	const string res = "0";
+	Bignum x(a),y(b),r(res),z;
+
+	z = x * y;
+
+	cout << "z = " << x << " * " << y << " = " << z << endl;
 	return (z == r); //Si no se utiliza assert, utilizar error=False.
 }
 
@@ -143,6 +235,13 @@ int main(int argc, char const *argv[]){
 	TEST(test_plus_minus_operators3);
 	TEST(test_plus_minus_operators4);
 	TEST(test_plus_minus_operators5);
+	TEST(test_plus_minus_operators6);
+	TEST(test_plus_minus_operators7);
+	TEST(test_plus_minus_operators8);
+	TEST(test_plus_minus_operators9);
+	TEST(test_multiplication_operator1);
+	TEST(test_multiplication_operator2);
+	TEST(test_multiplication_operator3);
 
 	print_results();
 }
