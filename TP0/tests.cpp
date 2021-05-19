@@ -59,6 +59,16 @@ bool test_equal_operator2(){
 	return (z == x) & (z == y); //Si no se utiliza assert, utilizar error=False.
 }
 
+//Creo un test para probar el operador >
+bool test_major(){
+	const string a = "20";
+	const string b = "150";
+	Bignum x(a),y(b);
+
+	cout << "y > x" << endl;
+	return (y > x) & !(x > y); //Si no se utiliza assert, utilizar error=False.
+}
+
 //Test 1 para probar operadores + y -
 bool test_plus_minus_operators1(){
 	const string a = "-145";
@@ -230,6 +240,7 @@ int main(int argc, char const *argv[]){
 
 	TEST(test_equal_operator1);
 	TEST(test_equal_operator2);
+	TEST(test_major);
 	TEST(test_plus_minus_operators1);
 	TEST(test_plus_minus_operators2);
 	TEST(test_plus_minus_operators3);

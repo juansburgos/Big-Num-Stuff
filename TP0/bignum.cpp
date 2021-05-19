@@ -98,7 +98,7 @@ Bignum operator+(const Bignum &b1, const Bignum &b2){
 	else {
 		bool sign = b1.sign;
 
-		size_t size = (b1.size >= b2.size)?b1.size:b2.size;
+		size_t size = (b1.size >= b2.size)?b1.size+1:b2.size+1;
 		unsigned short *digits = new unsigned short[size];
 
 		// Inicialmente el carry es 0
@@ -106,9 +106,15 @@ Bignum operator+(const Bignum &b1, const Bignum &b2){
 
 		// Calculo la suma
 		for (size_t i = 1; i <= size; i++) {
-			if(b1.size-i > size) {
-				digits[size-i] = (b2.digits[b2.size-i] + carry)%10;	// Cargo el resto
-				carry = (b2.digits[b2.size-i] + carry)/10;	// Me quedo con el carry para el siguiente
+			if (b1.size-i > size) {
+				if(b2.size-i > size) {
+					digits[size-i] = carry;	// Cargo el resto
+					carry = 0;	// Me quedo con el carry para el siguiente
+				}
+				else {
+					digits[size-i] = (b2.digits[b2.size-i] + carry)%10;	// Cargo el resto
+					carry = (b2.digits[b2.size-i] + carry)/10;	// Me quedo con el carry para el siguiente
+				}
 			}
 			else if(b2.size-i > size){
 				digits[size-i] = (b1.digits[b1.size-i] + carry)%10;	// Cargo el resto
@@ -119,25 +125,7 @@ Bignum operator+(const Bignum &b1, const Bignum &b2){
 				carry = (b1.digits[b1.size-i] + b2.digits[b2.size-i] + carry)/10;	// Me quedo con el carry para el siguiente
 			}
 		}
-
-		// Si el carry es 1
-		if(carry == 1) {
-			unsigned short *digits2 = new unsigned short[size+1];
-			// Desplazo
-			for (int i = size; i >= 1; i--) {
-				digits2[i] = digits[i-1];
-			}
-			size++;
-			// y Agrego el carry
-			digits2[0] = carry;
-			// Armo el Bignum y lo devuelvo
-			nuevo = Bignum(sign,size,digits2);
-			delete[] digits2;
-		}
-		else {
-			// Armo el bignum y lo devuelvo
-			nuevo = Bignum(sign,size,digits);
-		}
+		nuevo = Bignum(sign,size,digits);
 		delete[] digits;
 	}
 	return nuevo;
@@ -169,13 +157,21 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 		short carry = 0;
 
 		// Calculo la suma
-		for (size_t i = size; i >= 1; i--) {
-			if(b1.digits[i-1] < (b2.digits[i-1] + carry)) {
-				digits[i-1] = (b1.digits[i-1]+10) - (b2.digits[i-1] + carry);
+		for (size_t i = 1; i <= size; i++) {
+			if(b1.size-i > size) {
+				digits[size-i] = 10 - (b2.digits[b2.size-i] + carry);
+				carry = 1;
+			}
+			else if(b2.size-i > size) {
+				digits[size-i] = b1.digits[b1.size-i] - carry;
+				carry = 0;
+			}
+			else if(b1.digits[b1.size-i] < (b2.digits[b2.size-i] + carry)) {
+				digits[size-i] = (b1.digits[b1.size-i]+10) - (b2.digits[b2.size-i] + carry);
 				carry = 1;
 			}
 			else {
-				digits[i-1] = (b1.digits[i-1] - (b2.digits[i-1] + carry));
+				digits[size-i] = (b1.digits[b1.size-i] - (b2.digits[b2.size-i] + carry));
 				carry = 0;
 			}
 		}
@@ -222,6 +218,22 @@ bool operator>(const Bignum &b1, const Bignum &b2){
 	else if(b1.sign == false && b2.sign == true) {
 		return true;
 	}
+	else if (b1.sign == false) {
+		if(b1.size > b2.size){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	else if(b1.sign == true) {
+		if(b1.size < b2.size){
+			return true;
+		}
+		else{
+			return false;
+		}
+	} 
 	for(size_t i = 0; i < b1.size; i++) {
 		if(b1.digits[i] > b2.digits[i]) {
 			if(b1.sign == true){
