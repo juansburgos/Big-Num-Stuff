@@ -208,9 +208,9 @@ Bignum operator*(const Bignum&b1, const Bignum&b2){
 	size_t tamano = (b1.size + b2.size);
 	unsigned short carry = 0, *auxdig = new unsigned short [tamano]{0};
 
-	for(ssize_t i = b2.size-1; i >= 0; i--){
+	for(int i = b2.size-1; i >= 0; i--){
 		carry = 0;
-		for(ssize_t h = b1.size-1; h >= 0; h--){
+		for(int h = b1.size-1; h >= 0; h--){
 			auxdig[i+h+1] += (carry + b2.digits[i] * b1.digits[h]);
 			carry = auxdig[i+h+1] / 10;
 			auxdig[i+h+1] = auxdig[i+h+1] % 10;
@@ -289,7 +289,14 @@ istream& operator>>(istream &in, Bignum &b){
 }
 
 bool operator==(const Bignum &a, const Bignum &b){
-	return (a.size == b.size) && is_digits_equal(a.digits, b.digits) && (a.sign == b.sign);
+	if (a.isEmpty() && b.isEmpty()) {
+		return true;
+	}
+	if (a.isEmpty() || b.isEmpty()) {
+		return false;
+	}
+
+	return (a.size == b.size) && is_digits_equal(a.digits, b.digits, a.size) && (a.sign == b.sign);
 }
 
 void printBignum(const Bignum &bn){ /*Funcion para probar cargas (BORRAR AL TERMINAR)*/
@@ -304,6 +311,6 @@ void printBignum(const Bignum &bn){ /*Funcion para probar cargas (BORRAR AL TERM
 	cout << endl;
 }
 
-bool Bignum::isEmpty(){
+bool Bignum::isEmpty() const {
 	return this->digits == nullptr;
 }

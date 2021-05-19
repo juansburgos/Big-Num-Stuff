@@ -35,7 +35,8 @@ public:
 	friend bool operator==(const Bignum&, const Bignum&);
 	//Métodos auxiliares
 	friend void printBignum(Bignum const &bn);
-	bool isEmpty();
+	bool isEmpty() const;
+
 };
 
 #endif

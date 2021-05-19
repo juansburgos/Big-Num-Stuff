@@ -38,8 +38,8 @@ size_t zerocount(const string s, const size_t &begin){
 	PRECONDICIONES: Se pide que los vectores a,b tengan la misma longitud.
 	POSCONDICIONES: Devuelve si son iguales o no.
 */
-bool is_digits_equal(const unsigned short *a, const unsigned short *b){
-	size_t size = sizeof(a)/sizeof(unsigned short);
+bool is_digits_equal(const unsigned short *a, const unsigned short *b, const size_t &size){
+	
 	for(size_t i = 0; i < size; i++){
 		if(a[i]!=b[i])
 			return false;

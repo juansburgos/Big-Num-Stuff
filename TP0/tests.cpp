@@ -56,7 +56,7 @@ bool test_equal_operator2(){
 	cout << "x == y" << endl;
 	cout << "z == x" << endl;
 	cout << "x == y" << endl;
-	return (z == x) & (z == y); //Si no se utiliza assert, utilizar error=False.
+	return (z == x) && (z == y); //Si no se utiliza assert, utilizar error=False.
 }
 
 //Creo un test para probar el operador >
@@ -66,7 +66,7 @@ bool test_major(){
 	Bignum x(a),y(b);
 
 	cout << "y > x" << endl;
-	return (y > x) & !(x > y); //Si no se utiliza assert, utilizar error=False.
+	return (y > x) && !(x > y); //Si no se utiliza assert, utilizar error=False.
 }
 
 //Test 1 para probar operadores + y -
