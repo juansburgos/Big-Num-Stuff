@@ -1,0 +1,52 @@
+﻿  bignum.cpp
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(207,6): error C2065: 'ssize_t': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(207,14): error C2146: error de sintaxis: falta ';' delante del identificador 'i'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(207,16): error C2143: error de sintaxis: falta ';' delante de '='
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(207,16): error C2143: error de sintaxis: falta ')' delante de '='
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(207,16): error C2059: error de sintaxis: '='
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(207,29): error C2065: 'i': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(207,37): error C2065: 'i': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(207,40): error C2059: error de sintaxis: ')'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(208,12): error C2059: error de sintaxis: ';'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(209,7): error C2065: 'ssize_t': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(209,15): error C2146: error de sintaxis: falta ';' delante del identificador 'h'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(209,17): error C2143: error de sintaxis: falta ';' delante de '='
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(209,17): error C2143: error de sintaxis: falta ')' delante de '='
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(209,17): error C2059: error de sintaxis: '='
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(209,30): error C2065: 'h': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(209,38): error C2065: 'h': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(209,41): error C2059: error de sintaxis: ')'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(210,11): error C2065: 'i': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(210,13): error C2065: 'h': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(210,40): error C2065: 'i': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(210,55): error C2065: 'h': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(210,58): error C2059: error de sintaxis: ';'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(211,19): error C2065: 'i': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(211,21): error C2065: 'h': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(212,11): error C2065: 'i': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(212,13): error C2065: 'h': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(212,27): error C2065: 'i': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(212,29): error C2065: 'h': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(214,10): error C2065: 'i': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(214,15): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(214,15): error C2065: 'carry': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(215,2): error C2059: error de sintaxis: '}'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(215,2): error C2143: error de sintaxis: falta ';' delante de '}'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(216,22): error C2143: error de sintaxis: falta ';' delante de '{'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(216,22): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(219,2): error C2059: error de sintaxis: 'else'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(219,6): error C2143: error de sintaxis: falta ';' delante de '{'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(219,6): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(222,15): error C2065: 'signo': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(222,22): error C2065: 'tamano': identificador no declarado
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(223,2): error C2059: error de sintaxis: 'delete'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(224,2): error C2059: error de sintaxis: 'return'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(225,1): error C2059: error de sintaxis: '}'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(225,1): error C2143: error de sintaxis: falta ';' delante de '}'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(227,51): error C2143: error de sintaxis: falta ';' delante de '{'
+G:\FIUBA\Algoritmos II\2021\TP0visual\TP0\bignum.cpp(227,51): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  cmdline.cpp
+  main.cpp
+  tests.cpp
+  utils.cpp
+  Generando código...
