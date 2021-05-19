@@ -31,7 +31,7 @@
 
  	Bignum x(a),y(b),z;
 
-	cout << "salida X: " << x << endl;
+	/*cout << "salida X: " << x << endl;
 	cout << "salida Y: " << y << endl;
 	cout << "salida Z: " << z << endl;
 
@@ -57,7 +57,8 @@
 
 	z = y - x;
 	cout << "Z = Y - X = " << y << " - " << x << " = "  << z << endl << endl;
-
-
+*/
+    z = x*y;
+    cout << z << endl;
 	return 0;
 }

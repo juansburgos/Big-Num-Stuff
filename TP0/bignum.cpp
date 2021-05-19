@@ -98,10 +98,10 @@ Bignum operator+(const Bignum &b1, const Bignum &b2){
 	}
 	else {
 		bool sign = b1.sign;
-		
+
 		size_t size = (b1.size >= b2.size)?b1.size:b2.size;
 		unsigned short *digits = new unsigned short[size];
-		
+
 		// Inicialmente el carry es 0
 		unsigned short carry = 0;
 
@@ -187,9 +187,28 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 	return nuevo;
 }
 
-Bignum operator*(const Bignum &b1, const Bignum &b2){
-	Bignum nuevo;
+Bignum operator*(const Bignum&b1, const Bignum&b2){
+	bool signo;
+	size_t tamano = (b1.size + b2.size);
+	unsigned short carry = 0, *auxdig = new unsigned short [tamano]{0};
 
+	for(ssize_t i = b2.size-1; i >= 0; i--){
+		carry = 0;
+		for(ssize_t h = b1.size-1; h >= 0; h--){
+			auxdig[i+h+1] += (carry + b2.digits[i] * b1.digits[h]);
+			carry = auxdig[i+h+1] / 10;
+			auxdig[i+h+1] = auxdig[i+h+1] % 10;
+		}
+		auxdig[i] = carry;
+	}
+	if(b1.sign==b2.sign){
+		signo = false;
+	}
+	else{
+		signo = true;
+	}
+	Bignum nuevo(signo, tamano, auxdig);
+	delete [] auxdig;
 	return nuevo;
 }
 
