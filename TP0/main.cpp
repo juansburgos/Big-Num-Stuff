@@ -9,7 +9,7 @@
 ******************************************************************************/
 
 /***** Bibliotecas Estándar **************************************************/
-#include <string>sss
+#include <string>
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
