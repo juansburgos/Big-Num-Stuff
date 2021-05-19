@@ -6,31 +6,36 @@
 using namespace std;
 //Def de clases
 
-class bignum{
+class Bignum{
 private:
 	bool sign; //false es + y true es -//
 	unsigned short *digits;
-	size_t size; /*cantidad de digitos sin signo*/
+	size_t size; //cantidad de digitos
 
 public:
-	bignum();
-	bignum(const bool &sign,const size_t &size,const unsigned short *digits);
-	bignum(const string& n);
-	bignum(const bignum&);
+	//Constructores
+	Bignum();
+	Bignum(const bool &sign,const size_t &size,const unsigned short *digits);
+	Bignum(const string& n);
+	Bignum(const Bignum&);
 
+	//Destructor por defecto
+	~Bignum();
 
-	friend void print_bignum(bignum const &bn);/*Para probar datos cargados(BORRAR)*/
+	//Operadores
+	Bignum& operator=(const Bignum&);
+	friend Bignum operator+(const Bignum&, const Bignum&);
+	friend Bignum operator-(const Bignum&, const Bignum&);
+	friend Bignum operator*(const Bignum&, const Bignum&);
 
-	bignum const & operator=(const bignum&);
-	friend bignum operator+(const bignum&, const bignum&);
-	friend bignum operator-(const bignum&, const bignum&);
-	friend bignum operator*(const bignum&, const bignum&);
-	friend bool operator>(const bignum&, const bignum&);
+	friend ostream& operator<<(ostream&, const Bignum&);
+	friend istream& operator>>(istream&, Bignum&);
 
-	friend ostream& operator<<(ostream&, const bignum&);
-	friend istream& operator>>(istream&, bignum&);
-
-	~bignum();
+	friend bool operator>(const Bignum&, const Bignum&);
+	friend bool operator==(const Bignum&, const Bignum&);
+	//Métodos auxiliares
+	friend void printBignum(Bignum const &bn);
+	bool isEmpty();
 };
 
 #endif

@@ -1,74 +1,72 @@
-#include "bignum.h"
-#include "bool.h"
+#include "Bignum.h"
+#include "utils.h"
 #include <iostream>
 #include <cmath>
 
 using namespace std;
 
-//bignum.cpp
-//Metodos de clase
-// Constructores y destructores
+/*
+	Contructor por defecto.
+	PRECONDICIONES: Ninguna.
+	POSTCONDICIONES: Como condición empty se setea digits como un puntero nulo.
+	*/
+	Bignum::Bignum(){
 
-bignum::bignum(){
+		sign = false;
+		size = 0;
+		digits = nullptr;
+	}
 
-	sign = false;
-	size = 0;
-	digits = nullptr;
-}
-
-size_t zerocount(const unsigned short *digits, const size_t &size){
-	for(size_t i = 0; i < size; i++){
-		if(digits[i]!=0){
-			return i;
+	Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
+		sign = _sign;
+		size_t z = zerocount(_digits, _size);
+		size = _size-z;
+		digits = new unsigned short[size];
+		for(size_t i = 0; i < size; i++) {
+			digits[i] = _digits[i+z];
 		}
 	}
-	return size;
-}
 
-bignum::bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
-	sign = _sign;
-	size_t z = zerocount(_digits, _size);
-	size = _size-z;
-	digits = new unsigned short[size];
-	for(size_t i = 0; i < size; i++) {
-		digits[i] = _digits[i+z];
-	}
-}
+	Bignum::Bignum(const string& n){
 
-bignum::bignum(const string& n){
+		size_t i,begin = 0;
+		sign = false ;
 
-	size_t i,begin = 0;
-	sign = false ;
-
-	if ((sign = is_negative(n))){
-		begin = 1;
-	}
-
-	size = n.size() - begin;
-	digits = new unsigned short[size];
-
-	for (i = 0; i < size; i++){
-		if(isdigit(n[i+begin])==false){
-			exit(1);
+		if ((sign = is_negative(n))){
+			begin = 1;
 		}
-		digits[i] = n[i+begin] - '0';
+
+		size = n.size() - begin;
+		digits = new unsigned short[size];
+
+		for (i = 0; i < size; i++){
+			if(isdigit(n[i+begin])==false){
+				exit(1);
+			}
+			digits[i] = n[i+begin] - '0';
+		}
+
 	}
 
-}
-
-bignum::bignum(const bignum &b) : sign(b.sign),digits(b.digits),size(b.size) {
-}
-
-bignum::~bignum(){
-
-	if (digits!=nullptr){
-		delete [ ] digits;
+	Bignum::Bignum(const Bignum &b) {
+		sign = b.sign;
+		size = b.size;
+		digits = new unsigned short[size];
+		for (size_t i = 0; i < size; i++){
+			digits[i] = b.digits[i];
+		}
 	}
 
+	Bignum::~Bignum(){
+
+	//Chequeo si digitos es vacio.
+	if (digits==nullptr){
+		return;
+	}
+	delete [] digits;
 }
 
-
-bignum const & bignum::operator=(const bignum &b){
+Bignum& Bignum::operator=(const Bignum &b){
 
 	sign = b.sign;
 	size = b.size;
@@ -82,65 +80,80 @@ bignum const & bignum::operator=(const bignum &b){
 	return *this;
 }
 
-
-/* Falta considerar el caso de que un número sea negativo */
-bignum operator+(const bignum &b1, const bignum &b2){
-
-	size_t i;
-	unsigned short carry = 0;
-
-	unsigned short *auxdig = new unsigned short [auxsize]
-	if(b1.size >= b2.size){
-
-	}
-	else{
-
-	}
-
-
-	// Calculo la suma
-	for (i = auxsize-1; i >= 0; i--) {
-		// Cargo el resto
-		auxdig[i] = (b1.digits[i] + b2.digits[i] + carry)%10;
-		// Me quedo con el carry para el siguiente
-		carry = (b1.digits[i] + b2.digits[i] + carry)/10;
-	}
-
-	// Si el carry es 1
-	if(carry == 1) {
-		unsigned short digits2[auxsize+1]{0};
-		// Desplazo
-		for (i = size; i >= 1; i--) {
-			digits2[i] = digits[i-1];
+Bignum operator+(const Bignum &b1, const Bignum &b2){
+	Bignum nuevo;
+	if(b1.sign != b2.sign) {
+		if(b1.sign == true) {
+			Bignum _b1(b1);
+			_b1.sign = !b1.sign;
+			nuevo = b2-_b1;
+			_b1.~Bignum();
 		}
-		// y Agrego el carry
-		digits2[0] = carry;
-		// Vuelvo al original
-		auxdig = digits2;
+		else {
+			Bignum _b2(b2);
+			_b2.sign = !b2.sign;
+			nuevo = b1-_b2;
+			_b2.~Bignum();
+		}
 	}
+	else {
+		bool sign = b1.sign;
 
-	// Armo el bignum y lo devuelvo
-	bignum nuevo(sign,size,auxdig);
-	delete [] auxdig;
+		size_t size = (b1.size >= b2.size)?b1.size:b2.size;
+		unsigned short *digits = new unsigned short[size];
+
+		// Inicialmente el carry es 0
+		unsigned short carry = 0;
+
+		// Calculo la suma
+		for (size_t i = size; i >= 1; i--) {
+			// Cargo el resto
+			digits[i-1] = (b1.digits[i-1] + b2.digits[i-1] + carry)%10;
+			// Me quedo con el carry para el siguiente
+			carry = (b1.digits[i-1] + b2.digits[i-1] + carry)/10;
+		}
+
+		// Si el carry es 1
+		if(carry == 1) {
+			unsigned short *digits2 = new unsigned short[size+1];
+			// Desplazo
+			for (int i = size; i >= 1; i--) {
+				digits2[i] = digits[i-1];
+			}
+			size++;
+			// y Agrego el carry
+			digits2[0] = carry;
+			// Armo el Bignum y lo devuelvo
+			nuevo = Bignum(sign,size,digits2);
+			delete[] digits2;
+		}
+		else {
+			// Armo el bignum y lo devuelvo
+			nuevo = Bignum(sign,size,digits);
+		}
+		delete[] digits;
+	}
 	return nuevo;
 }
 
-bignum operator-(const bignum&b1, const bignum&b2){
-	bignum *nuevo = new bignum();
+Bignum operator-(const Bignum &b1, const Bignum &b2){
+	Bignum nuevo;
 	if(b2>b1){
-		*nuevo = b2-b1;
-		nuevo->sign = !nuevo->sign;
+		nuevo = b2-b1;
+		nuevo.sign = !nuevo.sign;
 	}
 	else if(b2.sign == true) {
-		bignum _b2(b2);
+		Bignum _b2(b2);
 		_b2.sign = !b2.sign;
-		*nuevo = b1+_b2;
+		nuevo = b1+_b2;
+		_b2.~Bignum();
 	}
 	else if(b1.sign == true) {
-		bignum _b1(b1);
+		Bignum _b1(b1);
 		_b1.sign = !b1.sign;
-		*nuevo = _b1+b2;
-		nuevo->sign = !nuevo->sign;
+		nuevo = _b1+b2;
+		nuevo.sign = !nuevo.sign;
+		_b1.~Bignum();
 	}
 	else {
 		bool sign = b1.sign;
@@ -167,20 +180,39 @@ bignum operator-(const bignum&b1, const bignum&b2){
 		if(carry == 1) {
 			sign = !sign;
 		}
-
-		// Armo el bignum y lo devuelvo
-		nuevo = new bignum(sign,size,digits);
+		nuevo.sign = sign;
+		nuevo.size = size;
+		nuevo.digits = digits;
 	}
-	return *nuevo;
-}
-
-bignum operator*(const bignum&b1, const bignum&b2){
-	bignum nuevo;
-
 	return nuevo;
 }
 
-bool operator>(const bignum &b1, const bignum &b2){
+Bignum operator*(const Bignum&b1, const Bignum&b2){
+	bool signo;
+	size_t tamano = (b1.size + b2.size);
+	unsigned short carry = 0, *auxdig = new unsigned short [tamano]{0};
+
+	for(ssize_t i = b2.size-1; i >= 0; i--){
+		carry = 0;
+		for(ssize_t h = b1.size-1; h >= 0; h--){
+			auxdig[i+h+1] += (carry + b2.digits[i] * b1.digits[h]);
+			carry = auxdig[i+h+1] / 10;
+			auxdig[i+h+1] = auxdig[i+h+1] % 10;
+		}
+		auxdig[i] = carry;
+	}
+	if(b1.sign==b2.sign){
+		signo = false;
+	}
+	else{
+		signo = true;
+	}
+	Bignum nuevo(signo, tamano, auxdig);
+	delete [] auxdig;
+	return nuevo;
+}
+
+bool operator>(const Bignum &b1, const Bignum &b2){
 	if(b1.sign == true && b2.sign == false) {
 		return false;
 	}
@@ -208,7 +240,7 @@ bool operator>(const bignum &b1, const bignum &b2){
 	return false;
 }
 
-ostream& operator<<(ostream &out, const bignum &b) {
+ostream& operator<<(ostream &out, const Bignum &b) {
 
 	if(b.sign) out << '-';
 	for (size_t i = 0; i < b.size; i++){
@@ -218,11 +250,15 @@ ostream& operator<<(ostream &out, const bignum &b) {
 
 }
 
-istream& operator>>(istream &in, bignum &b){
+istream& operator>>(istream &in, Bignum &b){
 	return in;
 }
 
-void print_bignum(const bignum &bn){ /*Funcion para probar cargas (BORRAR AL TERMINAR)*/
+bool operator==(const Bignum &a, const Bignum &b){
+	return (a.size == b.size) && is_digits_equal(a.digits, b.digits) && (a.sign == b.sign);
+}
+
+void printBignum(const Bignum &bn){ /*Funcion para probar cargas (BORRAR AL TERMINAR)*/
 
 	if (bn.sign == true){
 		cout << '-';
@@ -234,4 +270,8 @@ void print_bignum(const bignum &bn){ /*Funcion para probar cargas (BORRAR AL TER
 
 	cout << endl;
 
+}
+
+bool Bignum::isEmpty(){
+	return this->digits == nullptr;
 }

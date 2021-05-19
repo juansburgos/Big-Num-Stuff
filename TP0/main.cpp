@@ -17,7 +17,7 @@
  /***** Bibliotecas Propias ***************************************************/
  #include "cmdline.h"
  #include "bignum.h"
- #include "bool.h"
+ #include "utils.h"
 
 
  /***** Elementos Globales ****************************************************/
@@ -29,9 +29,9 @@
  	const string a = "-145";
  	const string b = "323";
 
- 	bignum x(a),y(b),z;
+ 	Bignum x(a),y(b),z;
 
-	cout << "salida X: " << x << endl;
+	/*cout << "salida X: " << x << endl;
 	cout << "salida Y: " << y << endl;
 	cout << "salida Z: " << z << endl;
 
@@ -47,17 +47,18 @@
 	}
 
 	z = x + y;
-	cout << "Z = X + Y = " << z << endl;
+	cout << "Z = X + Y = " << x << " + " << y << " = " << z << endl << endl;
 
 	z = y + x;
-	cout << "Z = Y + X = " << z << endl;
+	cout << "Z = Y + X = " << y << " + " << x << " = "  << z << endl << endl;
 
 	z = x - y;
-	cout << "Z = X - Y = " << z << endl;
+	cout << "Z = X - Y = " << x << " - " << y << " = "  << z << endl << endl;
 
 	z = y - x;
-	cout << "Z = Y - X = " << z << endl;
-
-
+	cout << "Z = Y - X = " << y << " - " << x << " = "  << z << endl << endl;
+*/
+    z = x*y;
+    cout << z << endl;
 	return 0;
 }
