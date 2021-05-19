@@ -27,7 +27,7 @@ using namespace std;
 int main(int argc, char const *argv[]){
 
 	const string a = "145";
-	const string b = "-323";
+	const string b = "323";
 	const string c = "-00000199";
 
 	Bignum x(a),y(b),z,w(c);
