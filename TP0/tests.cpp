@@ -225,6 +225,18 @@ bool test_multiplication_operator3(){
 	return (z == r); //Si no se utiliza assert, utilizar error=False.
 }
 
+//Test 1 para probar los operadores >> y <<
+bool test_in_out_operators(){
+	const string a = "2016";
+	const string b = "-156";
+	Bignum x(a),y(b),w, z;
+
+	cout << "Ingrese 2016 -156: " << endl;
+	cin >> w >> z;
+
+	return ((w == x) && (z == y)); //Si no se utiliza assert, utilizar error=False.
+}
+
 int main(int argc, char const *argv[]){
 	/*
 	COMPILACION: make all_test
@@ -253,6 +265,7 @@ int main(int argc, char const *argv[]){
 	TEST(test_multiplication_operator1);
 	TEST(test_multiplication_operator2);
 	TEST(test_multiplication_operator3);
+	TEST(test_in_out_operators);
 
 	print_results();
 }

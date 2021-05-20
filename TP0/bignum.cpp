@@ -285,6 +285,35 @@ ostream& operator<<(ostream &out, const Bignum &b) {
 }
 
 istream& operator>>(istream &in, Bignum &b){
+	Bignum nuevo;
+	bool signo = false;
+	unsigned char c;
+	bool is_digit = true;
+
+	c = in.get();
+	if((c <= ' ')) {
+		c = in.get();
+	}
+
+	do {
+		if((c <= ' ') && (nuevo.size == 0)) {
+			continue;
+		}
+		else if((c == '-') && (nuevo.size == 0)) {
+			signo = true;
+		}
+		else if(c >= '0' && c <= '9') {
+			nuevo = nuevo * Bignum("10") + Bignum(string(1,c));
+		}
+		else {
+			in.putback(c);
+			is_digit = false;
+		}
+		c = in.get();
+	// Mientras siga recibiendo dígitos
+	} while(is_digit);
+	nuevo.sign = signo;
+	b = nuevo;
 	return in;
 }
 
