@@ -133,8 +133,7 @@ opt_help(string const &arg)
 	exit(0);
 }
 
-static void
-process_input(istream *is, ostream *os){
+bool process_input(istream *is, ostream *os){
 
 	Bignum x, y;
 	char op;
@@ -156,23 +155,24 @@ process_input(istream *is, ostream *os){
 	else{
 		exit(1);
 	}
-/*
 	if (os->bad()) {
 		cerr << "cannot write to output stream."
 		     << endl;
-		exit(1);
+		return false;
 	}
 	if (is->bad()) {
 		cerr << "cannot read from input stream."
 		     << endl;
-		exit(1);
+		return false;
 	}
 	if (!is->eof()) {
 		cerr << "cannot find EOF on input stream."
 		     << endl;
-		exit(1);
+		return false;
 	}
-	*/
+	
+	return true;
+	
 }
 
 /***** Función main **********************************************************/
