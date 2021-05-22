@@ -221,11 +221,6 @@ bool test_multiplication_operator3(){
 
 	z = x * y;
 
-	cout <<"x:" << x  << "size :" << x.get_size()<< endl;
-	cout <<"y:" << y <<"size :" << y.get_size()<< endl;
-	cout <<"r:" << r << "size :" << r.get_size()<<endl;
-	cout <<"z:" << z << "size :" << z.get_size()<<endl;
-
 	cout << "z = " << x << " * " << y << " = " << z << endl;
 	return (z == r); //Si no se utiliza assert, utilizar error=False.
 }
