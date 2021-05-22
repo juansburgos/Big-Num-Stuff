@@ -9,8 +9,8 @@ using namespace std;
 class Bignum{
 private:
 	bool sign; //false es + y true es -//
-	unsigned short *digits;
 	size_t size; //cantidad de digitos
+	unsigned short *digits;
 
 public:
 	//Constructores

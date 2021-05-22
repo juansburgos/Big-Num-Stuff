@@ -37,23 +37,22 @@ Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digi
 
 Bignum::Bignum(const string& n){
 
-	size_t i,begin = 0,z;
+	size_t i,begin = 0;
 	sign = false ;
 
 	if ((sign = is_negative(n))){
 		begin = 1;
 	}
 
-	z = zerocount(n , begin);
-	size = n.size() - begin - z;
+	size = n.size() - begin;
 
 	digits = new unsigned short[size];
 
 	for (i = 0; i < size; i++){
-		if( isdigit(n[i+begin+z]) == false ){
+		if( isdigit(n[i+begin]) == false ){
 			exit(1);
 		}
-		digits[i] = n[i+begin+z] - '0';
+		digits[i] = n[i+begin] - '0';
 	}
 
 }
@@ -73,22 +72,25 @@ Bignum::~Bignum(){
 	if (digits==nullptr){
 		return;
 	}
-	delete [] digits;
+	delete[] digits;
 }
 
 Bignum const& Bignum::operator=(const Bignum &b){
 	sign = b.sign;
 	size = b.size;
+
+	if(this==&b){
+		return *this;
+	}
 	if (digits){
 		delete [] digits;
 	}
-
+	cout << size << endl;
 	digits = new unsigned short[size];
 
 	for (size_t i = 0; i < size; i++){
 		digits[i] = b.digits[i];
 	}
-
 	return *this;
 }
 
@@ -285,35 +287,29 @@ ostream& operator<<(ostream &out, const Bignum &b) {
 }
 
 istream& operator>>(istream &in, Bignum &b){
-	Bignum nuevo;
+
 	bool signo = false;
 	unsigned char c;
 	bool is_digit = true;
 
 	c = in.get();
-	if((c <= ' ')) {
-		c = in.get();
-	}
-
-	do {
-		if((c <= ' ') && (nuevo.size == 0)) {
-			continue;
+	while(is_digit){
+		if((c <= ' ') && (b.size == 0)) {
 		}
-		else if((c == '-') && (nuevo.size == 0)) {
+		else if((c == '-') && (b.size == 0)) {
 			signo = true;
 		}
 		else if(c >= '0' && c <= '9') {
-			nuevo = nuevo * Bignum("10") + Bignum(string(1,c));
+			b = b * Bignum("10") + Bignum(string(1,c));
 		}
 		else {
 			in.putback(c);
 			is_digit = false;
+			break;
 		}
 		c = in.get();
-	// Mientras siga recibiendo dígitos
-	} while(is_digit);
-	nuevo.sign = signo;
-	b = nuevo;
+	}
+	b.sign = signo;
 	return in;
 }
 
