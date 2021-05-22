@@ -98,7 +98,6 @@ opt_output(string const &arg)
 		exit(1);
 	}
 }
-<<<<<<< HEAD
 
 static void
 opt_precision(string const &arg)
@@ -137,9 +136,8 @@ opt_help(string const &arg)
 void
 process_input(istream *is, ostream *os){
 
-	Bignum x, y, z;
+	Bignum x, y;
 	char op;
-	string f="46567";
 
 	cin >> x;
 	cin >> op;
@@ -149,136 +147,7 @@ process_input(istream *is, ostream *os){
 	cout << op << endl;
 	cout << y << endl;
 
-	Bignum k(f);
-=======
 
-static void
-opt_precision(string const &arg)
-{
-	istringstream iss(arg);
-	
-	// Intentamos extraer el factor de la l�nea de comandos.
-	// Para detectar argumentos que �nicamente consistan de 
-	// n�meros enteros, vamos a verificar que EOF llegue justo
-	// despu�s de la lectura exitosa del escalar.
-	//
-	if (!(iss >> precision)
-	    || !iss.eof()) {
-		cerr << "non-integer precision: "
-		     << arg
-		     << "."
-		     << endl;
-		exit(1);
-	}
-
-	if (iss.bad()) {
-		cerr << "cannot read integer precision."
-		     << endl;
-		exit(1);
-	}
-}
-
-static void
-opt_help(string const &arg)
-{
-	cout << "cmdline -p precision [-i file] [-o file]"
-	     << endl;
-	exit(0);
-}
-/*
-void
-multiply(istream *is, ostream *os)
-{
-	int num;
-
-	while (*is >> num) {
-		*os << num * factor
-		    << "\n";
-	}
-
-	if (os->bad()) {
-		cerr << "cannot write to output stream."
-		     << endl;
-		exit(1);
-	}
-	if (is->bad()) {
-		cerr << "cannot read from input stream."
-		     << endl;
-		exit(1);
-	}
-	if (!is->eof()) {
-		cerr << "cannot find EOF on input stream."
-		     << endl;
-		exit(1);
-	}
-}
-*/
-
-
-void
-process_input(istream *is, ostream *os){
-
-	string input,num1, num2, op;
-	string const delims{ "-+*" };
-	
-	while (*is >> input){
-		size_t beg = 0, pos = 0;
-		beg = input.find_first_not_of(delims, pos);
-
-		if ((pos = input.find_first_of(delims, beg + 1)) == string::npos){
-			exit(1);
-		}
-		
-		num1 = input.substr(0, pos);
-		num2 = input.substr(pos+1, input.size() - pos);
-		op = input.at(pos);
-		Bignum x(num1),y(num2),z;
-
-		if (op == "+"){
-			z = x + y;
-		}
-
-		if (op == "-"){
-			z = x - y;
-		}	
-
-		if (op == "*"){
-			z = x * y;
-		}
-
-		cout << z << endl;
-
-	}
-	
-	if (os->bad()) {
-		cerr << "cannot write to output stream."
-		     << endl;
-		exit(1);
-	}
-	if (is->bad()) {
-		cerr << "cannot read from input stream."
-		     << endl;
-		exit(1);
-	}
-	if (!is->eof()) {
-		cerr << "cannot find EOF on input stream."
-		     << endl;
-		exit(1);
-	}
-}
-
-
-
-
-/***** Función main **********************************************************/
-int main(int argc, char * const argv[]){
->>>>>>> 8694f4d3ee898246221374ca720739d387abc592
-
-	cmdline cmdl(options);
-	cmdl.parse(argc, argv);
-	process_input(iss, oss);
-
-<<<<<<< HEAD
 	if(op == '+'){
 		cout << x + y << endl;
 	}
@@ -320,7 +189,5 @@ int main(int argc, char * const argv[]){
 	process_input(iss, oss);
 
 
-=======
->>>>>>> 8694f4d3ee898246221374ca720739d387abc592
 	return 0;
 }
