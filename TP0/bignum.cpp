@@ -22,16 +22,18 @@ Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digi
 	size_t z = zerocount(_digits, _size);
 
 	if ( z == _size ){
-		size = 0;
+		size = 1;
 		sign = false;
-		digits = nullptr;
+		digits = new unsigned short[size];
+		*digits = 0 ;
 	}
+
 	else{
 		size = _size-z;
 		digits = new unsigned short[size];
 		for(size_t i = 0; i < size; i++) {
 			digits[i] = _digits[i+z];
-	}
+		}
 	}
 }
 
@@ -204,7 +206,7 @@ Bignum operator*(const Bignum&b1, const Bignum&b2){
 		Bignum nuevo("0");
 		return nuevo;
 	}
-
+	
 	bool signo;
 	size_t tamano = (b1.size + b2.size);
 	unsigned short carry = 0, *auxdig = new unsigned short [tamano]{0};
