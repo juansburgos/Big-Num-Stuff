@@ -293,7 +293,7 @@ istream& operator>>(istream &in, Bignum &b){
 
 	c = in.get();
 	while(is_digit){
-		if((c <= ' ') && (b.size == 0)) {
+		if((c == ' ') && (b.size == 0)) {
 		}
 		else if((c == '-') && (b.size == 0)) {
 			signo = true;
