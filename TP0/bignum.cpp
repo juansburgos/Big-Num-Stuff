@@ -85,7 +85,6 @@ Bignum const& Bignum::operator=(const Bignum &b){
 	if (digits){
 		delete [] digits;
 	}
-	cout << size << endl;
 	digits = new unsigned short[size];
 
 	for (size_t i = 0; i < size; i++){

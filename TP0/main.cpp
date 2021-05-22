@@ -133,20 +133,16 @@ opt_help(string const &arg)
 	exit(0);
 }
 
-void
+static void
 process_input(istream *is, ostream *os){
 
 	Bignum x, y;
 	char op;
-
+	
 	cin >> x;
 	cin >> op;
 	cin >> y;
 	cin.clear();
-	cout << x << endl;
-	cout << op << endl;
-	cout << y << endl;
-
 
 	if(op == '+'){
 		cout << x + y << endl;
@@ -160,7 +156,7 @@ process_input(istream *is, ostream *os){
 	else{
 		exit(1);
 	}
-
+/*
 	if (os->bad()) {
 		cerr << "cannot write to output stream."
 		     << endl;
@@ -176,18 +172,15 @@ process_input(istream *is, ostream *os){
 		     << endl;
 		exit(1);
 	}
+	*/
 }
-
-
-
 
 /***** Función main **********************************************************/
 int main(int argc, char * const argv[]){
 
 	cmdline cmdl(options);
 	cmdl.parse(argc, argv);
-	process_input(iss, oss);
-
+	process_input(iss,oss);
 
 	return 0;
 }
