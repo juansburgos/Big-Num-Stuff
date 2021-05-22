@@ -141,7 +141,6 @@ bool process_input(istream *is, ostream *os){
 	cin >> x;
 	cin >> op;
 	cin >> y;
-	cin.clear();
 
 	if(op == '+'){
 		cout << x + y << endl;
@@ -153,7 +152,7 @@ bool process_input(istream *is, ostream *os){
 		cout << x * y << endl;
 	}
 	else{
-		exit(1);
+		return false;
 	}
 	if (os->bad()) {
 		cerr << "cannot write to output stream."
@@ -172,7 +171,7 @@ bool process_input(istream *is, ostream *os){
 	}
 	
 	return true;
-	
+
 }
 
 /***** Función main **********************************************************/
@@ -180,7 +179,10 @@ int main(int argc, char * const argv[]){
 
 	cmdline cmdl(options);
 	cmdl.parse(argc, argv);
-	process_input(iss,oss);
 
+	if (process_input(iss,oss) == false){
+		return 1;
+	}
+	
 	return 0;
 }
