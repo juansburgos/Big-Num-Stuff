@@ -22,6 +22,9 @@ public:
 	//Destructor por defecto
 	~Bignum();
 
+	//Geters
+	const size_t & get_size() const { return size; }
+
 	//Operadores
 	Bignum const& operator=(const Bignum&);
 	friend Bignum operator+(const Bignum&, const Bignum&);

@@ -43,7 +43,7 @@ static option_t options[] = {
 	{0, "h", "help", NULL, opt_help, OPT_DEFAULT},
 	{0, },
 };
-static int precision;
+static size_t precision;
 static istream *iss = 0;
 static ostream *oss = 0;
 static fstream ifs;
@@ -141,7 +141,13 @@ bool process_input(istream *is, ostream *os){
 	cin >> x;
 	cin >> op;
 	cin >> y;
-
+	
+	if (((x.get_size()) > precision) || ((y.get_size()) > precision)){
+		cerr << "Incorrect precision"
+		     << endl;		
+		return false;
+	}
+	
 	if(op == '+'){
 		cout << x + y << endl;
 	}
