@@ -23,7 +23,7 @@
 #include "cmdline.h"
 #include "bignum.h"
 #include "utils.h"
-
+#include "process.h"
 
 /***** Elementos Globales ****************************************************/
 using namespace std;
@@ -133,52 +133,6 @@ opt_help(string const &arg)
 	exit(0);
 }
 
-bool process_input(istream *is, ostream *os){
-
-	Bignum x, y;
-	char op;
-	
-	cin >> x;
-	cin >> op;
-	cin >> y;
-	
-	if (((x.get_size()) > precision) || ((y.get_size()) > precision)){
-		cerr << "Incorrect precision"
-		     << endl;		
-		return false;
-	}
-	
-	if(op == '+'){
-		cout << x + y << endl;
-	}
-	else if(op == '-'){
-		cout << x - y << endl;
-	}
-	else if(op == '*'){
-		cout << x * y << endl;
-	}
-	else{
-		return false;
-	}
-	if (os->bad()) {
-		cerr << "cannot write to output stream."
-		     << endl;
-		return false;
-	}
-	if (is->bad()) {
-		cerr << "cannot read from input stream."
-		     << endl;
-		return false;
-	}
-	if (!is->eof()) {
-		cerr << "cannot find EOF on input stream."
-		     << endl;
-		return false;
-	}
-	
-	return true;
-
-}
 
 /***** Función main **********************************************************/
 int main(int argc, char * const argv[]){
@@ -186,7 +140,7 @@ int main(int argc, char * const argv[]){
 	cmdline cmdl(options);
 	cmdl.parse(argc, argv);
 
-	if (process_input(iss,oss) == false){
+	if (process_input(iss,oss,precision) == false){
 		return 1;
 	}
 	

@@ -6,21 +6,21 @@ all_test: tests clear test
 
 #Make test
 ifeq ($(OS),Windows_NT)
-tests: tests.o bignum.o cmdline.o utils.o
-	$(CC) $(CFLAGS) -o run_test.exe tests.o bignum.o cmdline.o utils.o
+tests: tests.o bignum.o cmdline.o utils.o process.o
+	$(CC) $(CFLAGS) -o run_test.exe tests.o bignum.o cmdline.o utils.o process.o
 else
-tests: tests.o bignum.o cmdline.o utils.o
-	$(CC) $(CFLAGS) -o run_test tests.o bignum.o cmdline.o utils.o
+tests: tests.o bignum.o cmdline.o utils.o process.o
+	$(CC) $(CFLAGS) -o run_test tests.o bignum.o cmdline.o utils.o process.o
 
 endif
 
 #Make Main
 ifeq ($(OS),Windows_NT)
-tp0: main.o bignum.o cmdline.o utils.o
-	$(CC) $(CFLAGS) -o tp0.exe main.o bignum.o cmdline.o utils.o
+tp0: main.o bignum.o cmdline.o utils.o process.o
+	$(CC) $(CFLAGS) -o tp0.exe main.o bignum.o cmdline.o utils.o process.o
 else
-tp0: main.o bignum.o cmdline.o utils.o
-	$(CC) $(CFLAGS) -o tp0 main.o bignum.o cmdline.o utils.o
+tp0: main.o bignum.o cmdline.o utils.o process.o
+	$(CC) $(CFLAGS) -o tp0 main.o bignum.o cmdline.o utils.o process.o
 endif
 
 #Make Obj
@@ -38,6 +38,9 @@ bignum.o: bignum.cpp  bignum.h utils.h
 
 cmdline.o: cmdline.cpp cmdline.h
 	$(CC) $(CFLAGS) -o cmdline.o  -c cmdline.cpp
+
+process.o: process.cpp process.h
+	$(CC) $(CFLAGS) -o process.o  -c process.cpp
 
 #Make Clear
 ifeq ($(OS),Windows_NT)
