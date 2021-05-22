@@ -51,4 +51,3 @@ bool process_input(istream *is, ostream *os, size_t precision){
 
 }
 
-using namespace std;
