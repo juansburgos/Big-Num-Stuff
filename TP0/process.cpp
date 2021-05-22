@@ -27,6 +27,8 @@ bool process_input(istream *is, ostream *os, size_t precision){
 		cout << x * y << endl;
 	}
 	else{
+		cerr << "Incorrect operator"
+		     << endl;	
 		return false;
 	}
 	if (os->bad()) {
