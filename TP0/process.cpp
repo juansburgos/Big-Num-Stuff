@@ -4,33 +4,35 @@
 
 bool process_input(istream *is, ostream *os, size_t precision){
 
-	Bignum x, y;
+	Bignum x, y ,z;
 	char op;
 	
-	cin >> x;
-	cin >> op;
-	cin >> y;
-	
-	if (((x.get_size()) > precision) || ((y.get_size()) > precision)){
-		cerr << "Incorrect precision"
-		     << endl;		
-		return false;
+	while (*is >> x >> op >> y ){
+
+		if (((x.get_size()) > precision) || ((y.get_size()) > precision)){
+			cerr << "Incorrect precision"
+				<< endl;		
+			return false;
+		}
+		if(op == '+'){
+			*os << x + y << endl;
+		}
+		else if(op == '-'){
+			*os << x - y << endl;
+		}
+		else if(op == '*'){
+			*os << x * y << endl;
+		}
+		else{
+			cerr << "Incorrect operator"
+				<< endl;	
+			return false;
+		}
+		x = z;
+		y = z;
+		
 	}
-	
-	if(op == '+'){
-		cout << x + y << endl;
-	}
-	else if(op == '-'){
-		cout << x - y << endl;
-	}
-	else if(op == '*'){
-		cout << x * y << endl;
-	}
-	else{
-		cerr << "Incorrect operator"
-		     << endl;	
-		return false;
-	}
+
 	if (os->bad()) {
 		cerr << "cannot write to output stream."
 		     << endl;
@@ -41,6 +43,7 @@ bool process_input(istream *is, ostream *os, size_t precision){
 		     << endl;
 		return false;
 	}
+
 	if (!is->eof()) {
 		cerr << "cannot find EOF on input stream."
 		     << endl;

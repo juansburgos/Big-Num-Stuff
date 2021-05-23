@@ -1,0 +1,6 @@
+125+125
+3*123
+32+323
+5*5
+
+Si no dejas una linea vacia al final no realiza la ultima operacion.

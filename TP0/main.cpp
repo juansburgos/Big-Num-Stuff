@@ -29,7 +29,7 @@
 using namespace std;
 
 
-/***** CMDLINE config ****************************************************/
+/***** CMDLINE config ********************************************************/
 
 static void opt_input(string const &);
 static void opt_output(string const &);
@@ -139,10 +139,11 @@ int main(int argc, char * const argv[]){
 
 	cmdline cmdl(options);
 	cmdl.parse(argc, argv);
-
+	
 	if (process_input(iss,oss,precision) == false){
 		return 1;
 	}
+	
 	
 	return 0;
 }
