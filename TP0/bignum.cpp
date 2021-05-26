@@ -203,13 +203,13 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 Bignum operator*(const Bignum&b1, const Bignum&b2){
 
 	if(b1.size == 0 || b2.size == 0){
-		Bignum nuevo("0");
-		return nuevo;
+		Bignum zero("0");
+		return zero;
 	}
 	
 	bool signo;
-	size_t tamano = (b1.size + b2.size);
-	unsigned short carry = 0, *auxdig = new unsigned short [tamano]{0};
+	size_t tam (b1.size + b2.size);
+	unsigned short carry = 0, *auxdig = new unsigned short [tam]{0};
 
 	for(int i = b2.size-1; i >= 0; i--){
 		carry = 0;
@@ -220,13 +220,9 @@ Bignum operator*(const Bignum&b1, const Bignum&b2){
 		}
 		auxdig[i] = carry;
 	}
-	if(b1.sign==b2.sign){
-		signo = false;
-	}
-	else{
-		signo = true;
-	}
-	Bignum nuevo(signo, tamano, auxdig);
+	signo = !(b1.sign == b2.sign);
+
+	Bignum nuevo(signo, tam, auxdig);
 	delete [] auxdig;
 	return nuevo;
 }
@@ -256,24 +252,18 @@ bool operator>(const Bignum &b1, const Bignum &b2){
 		}
 	}
 	for(size_t i = 0; i < b1.size; i++) {
-		if(b1.digits[i] > b2.digits[i]) {
-			if(b1.sign == true){
-				return false;
-			}
-			else {
-				return true;
-			}
-		}
-		else if(b1.digits[i] < b2.digits[i]) {
-			if(b1.sign == true){
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
+		if (b1.digits[i] == b2.digits[i])
+			continue;
+
+		return (b1.digits[i] < b2.digits[i]) ? b1.sign: !b1.sign;
 	}
 	return false;
+}
+
+bool operator<(const Bignum& b1, const Bignum& b2) {
+	if (b1 == b2)
+		return false;
+	return !(b1 > b2);
 }
 
 ostream& operator<<(ostream &out, const Bignum &b) {
@@ -288,29 +278,30 @@ ostream& operator<<(ostream &out, const Bignum &b) {
 }
 
 istream& operator>>(istream &in, Bignum &b){
-
 	bool signo = false;
 	unsigned char c;
-	bool is_digit = true;
+	Bignum n;
 
 	c = in.get();
-	while(is_digit){
-		if(((c == ' ') ||(c == '\f') || (c == '\n') || (c == '\r') || (c == '\t') || (c == '\v')) && (b.size == 0)) {
+	while(!in.eof()){
+		if (isdigit(c)) 
+			n = n * Bignum("10") + Bignum(string(1, c));
+		
+		else if (n.isEmpty()) {
+			if (c == '-')
+				signo = true;
+			else
+				validate_dict(c, allow_opt);
 		}
-		else if((c == '-') && (b.size == 0)) {
-			signo = true;
-		}
-		else if(c >= '0' && c <= '9') {
-			b = b * Bignum("10") + Bignum(string(1,c));
-		}
-		else {
+		else{
 			in.putback(c);
-			is_digit = false;
 			break;
 		}
 		c = in.get();
 	}
-	b.sign = signo;
+	n.sign = signo;
+	b = n;
+	
 	return in;
 }
 
@@ -326,14 +317,12 @@ bool operator==(const Bignum &a, const Bignum &b){
 }
 
 void printBignum(const Bignum &bn){ /*Funcion para probar cargas (BORRAR AL TERMINAR)*/
-	if (bn.sign == true){
+	if (bn.sign == true)
 		cout << '-';
-	}
-
-	for (size_t i = 0; i < bn.size; i++){
+	
+	for (size_t i = 0; i < bn.size; i++)
 		cout << bn.digits[i];
-	}
-
+	
 	cout << endl;
 }
 

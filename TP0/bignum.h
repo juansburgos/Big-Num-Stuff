@@ -3,9 +3,15 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
-//Def de clases
+#include "utils.h"
 
+using namespace std;
+
+//Creo un diccionario para recordar los comandos validos
+enum ALLOW_OPTS { SPACE = 0, BF, BN, BR, BT, BV};
+const char allow_opt[] = { ' ', '\f', '\n', '\r', '\t', '\v' };
+
+//Def de clases
 class Bignum{
 private:
 	bool sign; //false es + y true es -//
@@ -35,11 +41,12 @@ public:
 	friend istream& operator>>(istream&, Bignum&);
 
 	friend bool operator>(const Bignum&, const Bignum&);
+	friend bool operator<(const Bignum&, const Bignum&);
 	friend bool operator==(const Bignum&, const Bignum&);
+
 	//Métodos auxiliares
 	friend void printBignum(Bignum const &bn);
 	bool isEmpty() const;
-
 };
 
 #endif

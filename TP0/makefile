@@ -6,11 +6,11 @@ all_test: tests clear test
 
 #Make test
 ifeq ($(OS),Windows_NT)
-tests: tests.o bignum.o cmdline.o utils.o process.o
-	$(CC) $(CFLAGS) -o run_test.exe tests.o bignum.o cmdline.o utils.o process.o
+tests: tests.o bignum.o cmdline.o utils.o process.o testprototypes.o
+	$(CC) $(CFLAGS) -o run_test.exe tests.o bignum.o cmdline.o utils.o process.o testprototypes.o
 else
-tests: tests.o bignum.o cmdline.o utils.o process.o
-	$(CC) $(CFLAGS) -o run_test tests.o bignum.o cmdline.o utils.o process.o
+tests: tests.o bignum.o cmdline.o utils.o process.o testprototypes.o
+	$(CC) $(CFLAGS) -o run_test tests.o bignum.o cmdline.o utils.o process.o testprototypes.o
 
 endif
 
@@ -27,7 +27,10 @@ endif
 tests.o: tests.cpp cmdline.h bignum.h utils.h
 	$(CC) $(CFLAGS) -o tests.o  -c tests.cpp
 
-main.o: main.cpp cmdline.h bignum.h utils.h
+testprototypes.o: testprototypes.cpp tests.h
+	$(CC) $(CFLAGS) -o testprototypes.o  -c testprototypes.cpp
+
+main.o: main.cpp main.h cmdline.h bignum.h utils.h
 	$(CC) $(CFLAGS) -o main.o  -c main.cpp
 
 utils.o: utils.cpp  utils.h
@@ -69,4 +72,4 @@ install:
 endif
 
 leak_test:
-	valgrind -s --leak-check=full ./run_test
+	valgrind --leak-check=full ./run_test

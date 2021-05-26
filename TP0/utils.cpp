@@ -1,7 +1,16 @@
 #include "utils.h"
 
+bool validate_dict(const char& op, const char* dict) {
+	for (size_t i = 0; dict[i] != '\0'; i++) {
+		if (dict[i] == op)
+			return true;
+	}
+	
+	return false;
+}
+
 bool is_negative(const string &s){
-	if (s[0] == '-'){
+	if (s[0] == MINUS){
 		return true;
 	}
 	else{
@@ -16,22 +25,6 @@ size_t zerocount(const unsigned short *digits, const size_t &size){
 		}
 	}
 	return size;
-}
-
-size_t zerocount(const string s, const size_t &begin){
-
-	size_t i=0,index=0;
-
-	if (begin == 1){
-		i = 1;
-	}
-	
-	while (s[i] == '0' ){
-			index++;
-			i++;
-	}
-	
-	return index;
 }
 
 /*
