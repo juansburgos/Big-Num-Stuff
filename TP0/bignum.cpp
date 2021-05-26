@@ -294,6 +294,7 @@ istream& operator>>(istream &in, Bignum &b){
 	bool is_digit = true;
 
 	c = in.get();
+
 	while(is_digit){
 		if(((c == ' ') ||(c == '\f') || (c == '\n') || (c == '\r') || (c == '\t') || (c == '\v')) && (b.size == 0)) {
 		}
