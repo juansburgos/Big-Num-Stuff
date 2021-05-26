@@ -6,12 +6,12 @@ bool process_input(istream *is, ostream *os, size_t precision){
 
 	Bignum x, y ,z;
 	char op;
-	
-	while (*is >> x >> op >> y ){
 
+	while (!is->eof()){
+		*is >> x >> op >> y;
 		if (((x.get_size()) > precision) || ((y.get_size()) > precision)){
 			cerr << "Incorrect precision"
-				<< endl;		
+				<< endl;
 			return false;
 		}
 		if(op == '+'){
@@ -25,12 +25,12 @@ bool process_input(istream *is, ostream *os, size_t precision){
 		}
 		else{
 			cerr << "Incorrect operator"
-				<< endl;	
+				<< endl;
 			return false;
 		}
 		x = z;
 		y = z;
-		
+
 	}
 
 	if (os->bad()) {
@@ -49,8 +49,7 @@ bool process_input(istream *is, ostream *os, size_t precision){
 		     << endl;
 		return false;
 	}
-	
+
 	return true;
 
 }
-
