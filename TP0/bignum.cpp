@@ -304,12 +304,13 @@ istream& operator>>(istream &in, Bignum &b){
 			b = b * Bignum("10") + Bignum(string(1,c));
 		}
 		else {
+
 			in.putback(c);
 			is_digit = false;
 			break;
 		}
 		c = in.get();
-	}
+		}
 	b.sign = signo;
 	return in;
 }
