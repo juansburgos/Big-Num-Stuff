@@ -291,11 +291,10 @@ istream& operator>>(istream &in, Bignum &b){
 
 	bool signo = false;
 	unsigned char c;
-	bool is_digit = true;
 
 	c = in.get();
 
-	while(is_digit){
+	while(!in.eof()){
 		if(((c == ' ') ||(c == '\f') || (c == '\n') || (c == '\r') || (c == '\t') || (c == '\v')) && (b.size == 0)) {
 		}
 		else if((c == '-') && (b.size == 0)) {
@@ -305,9 +304,7 @@ istream& operator>>(istream &in, Bignum &b){
 			b = b * Bignum("10") + Bignum(string(1,c));
 		}
 		else {
-
 			in.putback(c);
-			is_digit = false;
 			break;
 		}
 		c = in.get();

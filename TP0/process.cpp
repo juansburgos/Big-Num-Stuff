@@ -44,7 +44,7 @@ bool process_input(istream *is, ostream *os, size_t precision){
 		return false;
 	}
 
-	if (is->eof()) {
+	if (!is->eof()) {
 		cerr << "cannot find EOF on input stream."
 		     << endl;
 		return false;
