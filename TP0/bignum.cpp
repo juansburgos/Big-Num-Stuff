@@ -206,7 +206,7 @@ Bignum operator*(const Bignum&b1, const Bignum&b2){
 		Bignum nuevo("0");
 		return nuevo;
 	}
-	
+
 	bool signo;
 	size_t tamano = (b1.size + b2.size);
 	unsigned short carry = 0, *auxdig = new unsigned short [tamano]{0};
@@ -291,17 +291,18 @@ istream& operator>>(istream &in, Bignum &b){
 
 	bool signo = false;
 	unsigned char c;
+	Bignum n;
 
 	c = in.get();
 
 	while(!in.eof()){
-		if(((c == ' ') ||(c == '\f') || (c == '\n') || (c == '\r') || (c == '\t') || (c == '\v')) && (b.size == 0)) {
+		if(((c == ' ') ||(c == '\f') || (c == '\n') || (c == '\r') || (c == '\t') || (c == '\v')) && (n.size == 0)) {
 		}
-		else if((c == '-') && (b.size == 0)) {
+		else if((c == '-') && (n.size == 0)) {
 			signo = true;
 		}
 		else if(c >= '0' && c <= '9') {
-			b = b * Bignum("10") + Bignum(string(1,c));
+			n = n * Bignum("10") + Bignum(string(1,c));
 		}
 		else {
 			in.putback(c);
@@ -309,7 +310,8 @@ istream& operator>>(istream &in, Bignum &b){
 		}
 		c = in.get();
 		}
-	b.sign = signo;
+	n.sign = signo;
+	b = n;
 	return in;
 }
 

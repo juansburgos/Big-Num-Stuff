@@ -28,9 +28,6 @@ bool process_input(istream *is, ostream *os, size_t precision){
 				<< endl;
 			return false;
 		}
-		x = z;
-		y = z;
-
 	}
 
 	if (os->bad()) {
