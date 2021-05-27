@@ -177,8 +177,14 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 				carry = 1;
 			}
 			else if(b2.size-i > size) {
-				digits[size-i] = b1.digits[b1.size-i] - carry;
-				carry = 0;
+				if(b1.digits[b1.size-i] < carry) {
+					digits[size-i] = (b1.digits[b1.size-i]+10) - carry;
+					carry = 1;
+				}
+				else {
+					digits[size-i] = b1.digits[b1.size-i] - carry;
+					carry = 0;
+				}
 			}
 			else if(b1.digits[b1.size-i] < (b2.digits[b2.size-i] + carry)) {
 				digits[size-i] = (b1.digits[b1.size-i]+10) - (b2.digits[b2.size-i] + carry);
@@ -309,7 +315,7 @@ istream& operator>>(istream &in, Bignum &b){
 			break;
 		}
 		c = in.get();
-		}
+	}
 	n.sign = signo;
 	b = n;
 	return in;
