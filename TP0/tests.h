@@ -12,6 +12,7 @@
 #include "cmdline.h"
 #include "bignum.h"
 #include "utils.h"
+#include "process.h"
 
 using namespace std;
 
@@ -39,4 +40,5 @@ bool test_multiplication_operator1(); //Test 1 para probar el operador *
 bool test_multiplication_operator2(); //Test 2 para probar el operador *
 bool test_multiplication_operator3(); //Test 3 para probar el operador *
 bool test_in_out_operators(); //Test 1 para probar los operadores >> y <<
+bool test_failed_operators();
 #endif

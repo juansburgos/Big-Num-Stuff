@@ -68,6 +68,7 @@ int main(int argc, char const *argv[]){
 	TEST(test_multiplication_operator2);
 	TEST(test_multiplication_operator3);
 	TEST(test_in_out_operators);
+	TEST(test_failed_operators);
 
 	print_results();
 }

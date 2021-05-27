@@ -211,3 +211,9 @@ bool test_in_out_operators() {
 
 	return ((w == x) && (z == y)); //Si no se utiliza assert, utilizar error=False.
 }
+bool test_failed_operators(){
+	char op;
+	cout << "Por favor ingrese un operador erroneo" << endl;
+	cin >> op;
+	return !validate_opts(op);
+}
