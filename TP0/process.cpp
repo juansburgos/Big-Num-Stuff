@@ -2,7 +2,7 @@
 #include <sstream>
 
 //Devuelve true cuando la precision es erronea
-bool check_precision(const Bignum &x, const Bignum &y, const size_t &precision) {
+bool check_precision(const bignum &x, const bignum &y, const size_t &precision) {
 	if (((x.get_size()) > precision) || ((y.get_size()) > precision)) {
 		cerr << "Insuficient precision (function [check_precision])" << endl;
 		return false;
@@ -42,7 +42,7 @@ bool check_stream(istream* is, ostream* os) {
 }
 //Devuelve true cuando se procesa la entrada satisfactoriamente.
 bool process_input(istream *is, ostream *os, size_t precision){
-	Bignum x, y;
+	bignum x, y;
 	char op;
 	bool st;
 

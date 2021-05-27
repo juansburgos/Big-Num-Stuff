@@ -12,35 +12,35 @@ enum ALLOW_OPTS { SPACE = 0, BF, BN, BR, BT, BV};
 const char allow_opt[] = { ' ', '\f', '\r', '\t', '\v' };
 
 //Def de clases
-class Bignum{
+class bignum{
 private:
 	bool sign; //false es + y true es -//
 	size_t size; //cantidad de digitos
 	unsigned short *digits;
 
 public:
-	Bignum();
-	Bignum(const bool &sign,const size_t &size,const unsigned short *digits);
-	Bignum(const string& n);
-	Bignum(const Bignum&);
+	bignum();
+	bignum(const bool &sign,const size_t &size,const unsigned short *digits);
+	bignum(const string& n);
+	bignum(const bignum&);
 
-	~Bignum();
+	~bignum();
 
 	//Geters
 	const size_t & get_size() const { return size; }
 
 	//Operadores
-	Bignum const& operator=(const Bignum&);
-	friend Bignum operator+(const Bignum&, const Bignum&);
-	friend Bignum operator-(const Bignum&, const Bignum&);
-	friend Bignum operator*(const Bignum&, const Bignum&);
+	bignum const& operator=(const bignum&);
+	friend bignum operator+(const bignum&, const bignum&);
+	friend bignum operator-(const bignum&, const bignum&);
+	friend bignum operator*(const bignum&, const bignum&);
 
-	friend ostream& operator<<(ostream&, const Bignum&);
-	friend istream& operator>>(istream&, Bignum&);
+	friend ostream& operator<<(ostream&, const bignum&);
+	friend istream& operator>>(istream&, bignum&);
 
-	friend bool operator>(const Bignum&, const Bignum&);
-	friend bool operator<(const Bignum&, const Bignum&);
-	friend bool operator==(const Bignum&, const Bignum&);
+	friend bool operator>(const bignum&, const bignum&);
+	friend bool operator<(const bignum&, const bignum&);
+	friend bool operator==(const bignum&, const bignum&);
 
 	//Métodos auxiliares
 	bool isEmpty() const;

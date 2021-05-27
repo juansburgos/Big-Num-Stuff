@@ -1,17 +1,17 @@
-#include "Bignum.h"
+#include "bignum.h"
 #include "utils.h"
 #include <iostream>
 #include <cmath>
 
 using namespace std;
 
-Bignum::Bignum(){
+bignum::bignum(){
 	sign = false;
 	size = 0;
 	digits = nullptr;
 }
 
-Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
+bignum::bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
 
 	sign = _sign;
 	size_t z = zerocount(_digits, _size);
@@ -31,7 +31,7 @@ Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digi
 	}
 }
 
-Bignum::Bignum(const string& n){
+bignum::bignum(const string& n){
 
 	size_t i,begin = 0;
 	sign = false ;
@@ -53,7 +53,7 @@ Bignum::Bignum(const string& n){
 
 }
 
-Bignum::Bignum(const Bignum &b) {
+bignum::bignum(const bignum &b) {
 	sign = b.sign;
 	size = b.size;
 	digits = new unsigned short[size];
@@ -63,14 +63,14 @@ Bignum::Bignum(const Bignum &b) {
 	}
 }
 
-Bignum::~Bignum(){
+bignum::~bignum(){
 	if (digits==nullptr){
 		return;
 	}
 	delete[] digits;
 }
 
-Bignum const& Bignum::operator=(const Bignum &b){
+bignum const& bignum::operator=(const bignum &b){
 	sign = b.sign;
 	size = b.size;
 
@@ -88,16 +88,16 @@ Bignum const& Bignum::operator=(const Bignum &b){
 	return *this;
 }
 
-Bignum operator+(const Bignum &b1, const Bignum &b2){
-	Bignum nuevo;
+bignum operator+(const bignum &b1, const bignum &b2){
+	bignum nuevo;
 	if(b1.sign != b2.sign) {
 		if(b1.sign == true) {
-			Bignum _b1(b1);
+			bignum _b1(b1);
 			_b1.sign = !b1.sign;
 			nuevo = b2-_b1;
 		}
 		else {
-			Bignum _b2(b2);
+			bignum _b2(b2);
 			_b2.sign = !b2.sign;
 			nuevo = b1-_b2;
 		}
@@ -128,25 +128,25 @@ Bignum operator+(const Bignum &b1, const Bignum &b2){
 				carry = (b1.digits[b1.size-i] + b2.digits[b2.size-i] + carry)/10;
 			}
 		}
-		nuevo = Bignum(sign,size,digits);
+		nuevo = bignum(sign,size,digits);
 		delete[] digits;
 	}
 	return nuevo;
 }
 
-Bignum operator-(const Bignum &b1, const Bignum &b2){
-	Bignum nuevo;
+bignum operator-(const bignum &b1, const bignum &b2){
+	bignum nuevo;
 	if(b2>b1){
 		nuevo = b2-b1;
 		nuevo.sign = !nuevo.sign;
 	}
 	else if(b2.sign == true){
-		Bignum _b2(b2);
+		bignum _b2(b2);
 		_b2.sign = !b2.sign;
 		nuevo = b1 + _b2;
 	}
 	else if(b1.sign == true){
-		Bignum _b1(b1);
+		bignum _b1(b1);
 		_b1.sign = !b1.sign;
 		nuevo = _b1+b2;
 		nuevo.sign = !nuevo.sign;
@@ -184,16 +184,16 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 		if(carry == 1) {
 			sign = !sign;
 		}
-		nuevo = Bignum(sign,size,digits);
+		nuevo = bignum(sign,size,digits);
 		delete[] digits;
 	}
 	return nuevo;
 }
 
-Bignum operator*(const Bignum&b1, const Bignum&b2){
+bignum operator*(const bignum&b1, const bignum&b2){
 
 	if(b1.size == 0 || b2.size == 0){
-		Bignum zero("0");
+		bignum zero("0");
 		return zero;
 	}
 
@@ -212,12 +212,12 @@ Bignum operator*(const Bignum&b1, const Bignum&b2){
 	}
 	signo = !(b1.sign == b2.sign);
 
-	Bignum nuevo(signo, tam, auxdig);
+	bignum nuevo(signo, tam, auxdig);
 	delete [] auxdig;
 	return nuevo;
 }
 
-bool operator>(const Bignum &b1, const Bignum &b2){
+bool operator>(const bignum &b1, const bignum &b2){
 	if(b1.sign == true && b2.sign == false) {
 		return false;
 	}
@@ -249,13 +249,13 @@ bool operator>(const Bignum &b1, const Bignum &b2){
 	return false;
 }
 
-bool operator<(const Bignum& b1, const Bignum& b2) {
+bool operator<(const bignum& b1, const bignum& b2) {
 	if (b1 == b2)
 		return false;
 	return !(b1 > b2);
 }
 
-ostream& operator<<(ostream &out, const Bignum &b) {
+ostream& operator<<(ostream &out, const bignum &b) {
 	if(b.size==0){
 		out << "0";
 	}
@@ -266,15 +266,15 @@ ostream& operator<<(ostream &out, const Bignum &b) {
 	return out;
 }
 
-istream& operator>>(istream &in, Bignum &b){
+istream& operator>>(istream &in, bignum &b){
 	bool signo = false;
 	unsigned char c;
-	Bignum n;
+	bignum n;
 
 	c = in.get();
 	while(!in.eof()){
 		if (isdigit(c))
-			n = n * Bignum("10") + Bignum(string(1, c));
+			n = n * bignum("10") + bignum(string(1, c));
 		else if (n.isEmpty()) {
 			if (c == '-')
 				signo = true;
@@ -290,7 +290,7 @@ istream& operator>>(istream &in, Bignum &b){
 	return in;
 }
 
-bool operator==(const Bignum &a, const Bignum &b){
+bool operator==(const bignum &a, const bignum &b){
 	if (a.isEmpty() && b.isEmpty()) {
 		return true;
 	}
@@ -300,6 +300,6 @@ bool operator==(const Bignum &a, const Bignum &b){
 	return (a.size == b.size) && is_digits_equal(a.digits, b.digits, a.size) && (a.sign == b.sign);
 }
 
-bool Bignum::isEmpty() const {
+bool bignum::isEmpty() const {
 	return this->digits == nullptr;
 }
