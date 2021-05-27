@@ -3,34 +3,50 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
-//Def de clases
+#include "utils.h"
 
-class bignum{
+using namespace std;
+
+//Creo un diccionario para recordar los comandos validos
+enum ALLOW_OPTS { SPACE = 0, BF, BN, BR, BT, BV};
+const char allow_opt[] = { ' ', '\f', '\n', '\r', '\t', '\v' };
+
+//Def de clases
+class Bignum{
 private:
 	bool sign; //false es + y true es -//
+	size_t size; //cantidad de digitos
 	unsigned short *digits;
-	size_t size; /*cantidad de digitos sin signo*/
 
 public:
-	bignum();
-	bignum(const bool &sign,const size_t &size,const unsigned short *digits);
-	bignum(const string& n);
-	bignum(const bignum&);
+	//Constructores
+	Bignum();
+	Bignum(const bool &sign,const size_t &size,const unsigned short *digits);
+	Bignum(const string& n);
+	Bignum(const Bignum&);
 
+	//Destructor por defecto
+	~Bignum();
 
-	friend void print_bignum(bignum const &bn);/*Para probar datos cargados(BORRAR)*/
+	//Geters
+	const size_t & get_size() const { return size; }
 
-	bignum const & operator=(const bignum&);
-	friend bignum operator+(const bignum&, const bignum&);
-	friend bignum operator-(const bignum&, const bignum&);
-	friend bignum operator*(const bignum&, const bignum&);
-	friend bool operator>(const bignum&, const bignum&);
+	//Operadores
+	Bignum const& operator=(const Bignum&);
+	friend Bignum operator+(const Bignum&, const Bignum&);
+	friend Bignum operator-(const Bignum&, const Bignum&);
+	friend Bignum operator*(const Bignum&, const Bignum&);
 
-	friend ostream& operator<<(ostream&, const bignum&);
-	friend istream& operator>>(istream&, bignum&);
+	friend ostream& operator<<(ostream&, const Bignum&);
+	friend istream& operator>>(istream&, Bignum&);
 
-	~bignum();
+	friend bool operator>(const Bignum&, const Bignum&);
+	friend bool operator<(const Bignum&, const Bignum&);
+	friend bool operator==(const Bignum&, const Bignum&);
+
+	//Métodos auxiliares
+	friend void printBignum(Bignum const &bn);
+	bool isEmpty() const;
 };
 
 #endif
