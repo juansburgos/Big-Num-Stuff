@@ -12,12 +12,13 @@ bool check_precision(const Bignum &x, const Bignum &y, const size_t &precision) 
 
 //Verifica si el operador es valido, devuelve false en caso de ser exitoso
 bool validate_opts(const char &op) {
-	if (validate_dict(op, opt_dict)) {
-		return true;
-	}
 
-	cerr << "Incorrect operator (function [validate_opts])" << endl;
-	return false;
+	bool st;
+
+	if ( (st = validate_dict(op, opt_dict)) != true) {
+		return st;
+	}
+	return true;
 }
 
 
