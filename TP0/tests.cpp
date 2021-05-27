@@ -3,12 +3,12 @@
 static size_t ok_tests = 0;
 static size_t total_test = 0;
 
-//Printea separador
+//Imprime separador
 void ps(){
 	cout << "================================================" << endl;
 }
 
-//Printeo bievenida
+//Imprime bievenida
 void wellcome(){
 	ps();
 	cout << "TESTING..." << endl;
@@ -49,8 +49,8 @@ int main(int argc, char const *argv[]){
 	ok_test: Mide la cantidad de test que no fallaron.
 	total_test: Cuando se agrega más test, éste número incrementa sólo.
 	*/
-	wellcome();
 
+	wellcome();
 	TEST(test_equal_operator1);
 	TEST(test_equal_operator2);
 	TEST(test_minor);
@@ -69,6 +69,5 @@ int main(int argc, char const *argv[]){
 	TEST(test_multiplication_operator3);
 	TEST(test_in_out_operators);
 	TEST(test_failed_operators);
-
 	print_results();
 }

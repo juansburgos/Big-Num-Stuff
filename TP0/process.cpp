@@ -40,10 +40,7 @@ bool check_stream(istream* is, ostream* os) {
 	}
 	return true;
 }
-/*
-	*PRECONDICIONES:
-	*POSCONDICIONES: Devuelve True cuando al procesar la entrada se encuentra un error.
-*/
+//Devuelve true cuando se procesa la entrada satisfactoriamente.
 bool process_input(istream *is, ostream *os, size_t precision){
 	Bignum x, y;
 	char op;

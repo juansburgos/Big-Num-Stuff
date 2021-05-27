@@ -5,11 +5,6 @@
 
 using namespace std;
 
-/*
-Contructor por defecto.
-PRECONDICIONES: Ninguna.
-POSTCONDICIONES: Como condición empty se setea digits como un puntero nulo.
-*/
 Bignum::Bignum(){
 	sign = false;
 	size = 0;
@@ -27,7 +22,6 @@ Bignum::Bignum(const bool &_sign,const size_t &_size,const unsigned short *_digi
 		digits = new unsigned short[size];
 		*digits = 0 ;
 	}
-
 	else{
 		size = _size-z;
 		digits = new unsigned short[size];
@@ -70,7 +64,6 @@ Bignum::Bignum(const Bignum &b) {
 }
 
 Bignum::~Bignum(){
-	//Chequeo si digitos es vacio.
 	if (digits==nullptr){
 		return;
 	}
@@ -111,32 +104,28 @@ Bignum operator+(const Bignum &b1, const Bignum &b2){
 	}
 	else {
 		bool sign = b1.sign;
-
 		size_t size = (b1.size >= b2.size)?b1.size+1:b2.size+1;
 		unsigned short *digits = new unsigned short[size];
-
-		// Inicialmente el carry es 0
 		unsigned short carry = 0;
 
-		// Calculo la suma
 		for (size_t i = 1; i <= size; i++) {
 			if (b1.size-i > size) {
 				if(b2.size-i > size) {
-					digits[size-i] = carry;	// Cargo el resto
-					carry = 0;	// Me quedo con el carry para el siguiente
+					digits[size-i] = carry;
+					carry = 0;
 				}
 				else {
-					digits[size-i] = (b2.digits[b2.size-i] + carry)%10;	// Cargo el resto
-					carry = (b2.digits[b2.size-i] + carry)/10;	// Me quedo con el carry para el siguiente
+					digits[size-i] = (b2.digits[b2.size-i] + carry)%10;
+					carry = (b2.digits[b2.size-i] + carry)/10;
 				}
 			}
 			else if(b2.size-i > size){
-				digits[size-i] = (b1.digits[b1.size-i] + carry)%10;	// Cargo el resto
-				carry = (b1.digits[b1.size-i] + carry)/10;	// Me quedo con el carry para el siguiente
+				digits[size-i] = (b1.digits[b1.size-i] + carry)%10;
+				carry = (b1.digits[b1.size-i] + carry)/10;
 			}
 			else{
-				digits[size-i] = (b1.digits[b1.size-i] + b2.digits[b2.size-i] + carry)%10;	// Cargo el resto
-				carry = (b1.digits[b1.size-i] + b2.digits[b2.size-i] + carry)/10;	// Me quedo con el carry para el siguiente
+				digits[size-i] = (b1.digits[b1.size-i] + b2.digits[b2.size-i] + carry)%10;
+				carry = (b1.digits[b1.size-i] + b2.digits[b2.size-i] + carry)/10;
 			}
 		}
 		nuevo = Bignum(sign,size,digits);
@@ -166,11 +155,8 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 		bool sign = b1.sign;
 		size_t size = (b1.size >= b2.size)?b1.size:b2.size;
 		unsigned short *digits = new unsigned short[size];
-
-		// Inicialmente el carry es 0
 		short carry = 0;
 
-		// Calculo la suma
 		for (size_t i = 1; i <= size; i++) {
 			if(b1.size-i > size) {
 				digits[size-i] = 10 - (b2.digits[b2.size-i] + carry);
@@ -195,8 +181,6 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 				carry = 0;
 			}
 		}
-
-		// Si el carry es menor que 0
 		if(carry == 1) {
 			sign = !sign;
 		}
@@ -240,7 +224,6 @@ bool operator>(const Bignum &b1, const Bignum &b2){
 	else if(b1.sign == false && b2.sign == true) {
 		return true;
 	}
-	//323 es positivo
 	else if (b1.sign == false) {
 		if(b1.size > b2.size){
 			return true;
@@ -292,7 +275,6 @@ istream& operator>>(istream &in, Bignum &b){
 	while(!in.eof()){
 		if (isdigit(c))
 			n = n * Bignum("10") + Bignum(string(1, c));
-
 		else if (n.isEmpty()) {
 			if (c == '-')
 				signo = true;
@@ -315,7 +297,6 @@ bool operator==(const Bignum &a, const Bignum &b){
 	if (a.isEmpty() || b.isEmpty()) {
 		return false;
 	}
-
 	return (a.size == b.size) && is_digits_equal(a.digits, b.digits, a.size) && (a.sign == b.sign);
 }
 

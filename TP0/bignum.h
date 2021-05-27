@@ -19,13 +19,11 @@ private:
 	unsigned short *digits;
 
 public:
-	//Constructores
 	Bignum();
 	Bignum(const bool &sign,const size_t &size,const unsigned short *digits);
 	Bignum(const string& n);
 	Bignum(const Bignum&);
 
-	//Destructor por defecto
 	~Bignum();
 
 	//Geters
@@ -45,7 +43,6 @@ public:
 	friend bool operator==(const Bignum&, const Bignum&);
 
 	//Métodos auxiliares
-	friend void printBignum(Bignum const &bn);
 	bool isEmpty() const;
 };
 
