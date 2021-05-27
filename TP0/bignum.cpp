@@ -177,8 +177,14 @@ Bignum operator-(const Bignum &b1, const Bignum &b2){
 				carry = 1;
 			}
 			else if(b2.size-i > size) {
-				digits[size-i] = b1.digits[b1.size-i] - carry;
-				carry = 0;
+				if(b1.digits[b1.size-i] < carry) {
+					digits[size-i] = (b1.digits[b1.size-i]+10) - carry;
+					carry = 1;
+				}
+				else {
+					digits[size-i] = b1.digits[b1.size-i] - carry;
+					carry = 0;
+				}
 			}
 			else if(b1.digits[b1.size-i] < (b2.digits[b2.size-i] + carry)) {
 				digits[size-i] = (b1.digits[b1.size-i]+10) - (b2.digits[b2.size-i] + carry);
@@ -206,7 +212,7 @@ Bignum operator*(const Bignum&b1, const Bignum&b2){
 		Bignum zero("0");
 		return zero;
 	}
-	
+
 	bool signo;
 	size_t tam (b1.size + b2.size);
 	unsigned short carry = 0, *auxdig = new unsigned short [tam]{0};
@@ -284,9 +290,9 @@ istream& operator>>(istream &in, Bignum &b){
 
 	c = in.get();
 	while(!in.eof()){
-		if (isdigit(c)) 
+		if (isdigit(c))
 			n = n * Bignum("10") + Bignum(string(1, c));
-		
+
 		else if (n.isEmpty()) {
 			if (c == '-')
 				signo = true;
@@ -301,7 +307,7 @@ istream& operator>>(istream &in, Bignum &b){
 	}
 	n.sign = signo;
 	b = n;
-	
+
 	return in;
 }
 
@@ -319,10 +325,10 @@ bool operator==(const Bignum &a, const Bignum &b){
 void printBignum(const Bignum &bn){ /*Funcion para probar cargas (BORRAR AL TERMINAR)*/
 	if (bn.sign == true)
 		cout << '-';
-	
+
 	for (size_t i = 0; i < bn.size; i++)
 		cout << bn.digits[i];
-	
+
 	cout << endl;
 }
 
