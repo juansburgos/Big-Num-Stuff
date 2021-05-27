@@ -20,8 +20,6 @@ bool validate_opts(const char &op) {
 	}
 	return true;
 }
-
-
 //Chequea si el steam tuvo un error
 bool check_stream(istream* is, ostream* os) {
 
@@ -42,25 +40,22 @@ bool check_stream(istream* is, ostream* os) {
 	}
 	return true;
 }
-
 /*
-	*PRECONDICIONES: 
+	*PRECONDICIONES:
 	*POSCONDICIONES: Devuelve True cuando al procesar la entrada se encuentra un error.
 */
 bool process_input(istream *is, ostream *os, size_t precision){
 	Bignum x, y;
 	char op;
 	bool st;
-	
-	while (!is->eof()){
-		*is >> x >> op >> y;
 
+	while (*is >> x >> op >> y){
 		if ((st = check_precision(x, y, precision)) == false){
 			return st;
 		}
 		if ((st = validate_opts(op)) == false){
 			return st;
-		}		
+		}
 		if (op == opt_dict[SUM])
 			*os << x + y << endl;
 
@@ -71,10 +66,9 @@ bool process_input(istream *is, ostream *os, size_t precision){
 			*os << x * y << endl;
 
 	}
-		
+
 	if ((st = check_stream(is, os)) == false){
 		return st;
-	}	
-	
+	}
 	return true;
 }

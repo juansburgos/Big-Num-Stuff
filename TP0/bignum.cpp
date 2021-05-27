@@ -296,8 +296,6 @@ istream& operator>>(istream &in, Bignum &b){
 		else if (n.isEmpty()) {
 			if (c == '-')
 				signo = true;
-			else
-				validate_dict(c, allow_opt);
 		}
 		else{
 			in.putback(c);
@@ -307,7 +305,6 @@ istream& operator>>(istream &in, Bignum &b){
 	}
 	n.sign = signo;
 	b = n;
-
 	return in;
 }
 
@@ -320,16 +317,6 @@ bool operator==(const Bignum &a, const Bignum &b){
 	}
 
 	return (a.size == b.size) && is_digits_equal(a.digits, b.digits, a.size) && (a.sign == b.sign);
-}
-
-void printBignum(const Bignum &bn){ /*Funcion para probar cargas (BORRAR AL TERMINAR)*/
-	if (bn.sign == true)
-		cout << '-';
-
-	for (size_t i = 0; i < bn.size; i++)
-		cout << bn.digits[i];
-
-	cout << endl;
 }
 
 bool Bignum::isEmpty() const {
