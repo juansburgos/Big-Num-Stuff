@@ -142,12 +142,17 @@
     <ClCompile Include="..\TP0\bignum.cpp" />
     <ClCompile Include="..\TP0\cmdline.cpp" />
     <ClCompile Include="..\TP0\main.cpp" />
+    <ClCompile Include="..\TP0\process.cpp" />
+    <ClCompile Include="..\TP0\testprototypes.cpp" />
     <ClCompile Include="..\TP0\tests.cpp" />
     <ClCompile Include="..\TP0\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\TP0\bignum.h" />
     <ClInclude Include="..\TP0\cmdline.h" />
+    <ClInclude Include="..\TP0\main.h" />
+    <ClInclude Include="..\TP0\process.h" />
+    <ClInclude Include="..\TP0\testprototypes.h" />
     <ClInclude Include="..\TP0\tests.h" />
     <ClInclude Include="..\TP0\utils.h" />
   </ItemGroup>
