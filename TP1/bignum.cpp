@@ -242,7 +242,7 @@ bool operator>(const bignum &b1, const bignum &b2){
 	}
 	for(size_t i = 0; i < b1.size; i++) {
 		if (b1.digits[i] == b2.digits[i])
-			continue;
+		continue;
 
 		return (b1.digits[i] < b2.digits[i]) ? b1.sign: !b1.sign;
 	}
@@ -251,7 +251,7 @@ bool operator>(const bignum &b1, const bignum &b2){
 
 bool operator<(const bignum& b1, const bignum& b2) {
 	if (b1 == b2)
-		return false;
+	return false;
 	return !(b1 > b2);
 }
 
@@ -274,10 +274,10 @@ istream& operator>>(istream &in, bignum &b){
 	c = in.get();
 	while(!in.eof()){
 		if (isdigit(c))
-			n = n * bignum("10") + bignum(string(1, c));
+		n = n * bignum("10") + bignum(string(1, c));
 		else if (n.isEmpty()) {
 			if (c == '-')
-				signo = true;
+			signo = true;
 		}
 		else{
 			in.putback(c);
@@ -303,3 +303,59 @@ bool operator==(const bignum &a, const bignum &b){
 bool bignum::isEmpty() const {
 	return this->digits == nullptr;
 }
+
+
+
+
+class bignum {
+	private:
+	interfaz _standard, *operacion=_standard; // Esto está mal
+	public:
+	bignum(interfaz *interfaz = _standard);
+	bignum(const bool &sign,const size_t &size,const unsigned short *digits, *interfaz = _standard);
+	bignum(const string& n, *interfaz = _standard);
+	bignum(const bignum&, *interfaz = _standard);
+
+	friend bignum & operator+(bignum &a, bignum &b);
+	friend bignum & operator-(bignum &a, bignum &b);
+	friend bignum & operator*(bignum &a, bignum &b) {
+		operacion->operator*(a.digits, a.size, b.digits, b.size);
+	}
+};
+
+int main(int argc, char const *argv[]) {
+	interfaz _interfaz;
+
+	// Falta el manager
+
+	bignum a(&_interfaz), b;
+
+	a = a*b;
+	return 0;
+}
+
+
+
+
+
+class interfaz {
+	public:
+	virtual unsigned short & operator*(unsigned short &a, size_t a_long, unsigned short &b, size_t b_long) = 0;
+	virtual unsigned short & operator/(unsigned short &a, size_t a_long, unsigned short &b, size_t b_long) = 0;
+	virtual unsigned short & operator+(unsigned short &a, size_t a_long, unsigned short &b, size_t b_long) = 0;
+	virtual unsigned short & operator-(unsigned short &a, size_t a_long, unsigned short &b, size_t b_long) = 0;
+};
+
+class multiplicacion_standard: public interfaz {
+	public:
+	virtual unsigned short & operator*(unsigned short &a, size_t a_long, unsigned short &b, size_t b_long) {
+        // Cálculos
+    }
+};
+
+class multiplicacion_karatsuba: public interfaz {
+	public:
+	virtual unsigned short & operator*(unsigned short &a, size_t a_long, unsigned short &b, size_t b_long) {
+        // Cálculos
+    }
+};
