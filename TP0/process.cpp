@@ -43,10 +43,14 @@ bool check_stream(istream* is, ostream* os) {
 //Devuelve true cuando se procesa la entrada satisfactoriamente.
 bool process_input(istream *is, ostream *os, size_t precision){
 	bignum x, y;
-	char op;
+	char op,c;
 	bool st;
 
-	while (*is >> x >> op >> y){
+
+	while (!is->eof()){
+
+		*is >> x >> op >> y;
+
 		if ((st = check_precision(x, y, precision)) == false){
 			return st;
 		}
@@ -62,6 +66,14 @@ bool process_input(istream *is, ostream *os, size_t precision){
 		if (op == opt_dict[PROD])
 			*os << x * y << endl;
 
+		*is >> c;
+
+		if ((is->rdstate() & ios::eofbit ) != 0){
+			break;
+		}
+		else 
+			is->putback(c);
+		
 	}
 
 	if ((st = check_stream(is, os)) == false){

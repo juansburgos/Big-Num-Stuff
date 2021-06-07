@@ -6,21 +6,21 @@ all_test: tests clear test
 
 #Make test
 ifeq ($(OS),Windows_NT)
-tests: tests.o bignum.o cmdline.o utils.o process.o testprototypes.o
-	$(CC) $(CFLAGS) -o run_test.exe tests.o bignum.o cmdline.o utils.o process.o testprototypes.o
+tests: tests.o bignum.o cmdline.o utils.o process.o testprototypes.o interfaz.o
+	$(CC) $(CFLAGS) -o run_test.exe tests.o bignum.o cmdline.o utils.o process.o testprototypes.o interfaz.o
 else
-tests: tests.o bignum.o cmdline.o utils.o process.o testprototypes.o
-	$(CC) $(CFLAGS) -o run_test tests.o bignum.o cmdline.o utils.o process.o testprototypes.o
+tests: tests.o bignum.o cmdline.o utils.o process.o testprototypes.o interfaz.o
+	$(CC) $(CFLAGS) -o run_test tests.o bignum.o cmdline.o utils.o process.o testprototypes.o interfaz.o
 
 endif
 
 #Make Main
 ifeq ($(OS),Windows_NT)
-tp0: main.o bignum.o cmdline.o utils.o process.o
-	$(CC) $(CFLAGS) -o tp0.exe main.o bignum.o cmdline.o utils.o process.o
+tp0: main.o bignum.o cmdline.o utils.o process.o interfaz.o
+	$(CC) $(CFLAGS) -o tp0.exe main.o bignum.o cmdline.o utils.o process.o interfaz.o
 else
-tp0: main.o bignum.o cmdline.o utils.o process.o
-	$(CC) $(CFLAGS) -o tp0 main.o bignum.o cmdline.o utils.o process.o
+tp0: main.o bignum.o cmdline.o utils.o process.o interfaz.o
+	$(CC) $(CFLAGS) -o tp0 main.o bignum.o cmdline.o utils.o process.o interfaz.o
 endif
 
 #Make Obj
@@ -44,6 +44,9 @@ cmdline.o: cmdline.cpp cmdline.h
 
 process.o: process.cpp process.h
 	$(CC) $(CFLAGS) -o process.o  -c process.cpp
+
+interfaz.o: interfaz.cpp 
+	$(CC) $(CFLAGS) -o interfaz.o  -c interfaz.cpp
 
 #Make Clear
 ifeq ($(OS),Windows_NT)

@@ -4,6 +4,12 @@
         "ostream": "cpp",
         "iostream": "cpp",
         "*.tcc": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "optional": "cpp"
     }
 }

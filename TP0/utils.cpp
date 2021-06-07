@@ -1,11 +1,12 @@
 #include "utils.h"
 
 bool validate_dict(const char& op, const char* dict) {
-	for (size_t i = 0; dict[i] != '\0'; i++) {
-		if (dict[i] == op)
-			return true;
+	size_t i ;
+	for (i= 0; dict[i] != '\0'; i++) {
+		if (dict[i] == op){
+		return true;
+		}
 	}
-
 	return false;
 }
 

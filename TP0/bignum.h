@@ -9,7 +9,8 @@ using namespace std;
 
 //Creo un diccionario para recordar los comandos validos
 enum ALLOW_OPTS { SPACE = 0, BF, BN, BR, BT, BV};
-const char allow_opt[] = { ' ', '\f', '\r', '\t', '\v' };
+const char allow_opt[] = { ' ', '\f', '\r', '\t', '\v' ,'\0'};
+const char opt_dic[] = {'+', '-', '*' ,'\0'};
 
 //Def de clases
 class bignum{
