@@ -4,7 +4,7 @@
 //Devuelve true cuando la precision es erronea
 bool check_precision(const bignum &x, const bignum &y, const size_t &precision) {
 	if (((x.get_size()) > precision) || ((y.get_size()) > precision)) {
-		cerr << "Insuficient precision (function [check_precision])" << endl;
+		cerr << "Insufficient precision (function [check_precision])" << endl;
 		return false;
 	}
 	return true;
@@ -68,12 +68,11 @@ bool process_input(istream *is, ostream *os, size_t precision){
 
 		*is >> c;
 
-		if ((is->rdstate() & ios::eofbit ) != 0){
+		if ((is->rdstate() & ios::eofbit ) != 0)
 			break;
-		}
-		else 
+		else
 			is->putback(c);
-		
+
 	}
 
 	if ((st = check_stream(is, os)) == false){

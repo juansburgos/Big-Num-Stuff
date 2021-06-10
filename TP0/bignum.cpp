@@ -271,34 +271,25 @@ istream& operator>>(istream &in, bignum &b){
 	unsigned char c;
 	bignum n;
 
-
 	while(!in.eof()){
-
 		c = in.get();
-
 		if (isdigit(c))
 			n = n * bignum("10") + bignum(string(1, c));
-		else if (validate_dict(c,allow_opt)){
+		else if (validate_dict(c,allow_opt))
 			continue;
-		}
-		else if (n.isEmpty() && c == '-'){
+		else if (n.isEmpty() && c == '-')
 				signo = true;
-		}
 		else if(validate_dict(c,opt_dic)){
 			in.putback(c);
-			break;			
-		}	
-		else{
 			break;
-		}	
-				
+		}
+		else
+			break;
 	}
-
 	if (n.isEmpty()){
 		cerr << "Invalid input" << endl;
 		exit(1);
 	}
-	
 	n.sign = signo;
 	b = n;
 	return in;

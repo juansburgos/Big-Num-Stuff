@@ -4,7 +4,7 @@
 //Devuelve true cuando la precision es erronea
 bool check_precision(const bignum &x, const bignum &y, const size_t &precision) {
 	if (((x.get_size()) > precision) || ((y.get_size()) > precision)) {
-		cerr << "Insuficient precision (function [check_precision])" << endl;
+		cerr << "Insufficient precision (function [check_precision])" << endl;
 		return false;
 	}
 	return true;

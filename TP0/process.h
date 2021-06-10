@@ -6,7 +6,7 @@
 
 //Diccionario de operadores
 enum OPERATORS { SUM = 0, MIN, PROD};
-const char opt_dict[] = {'+', '-', '*','\0' };
+const char opt_dict[] = {'+', '-', '*','\0'};
 
 enum class ERRORS_PROCESS { PRECISION, OPERATOR, WOUTSTREAM, RINSTREAM, EOFINSTREAM};
 
