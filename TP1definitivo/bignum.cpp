@@ -1,0 +1,369 @@
+#include "bignum.h"
+#include "utils.h"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+bignum::bignum(){
+	sign = false;
+	size = 0;
+	digits = nullptr;
+}
+
+bignum::bignum(const bool &_sign,const size_t &_size,const unsigned short *_digits) {
+
+	sign = _sign;
+	size_t z = zerocount(_digits, _size);
+
+	if ( z == _size ){
+		size = 1;
+		sign = false;
+		digits = new unsigned short[size];
+		*digits = 0 ;
+	}
+	else{
+		size = _size-z;
+		digits = new unsigned short[size];
+		for(size_t i = 0; i < size; i++) {
+			digits[i] = _digits[i+z];
+		}
+	}
+}
+
+bignum::bignum(const string& n){
+
+	size_t i,begin = 0;
+	sign = false ;
+
+	if ((sign = is_negative(n))){
+		begin = 1;
+	}
+
+	size = n.size() - begin;
+
+	digits = new unsigned short[size];
+
+	for (i = 0; i < size; i++){
+		if( isdigit(n[i+begin]) == false ){
+			exit(1);
+		}
+		digits[i] = n[i+begin] - '0';
+	}
+
+}
+
+bignum::bignum(const bignum &b) {
+	sign = b.sign;
+	size = b.size;
+	digits = new unsigned short[size];
+
+	for (size_t i = 0; i < size; i++){
+		digits[i] = b.digits[i];
+	}
+}
+
+bignum::~bignum(){
+	if (digits==nullptr){
+		return;
+	}
+	delete[] digits;
+}
+
+bignum const& bignum::operator=(const bignum &b){
+	sign = b.sign;
+	size = b.size;
+
+	if(this==&b){
+		return *this;
+	}
+	if (digits){
+		delete [] digits;
+	}
+	digits = new unsigned short[size];
+
+	for (size_t i = 0; i < size; i++){
+		digits[i] = b.digits[i];
+	}
+	return *this;
+}
+
+bignum operator+(const bignum &b1, const bignum &b2){
+	bignum nuevo;
+	if(b1.sign != b2.sign) {
+		if(b1.sign == true) {
+			bignum _b1(b1);
+			_b1.sign = !b1.sign;
+			nuevo = b2-_b1;
+		}
+		else {
+			bignum _b2(b2);
+			_b2.sign = !b2.sign;
+			nuevo = b1-_b2;
+		}
+	}
+	else {
+		bool sign = b1.sign;
+		size_t size = (b1.size >= b2.size)?b1.size+1:b2.size+1;
+		unsigned short *digits = new unsigned short[size];
+		unsigned short carry = 0;
+
+		for (size_t i = 1; i <= size; i++) {
+			if (b1.size-i > size) {
+				if(b2.size-i > size) {
+					digits[size-i] = carry;
+					carry = 0;
+				}
+				else {
+					digits[size-i] = (b2.digits[b2.size-i] + carry)%10;
+					carry = (b2.digits[b2.size-i] + carry)/10;
+				}
+			}
+			else if(b2.size-i > size){
+				digits[size-i] = (b1.digits[b1.size-i] + carry)%10;
+				carry = (b1.digits[b1.size-i] + carry)/10;
+			}
+			else{
+				digits[size-i] = (b1.digits[b1.size-i] + b2.digits[b2.size-i] + carry)%10;
+				carry = (b1.digits[b1.size-i] + b2.digits[b2.size-i] + carry)/10;
+			}
+		}
+		nuevo = bignum(sign,size,digits);
+		delete[] digits;
+	}
+	return nuevo;
+}
+
+bignum operator-(const bignum &b1, const bignum &b2){
+	bignum nuevo;
+	if(b2>b1){
+		nuevo = b2-b1;
+		nuevo.sign = !nuevo.sign;
+	}
+	else if(b2.sign == true){
+		bignum _b2(b2);
+		_b2.sign = !b2.sign;
+		nuevo = b1 + _b2;
+	}
+	else if(b1.sign == true){
+		bignum _b1(b1);
+		_b1.sign = !b1.sign;
+		nuevo = _b1+b2;
+		nuevo.sign = !nuevo.sign;
+	}
+	else{
+		bool sign = b1.sign;
+		size_t size = (b1.size >= b2.size)?b1.size:b2.size;
+		unsigned short *digits = new unsigned short[size];
+		short carry = 0;
+
+		for (size_t i = 1; i <= size; i++) {
+			if(b1.size-i > size) {
+				digits[size-i] = 10 - (b2.digits[b2.size-i] + carry);
+				carry = 1;
+			}
+			else if(b2.size-i > size) {
+				if(b1.digits[b1.size-i] < carry) {
+					digits[size-i] = (b1.digits[b1.size-i]+10) - carry;
+					carry = 1;
+				}
+				else {
+					digits[size-i] = b1.digits[b1.size-i] - carry;
+					carry = 0;
+				}
+			}
+			else if(b1.digits[b1.size-i] < (b2.digits[b2.size-i] + carry)) {
+				digits[size-i] = (b1.digits[b1.size-i]+10) - (b2.digits[b2.size-i] + carry);
+				carry = 1;
+			}
+			else {
+				digits[size-i] = (b1.digits[b1.size-i] - (b2.digits[b2.size-i] + carry));
+				carry = 0;
+			}
+		}
+		if(carry == 1) {
+			sign = !sign;
+		}
+		nuevo = bignum(sign,size,digits);
+		delete[] digits;
+	}
+	return nuevo;
+}
+
+bignum operator*(const bignum&b1, const bignum&b2){
+
+	if(b1.size == 0 || b2.size == 0){
+		bignum zero("0");
+		return zero;
+	}
+
+	bool signo;
+	size_t tam (b1.size + b2.size);
+	unsigned short carry = 0, *auxdig = new unsigned short [tam]{0};
+
+	for(int i = b2.size-1; i >= 0; i--){
+		carry = 0;
+		for(int h = b1.size-1; h >= 0; h--){
+			auxdig[i+h+1] += (carry + b2.digits[i] * b1.digits[h]);
+			carry = auxdig[i+h+1] / 10;
+			auxdig[i+h+1] = auxdig[i+h+1] % 10;
+		}
+		auxdig[i] = carry;
+	}
+	signo = !(b1.sign == b2.sign);
+
+	bignum nuevo(signo, tam, auxdig);
+	delete [] auxdig;
+	return nuevo;
+}
+
+bignum operator/(const bignum& b1, const bignum& b2) {
+	bignum zero("0"), _b2;
+	if (b2.sign == true) {
+		_b2 = zero - b2;
+	}
+	else {
+		_b2 = b2;
+	}
+
+	if (b1 == zero) {
+		return zero;
+	}
+	if (b1.size < _b2.size) {
+		return zero;
+	}
+	if (b1.size == _b2.size && b1.digits[0] < _b2.digits[0]) {
+		return zero;
+	}
+	if (_b2 == zero) {
+		exit(2);
+	}
+	bool signo;
+	signo = !(b1.sign == b2.sign);
+
+	size_t tam = b1.size;
+	unsigned short* auxdig = new unsigned short [tam] {0};
+
+	bignum frag, tmp("1");
+	bignum unidad("1");
+	bignum decena("10");
+
+	for (size_t i = 0; i < b1.size; i++) {
+		tmp.digits[0] = b1.digits[i];
+		frag = (frag * decena) + tmp;
+		// Si frag*decena es menor que b2, el multiplicador me daría 0
+		if (frag < _b2) {
+			auxdig[i] = 0;
+			continue;
+		}
+		// Si llegué hasta acá es porque el divisor es a lo sumo 9 veces más chico que el dividendo parcial
+		// Busco el valor multiplicador (tiene que estar entre 1 y 9 por el if anterior)
+		bignum n;
+		for (n = unidad; frag - (n * _b2) >= _b2; n = n + unidad);
+		// Cargo ese número como el i-esimo decimal de auxdig
+		auxdig[i] = n.digits[0];
+		// Actualizo el valor de frag
+		frag = frag - (n * _b2);
+	}
+
+	bignum nuevo(signo, tam, auxdig);
+	delete[] auxdig;
+	return nuevo;
+}
+
+bool operator>=(const bignum& b1, const bignum& b2)
+{
+	return ((b1 > b2) || (b1 == b2));
+}
+
+bool operator>(const bignum &b1, const bignum &b2){
+	if(b1.sign == true && b2.sign == false) {
+		return false;
+	}
+	else if(b1.sign == false && b2.sign == true) {
+		return true;
+	}
+	else if (b1.sign == false) {
+		if(b1.size > b2.size){
+			return true;
+		}
+		else if(b2.size > b1.size){
+			return false;
+		}
+	}
+	else if(b1.sign == true) {
+		if(b1.size < b2.size){
+			return true;
+		}
+		else if(b2.size < b1.size){
+			return false;
+		}
+	}
+	for(size_t i = 0; i < b1.size; i++) {
+		if (b1.digits[i] == b2.digits[i])
+			continue;
+
+		return (b1.digits[i] < b2.digits[i]) ? b1.sign: !b1.sign;
+	}
+	return false;
+}
+
+bool operator<(const bignum& b1, const bignum& b2) {
+	if (b1 == b2)
+		return false;
+	return !(b1 > b2);
+}
+
+ostream& operator<<(ostream &out, const bignum &b) {
+	if(b.size==0){
+		out << "0";
+	}
+	if(b.sign) out << '-';
+	for (size_t i = 0; i < b.size; i++){
+		out << b.digits[i];
+	}
+	return out;
+}
+
+istream& operator>>(istream &in, bignum &b){
+	bool signo = false;
+	unsigned char c;
+	bignum n;
+
+	while(!in.eof()){
+		c = in.get();
+		if (isdigit(c))
+			n = n * bignum("10") + bignum(string(1, c));
+		else if (validate_dict(c,allow_opt))
+			continue;
+		else if (n.isEmpty() && c == '-')
+				signo = true;
+		else if(validate_dict(c,opt_dic)){
+			in.putback(c);
+			break;
+		}
+		else
+			break;
+	}
+	if (n.isEmpty()){
+		cerr << "Invalid input" << endl;
+		exit(1);
+	}
+	n.sign = signo;
+	b = n;
+	return in;
+}
+
+bool operator==(const bignum &a, const bignum &b){
+	if (a.isEmpty() && b.isEmpty()) {
+		return true;
+	}
+	if (a.isEmpty() || b.isEmpty()) {
+		return false;
+	}
+	return (a.size == b.size) && is_digits_equal(a.digits, b.digits, a.size) && (a.sign == b.sign);
+}
+
+bool bignum::isEmpty() const {
+	return this->digits == nullptr;
+}
