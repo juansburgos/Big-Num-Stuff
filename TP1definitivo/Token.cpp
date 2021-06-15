@@ -98,9 +98,14 @@ void Token::init(string str)
     this->clear(); // Limpia el token antes de inicializarlo
 
     name = str;
+    //cout << str << endl;
 
     if(isDigit(str[0]) || isDigit(str[1])) //Si el primer caracter es un numero o es un menos
     {
+        bignum aux;
+
+        //"12345" >> aux;
+
         //size_t idx;
         //int number; //Muteado -> antes era double
         //number = stoi(str, &idx); //Muteado -> antes era stod
@@ -159,13 +164,9 @@ void Token::init(string str)
             return;
         }
     }
-
-    // Guardo el string como variable
-    type = Token::VARIABLE;
-    value = (void *)new string(str);
-    priority = 0;
-    associativity = Token::UNDEF;
-    return;
+    //Si es una variable retorna error.
+    cout << "ERROR: Entrada invalida (LETRA)." << endl;
+    exit(1);
 }
 
 
@@ -215,11 +216,9 @@ void Token::operator=(Token &input){
                 value = input.value;
 
         }
-
     }
-
-
 }
+
 /*Esta metodo solo imprime el nombre del token*/
 void Token::print()
 {

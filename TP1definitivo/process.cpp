@@ -92,7 +92,9 @@ Stack<Token>* process_line(string const& arg) {
 	Stack <Token>* TKstk;
 	Stack <Token>* shunt; //Creo memoria dinámica.
 
+
 	string expresion = remove_spaces(arg, WHITESPACES);
+
 	if ((stk = read_math_expression(expresion)) == nullptr)
 	{
 		cout << "Error al leer la expresion" << endl;

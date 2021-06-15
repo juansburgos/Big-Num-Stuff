@@ -7,6 +7,7 @@
 
 const string MATH_NEG = "-1"; //GLOBALES
 const string MATH_SEPARATORS = "+-*/()"; //+-*/()^
+const string MATH_OPT = "+-*/"; //Validar doble operadores
 const string MATH_SIMBOLS = "eE"; // eE
 
 string pop_extension(const string& s) {
@@ -84,6 +85,10 @@ void do_math(Stack<string> *stk, string &acumulador, char c, char last_last_c) {
     }
 }
 
+bool validate_double_operator(const char &c, const char &lc, const string &operators) {
+    return containChar(operators, c) && containChar(operators, lc);
+}
+
 /*La siguiente funcion parte un string en separadores, pero manteniendolos
 en donde se encuentren. 
 Ejem: "3+3.5*sen(-9^2)", ----> "3", "+", "3.5", "*", "sen", "(", "-", "9", "^", "2", ")"
@@ -110,6 +115,11 @@ Stack<string> * read_math_expression(const string &input)
     char c, last_c, last_last_c;
     for (i = 0, last_c=0, last_last_c=0; (c = input[i]) != '\0'; i++, last_last_c = last_c, last_c = c) {
         //cout << "rm:" << c << endl;
+        if (validate_double_operator(c, last_c, MATH_OPT)) {
+            cout << "ERROR: Entrada invalida [doble operador]" << endl;
+            exit(1);
+        }
+
         if (containChar(MATH_SEPARATORS, c) != true) // Si no es un separador
         {
             if (last_c == MATH_SEPARATORS[OP_RESTA] && tolower(last_last_c) != MATH_SIMBOLS[SIMB_e] && last_last_c != MATH_SEPARATORS[OP_RP] && last_last_c == MATH_SEPARATORS[OP_LP]) { //Si es un numero, lo tomo como negativo, si es una funcion o una variable, la multiplico por (-1)
@@ -164,9 +174,6 @@ POSTCONDICIONES: Devuelve la cadena si espacios en los extremos
 "     hola    " --- fullTrim() ---> "hola" 
 "     hola que tal   " --- fullTrim() ---> "hola que tal"*/
 string fullTrim(string str){
-
-	
-
 	char c;
 	size_t i =0;
 
