@@ -1,0 +1,50 @@
+{
+  "FileVersion": 2,
+  "Id": "c7967c9f-522d-4a08-8aca-23ad59aee522",
+  "Items": [
+    {
+      "Id": "854f26da-faff-4974-97e0-993487481be8",
+      "Command": ""
+    },
+    {
+      "Id": "7db7dc54-ce89-4824-85c9-2f5c39839e30",
+      "Command": ""
+    },
+    {
+      "Id": "696faf6d-3897-4048-a80c-135375d18d9c",
+      "Command": "1 - 1"
+    },
+    {
+      "Id": "ec721af0-19da-486e-b2c5-162c1558153a",
+      "Command": "< 4-mixed.in > 4-mixed.out"
+    },
+    {
+      "Id": "c0e3de8f-2718-49ae-8d71-2a77c1e386c4",
+      "Command": "< 3-recursion.in > 3-recursion.out"
+    },
+    {
+      "Id": "27d8c287-23ff-4c4f-b5b9-3c54c7f2eb10",
+      "Command": "< 2-precision.in > 2-precision.out"
+    },
+    {
+      "Id": "cb348dd8-cda7-4da1-8c8e-f57b884d6ddc",
+      "Command": "< 1-spaces.in > 1-spaces.out"
+    },
+    {
+      "Id": "b3203aa4-d5ce-43c7-9e2b-624d580f8ab3",
+      "Command": "< 0-warmup.in > 0-warmup.out"
+    },
+    {
+      "Id": "140dc711-29cc-45c9-b265-52a6d8185de5",
+      "Command": "< pruebas.txt"
+    },
+    {
+      "Id": "fd5113d0-ec5a-4d81-96f9-220bf65d8bb3",
+      "Command": "-p 10"
+    },
+    {
+      "Id": "702a8e16-eb2d-4943-bf5a-0f2287f92f64",
+      "Command": "-p 10 < pruebas.txt"
+    }
+  ]
+}
