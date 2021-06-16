@@ -18,9 +18,9 @@ int main(int argc, char * const argv[]){
 
 	cout << method << endl;
 
-	if (process_input(iss, oss) == false){
+	if (process_input(iss, oss, method) == false){
 		return 1;
 	}
-	
+
 	return 0;
 }

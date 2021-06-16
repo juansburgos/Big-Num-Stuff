@@ -10,7 +10,7 @@ En este archivo se encuentran definidas todas las funciones que soporta el progr
 //Defino mi tipo de dato puntero a funcion
 typedef bignum(*unary_t)(bignum);
 typedef bignum(*binary_t)(bignum,bignum);
-typedef unary_t function_t;
+
 
 //Operadores
 bignum suma(bignum izq, bignum der);

@@ -128,7 +128,7 @@ Stack<Token>* shunting_yard2(Stack<Token>* input) {
         //actualToken.print();
         cout << endl;
 
-        
+
 
         switch (actualToken.getType())
             //Toma el tipo de Token si es numero pasa derecho a Output Stack pero si es un operador
@@ -202,7 +202,7 @@ Stack<Token>* shunting_yard2(Stack<Token>* input) {
                     operatorSTK->pop();
                 }
                 operatorSTK->push(actualToken);
-               
+
             }
             break;
         }
@@ -277,10 +277,11 @@ stackTK es el stack de tokens
 var el valor numerico
 PRECONDICIONES: El stack debe contener una expresion en postfix.
 POSTCONDICIONES: Retorna el valor de la expresion*/
-bignum evalPostfix(Stack<Token> * postfixTK){
+bignum evalPostfix(Stack<Token> * postfixTK, operaciones * ope){
     Stack<bignum> stackNumber;
     bignum izq, der;
     Token::type_t tp;
+    string op = {'*'};
 
     while(!postfixTK->empty()) // Mientras no se termine el stack con los tokens en postfix
     {
@@ -304,7 +305,10 @@ bignum evalPostfix(Stack<Token> * postfixTK){
             izq = stackNumber.top();
             stackNumber.pop();
 
-            izq = postfixTK->top().doBinary(izq, der);
+            if(op == postfixTK->top().getName())
+                izq = ope->multiplicar(izq, der);
+            else
+                izq = postfixTK->top().doBinary(izq, der);
 
             postfixTK->pop();
 

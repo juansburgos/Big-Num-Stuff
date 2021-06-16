@@ -16,16 +16,19 @@ endif
 
 #Make Main
 ifeq ($(OS),Windows_NT)
-tp0: main.o bignum.o cmdline.o utils.o process.o functions.o line_utils.o stringUtils.o Token.o
-	$(CC) $(CFLAGS) -o tp1.exe main.o bignum.o cmdline.o utils.o process.o functions.o line_utils.o stringUtils.o Token.o
+tp0: main.o bignum.o cmdline.o utils.o process.o functions.o line_utils.o stringUtils.o Token.o producto.o
+	$(CC) $(CFLAGS) -o tp1.exe main.o bignum.o cmdline.o utils.o process.o functions.o line_utils.o stringUtils.o Token.o producto.o
 else
-tp1: main.o bignum.o cmdline.o utils.o process.o functions.o line_utils.o stringUtils.o Token.o
-	$(CC) $(CFLAGS) -o tp1 main.o bignum.o cmdline.o utils.o process.o functions.o line_utils.o stringUtils.o Token.o
+tp1: main.o bignum.o cmdline.o utils.o process.o functions.o line_utils.o stringUtils.o Token.o producto.o
+	$(CC) $(CFLAGS) -o tp1 main.o bignum.o cmdline.o utils.o process.o functions.o line_utils.o stringUtils.o Token.o producto.o
 endif
 
 #Make Obj
 tests.o: tests.cpp cmdline.h bignum.h utils.h
 	$(CC) $(CFLAGS) -o tests.o  -c tests.cpp
+
+producto.o: producto.cpp producto.h bignum.h
+	$(CC) $(CFLAGS) -o producto.o  -c producto.cpp
 
 testprototypes.o: testprototypes.cpp tests.h
 	$(CC) $(CFLAGS) -o testprototypes.o  -c testprototypes.cpp

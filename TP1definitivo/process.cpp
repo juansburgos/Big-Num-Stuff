@@ -3,7 +3,6 @@
 
 static Stack<Token> postfixStack;
 static string variableName("z");
-static function_t function = nullptr;
 
 //Devuelve true cuando la precision es erronea
 bool check_precision(const bignum &x, const bignum &y, const size_t &precision) {
@@ -57,7 +56,7 @@ bool validateVar(const Stack<Token>* stackTK, string varName) {
 	{
 		if (aux.top().getType() == Token::VARIABLE)
 		{
-			if (aux.top().getName() != varName)// Si hay una variable distinta 
+			if (aux.top().getName() != varName)// Si hay una variable distinta
 				return false; // false porque solo se permite a varName
 		}
 		aux.pop();
@@ -71,10 +70,6 @@ PRECONDICIONES: Se debe inizializar la variable global postfixStack, no no funci
 Se debe verificar previamente que la variable compleja a usar sea la misma que la variable
 que posee el stack de tokens
 POSTCONDICIONES: Devuelve la expresion resuelta*/
-bignum evaluateExpression(bignum var) {
-	Stack<Token> aux(postfixStack);
-	return evalPostfix(&aux);;
-}
 
 void imp_stack_string(Stack<string> aux) {
 	while (!aux.empty()) {
@@ -139,14 +134,18 @@ Stack<Token>* process_line(string const& arg) {
 	//}
 
 	//delete shunt; // Se elimina la memoria dinamica shunt
-	//function = evaluateExpression;
 	//Necesito devolver la expresi�n matematica para despu�s procesarla en otra funci�n. Tiene que ser memoria din�mica
 	return shunt;
 }
 
 //Devuelve true cuando se procesa la entrada satisfactoriamente.
-bool process_input(istream *is, ostream *os){
-	bool st;
+bool process_input(istream *is, ostream *os, string method){
+	operaciones *ope;
+
+	if(method == "standard")
+		ope = new operaciones (new standard);
+	else
+		ope = new operaciones (new karatsuba);
 
 	string linea;
 	while (getline(*is, linea)){
@@ -155,11 +154,11 @@ bool process_input(istream *is, ostream *os){
 		Stack<Token>* stk = process_line(linea);
 		//stk->print();
 
-		bignum ans = evalPostfix(stk);
+		bignum ans = evalPostfix(stk, ope);
 		cout << ans << endl;
 		delete stk;
 	}
-	
+
 	/*if ((st = check_stream(is, os)) == false){
 		return st;
 	}*/

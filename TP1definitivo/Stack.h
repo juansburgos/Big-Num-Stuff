@@ -1,5 +1,5 @@
-/*Archivo Stack.h 
-En este archivo esta definida la clase Stack (Pila). 
+/*Archivo Stack.h
+En este archivo esta definida la clase Stack (Pila).
 Esta clase es una plantilla que permite almacenar variada cantidad de tipos*/
 #ifndef STACK__H
 #define STACK__H
@@ -14,15 +14,15 @@ using namespace std;
 template <typename T>
 class Stack{
 private:
-  
+
   // Esta clase define los nodos que contendran a los items del Stack
 	class nodo{
-		
+
 		friend class Stack;
 
 		T entry_;
 		nodo * next_;
-	  	
+
 	public:
 
 	  	nodo();
@@ -31,12 +31,12 @@ private:
 		nodo(nodo & item);
 		~nodo();
 	};
-	
+
 	nodo * top_;
 	size_t size_;
-	
+
 public:
-	
+
 	Stack(); // Crea un Stack vacío
 	Stack(const Stack & ); // Crea y copia una pila a partir de otra
 	Stack(const initializer_list<T> l); //crea un stack a partir de una lista de inicializadores
@@ -48,7 +48,7 @@ public:
 	bool empty() const; // Verifica si un stack está vacío o no
 	void push(T & item); // Inserta un nuevo item en el tope de la pila
 	void push(const T & item);
-	void pop(); // Elimina el elemento que esta en el tope del stack 
+	void pop(); // Elimina el elemento que esta en el tope del stack
 	T &  top(); // Devuelve una referencia al elemento que está en el tope del stack
 	T const & top() const; // Idem anterior, solo que no se puede modificar
 	void invert(); // Invierte un stack
@@ -57,7 +57,7 @@ public:
 
 	//Operadores
 	void operator=(const Stack & inp);
-	
+
 	//Imprimir
 	void print();
 };
@@ -105,7 +105,7 @@ Stack<T>::Stack(const Stack & in ) : top_(nullptr), size_(0)
 
 
 	if(!(in.empty()) ) // Si el stack a copiar no está vacío
-	{ 
+	{
 
 		nodo * actual_in = in.top_;
 		nodo * last = nullptr;
@@ -115,8 +115,8 @@ Stack<T>::Stack(const Stack & in ) : top_(nullptr), size_(0)
 			nodo * copy = new nodo(*actual_in); // Copia un nodo del stack in
 
 			if (top_ == nullptr) // Si es la primer pasada
-			{	
-				top_ = copy;	
+			{
+				top_ = copy;
 			}
 			else
 			{
@@ -133,7 +133,7 @@ Stack<T>::Stack(const Stack & in ) : top_(nullptr), size_(0)
 
 
 	}
-	
+
 
 }
 
@@ -145,7 +145,7 @@ Stack<T>::Stack(const initializer_list<T> l): top_(nullptr), size_(0)
 	nodo * copy;
 	nodo * last;
 	for(T i: l) // Para cada elemento de la lista de inicializadores
-	{	
+	{
 		copy = new nodo(i); // Crea un nodo del stack
 
 		if(top_ == nullptr)
@@ -182,7 +182,7 @@ Stack<T>::~Stack()
 /*METODOS*/
 
 template <typename T>
-bool Stack<T>::empty()const 
+bool Stack<T>::empty()const
 {
 	return (top_ == nullptr)? true:false; // Si en el tope del stack no hay nada entonces está vacío
 }
@@ -193,12 +193,12 @@ PRECONDICIONES: La pila esta creada
 POSTCONDICIONES: En el tope de la pila tiene insertado el elemento T*/
 template <typename T>
 void Stack<T>::push(T &item){
-	
+
 	nodo * newTop = new nodo(item); // Crea un nodo inicializado con item
 
-	if (!(this->empty())) // si el stack no está vacio 
+	if (!(this->empty())) // si el stack no está vacio
 	{
-		newTop->next_ = top_; 
+		newTop->next_ = top_;
 	}
 
 	top_ = newTop;
@@ -210,12 +210,12 @@ PRECONDICIONES: La pila esta creada
 POSTCONDICIONES: En el tope de la pila tiene insertado el elemento T*/
 template <typename T>
 void Stack<T>::push(const T &item){
-	
+
 	nodo * newTop = new nodo(item); // Crea un nodo inicializado con item
 
-	if (!(this->empty())) // si el stack no está vacio 
+	if (!(this->empty())) // si el stack no está vacio
 	{
-		newTop->next_ = top_; 
+		newTop->next_ = top_;
 	}
 
 	top_ = newTop;
@@ -244,20 +244,20 @@ template<typename T>
 void Stack<T>::invert(){
 
 	if(!this->empty()) // Si el stack no esta vacío
-	{	
-		nodo * top = nullptr; // Stack 
+	{
+		nodo * top = nullptr; // Stack
 		nodo * prev = nullptr;
 
-		// Desapila el stack y lo reapila en un stack 
+		// Desapila el stack y lo reapila en un stack
 		// cuyo tope es top
-		while(top_ != nullptr)  
+		while(top_ != nullptr)
 		{
-			
+
 			top = top_;
 			top_ = top_->next_;
 			top-> next_ = prev;
-			prev = top;	
-			
+			prev = top;
+
 		}
 
 		top_ = top; // Asigna el stack invertido
@@ -268,7 +268,7 @@ void Stack<T>::invert(){
 /*Este metodo retorna una refencia al elemento que esta
 en el tope de la pila.
 PRECONDICIONES: La pila no debe estar vacia
-POSTCONDICIONES: Se devuelve una referencia al elemento que esta en el 
+POSTCONDICIONES: Se devuelve una referencia al elemento que esta en el
 tope. El elemento se puede modificar*/
 template <typename T>
 T & Stack<T>::top()
@@ -280,7 +280,7 @@ T & Stack<T>::top()
 /*Este metodo retorna una refencia al elemento que esta
 en el tope de la pila.
 PRECONDICIONES: La pila no debe estar vacia
-POSTCONDICIONES: Se devuelve una referencia al elemento que esta en el 
+POSTCONDICIONES: Se devuelve una referencia al elemento que esta en el
 tope. El elemento NO se puede modificar*/
 template <typename T>
 T const & Stack<T>::top() const
@@ -326,7 +326,7 @@ void Stack<T>::operator=(const Stack & in){
 		this->clear(); //Borra el stack
 
 		if(!(in.empty()) ) // Si el stack a copiar no está vacío
-		{ 
+		{
 
 			nodo * actual_in = in.top_;
 			nodo * last = nullptr;
@@ -336,8 +336,8 @@ void Stack<T>::operator=(const Stack & in){
 				nodo * copy = new nodo(*actual_in); // Copia un nodo del stack in
 
 				if (top_ == nullptr) // Si es la primer pasada
-				{	
-					top_ = copy;	
+				{
+					top_ = copy;
 				}
 				else
 				{

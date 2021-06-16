@@ -8,11 +8,12 @@
 //#include "bignum.h" //MUTEADO
 #include "bignum.h"
 #include "functions.h" //MUTEADO
+#include "producto.h"
 
 using namespace std;
 
 Stack<Token>* shunting_yard(Stack<Token> * input);
 Stack<Token>* shunting_yard2(Stack<Token>* input);
 Stack<Token>* createStackTokens(Stack<string>*input);
-bignum evalPostfix(Stack<Token> * postfixTK);
+bignum evalPostfix(Stack<Token> * postfixTK, operaciones * ope);
 #endif
