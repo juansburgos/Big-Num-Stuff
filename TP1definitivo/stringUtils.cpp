@@ -102,8 +102,19 @@ su uso.
 */
 Stack<string> * read_math_expression(const string &input)
 {
+
     Stack<string> * stk = new Stack<string>; 
     string acumulador; // string donde se iran guardando las substrings de input
+
+    if(containChar(MATH_OPT,input[0])&& input[0] != MATH_SEPARATORS[OP_RESTA] && isdigit(input[1])){
+        cerr << "Falta un numero" << endl;
+        exit(1);
+    }
+
+    if(containChar(MATH_OPT,input[input.size()-1])){
+            cerr << "Falta un numero" << endl;
+            exit(1);
+    }
 
     if(input.empty() == true)// Si el input está vacío
     {
@@ -114,7 +125,7 @@ Stack<string> * read_math_expression(const string &input)
     size_t i =0;
     char c, last_c, last_last_c;
     for (i = 0, last_c=0, last_last_c=0; (c = input[i]) != '\0'; i++, last_last_c = last_c, last_c = c) {
-        //cout << "rm:" << c << endl;
+
         if (validate_double_operator(c, last_c, MATH_OPT)) {
             cout << "ERROR: Entrada invalida [doble operador]" << endl;
             exit(1);

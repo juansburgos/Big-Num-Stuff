@@ -296,7 +296,9 @@ bignum evalPostfix(Stack<Token> * postfixTK, operaciones * ope){
             continue;
         }
         else if(tp == Token::BINARY_OP)
-        {
+        {   
+
+            
             der = stackNumber.top();
             stackNumber.pop();
             if (stackNumber.empty()) { //caso -(1) AGREGADO
