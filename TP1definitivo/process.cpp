@@ -151,6 +151,10 @@ bool process_input(istream *is, ostream *os, string method){
 	while (getline(*is, linea)){
 		//cout << linea << endl;
 		//cout << "=============================================" << endl;
+		if(!isBalanced(linea)){
+			cerr << "ERROR: Cadena no balanceada" << endl;
+			exit(1);
+		}
 		Stack<Token>* stk = process_line(linea);
 		//stk->print();
 

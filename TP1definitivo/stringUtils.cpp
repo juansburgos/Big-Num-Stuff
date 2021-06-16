@@ -10,6 +10,52 @@ const string MATH_SEPARATORS = "+-*/()"; //+-*/()^
 const string MATH_OPT = "+-*/"; //Validar doble operadores
 const string MATH_SIMBOLS = "eE"; // eE
 
+bool isBalanced(string expr){
+
+    // Creo el stack
+    Stack<char> s;
+    char c;
+
+    for(unsigned int i = 0; i < expr.length(); i++){
+
+        // Cargo el caracter a parsear
+        c = expr[i];
+
+        // Si abro una expresi�n, pusheo el caracter al stack
+        if( c == '(' || c == '[' || c == '{' ){
+            if (c == '(')
+                s.push(')');
+            else if(c == '{')
+                s.push('}');
+            else
+                s.push(']');
+           }
+
+        // Si se cierra una expresi�n, tengo que chequear que coincida con la ultima que fue abierta
+        if( c == ')' || c == ']' || c == '}' ){
+
+            // Si el stack esta vacio, significa que no hay nada abierto.
+            // Por lo tanto, no se puede cerrar nada y la cadena esta desbalanceada
+            if( s.empty() == true)
+                return false;
+
+            // En caso contrario, debe chequear que se cierre lo ultimo que se abrio
+            if( c != s.top())
+                return false;
+            else
+                s.pop();
+        }
+    } //for
+
+    // Si algo quedo "abierto", la cadena no esta balanceada
+    if(s.empty() != true)
+        return false;
+
+    // Si logre iterar sobre todo el string y el stack quedo vacio, entonces la cadena esta balanceada.
+
+    return true;
+}
+
 string pop_extension(const string& s) {
     string ss = s;
     ss.pop_back(); ss.pop_back(); ss.pop_back(); ss.pop_back();
@@ -90,11 +136,11 @@ bool validate_double_operator(const char &c, const char &lc, const string &opera
 }
 
 /*La siguiente funcion parte un string en separadores, pero manteniendolos
-en donde se encuentren. 
+en donde se encuentren.
 Ejem: "3+3.5*sen(-9^2)", ----> "3", "+", "3.5", "*", "sen", "(", "-", "9", "^", "2", ")"
 siendo que los separadores son "+/-*" etc.
 Luego los almacena en un stack donde el tope es el primer substring obtenida
-y asi siguiendo. 
+y asi siguiendo.
 Precondiciones: input y separators deben estar correctamente inicializados
 POSTCONDICIONES: Se crea un stack con todas las substrings obtenidas de
 input. El stack USA MEMORIA DINAMICA con lo cual debe eliminarse despues de
@@ -103,7 +149,7 @@ su uso.
 Stack<string> * read_math_expression(const string &input)
 {
 
-    Stack<string> * stk = new Stack<string>; 
+    Stack<string> * stk = new Stack<string>;
     string acumulador; // string donde se iran guardando las substrings de input
 
     if(containChar(MATH_OPT,input[0])&& input[0] != MATH_SEPARATORS[OP_RESTA] && isdigit(input[1])){
@@ -139,7 +185,7 @@ Stack<string> * read_math_expression(const string &input)
             acumulador.push_back(c);
             continue;
         }
-        
+
         if (acumulador.empty() != true) // si el acumulador no está vacío
         {
             if (is_scientific_notation(c, last_c) == true) { //es una notacion cientifica?
@@ -166,7 +212,7 @@ Stack<string> * read_math_expression(const string &input)
     stk->invert(); // se invierte el stack
     return stk;
 }
-/*La siguiente funcion verifica si c esta dentro de la cadena 
+/*La siguiente funcion verifica si c esta dentro de la cadena
 input
 PRECONDICIONES: NINGUNA
 POSTCONDICIONES: Devuelve true si se encontró el caracter c en input, false en
@@ -182,7 +228,7 @@ bool containChar(const string & input, char c)
 /*La siguiente funcion quita los espacios a los extremos de un string
 PRECONDICIONES: NINGUNA
 POSTCONDICIONES: Devuelve la cadena si espacios en los extremos
-"     hola    " --- fullTrim() ---> "hola" 
+"     hola    " --- fullTrim() ---> "hola"
 "     hola que tal   " --- fullTrim() ---> "hola que tal"*/
 string fullTrim(string str){
 	char c;
@@ -191,7 +237,7 @@ string fullTrim(string str){
 	while(((c = str[i]) == ' ' || c == '\t' || c == '\n') && c != '\0')
 		i++;
 
-	str.erase(0,i);// Borra los caracteres blancos desde cero hasta i 
+	str.erase(0,i);// Borra los caracteres blancos desde cero hasta i
 
 	if(c != '\0')
 	{
@@ -209,4 +255,3 @@ string fullTrim(string str){
 /*La siguiente funcion reemplaza todos las substring oldPor
 que se encuentre */
 string replaceAll(string input, string oldPor, string newPor);
-
