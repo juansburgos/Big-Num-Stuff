@@ -84,13 +84,13 @@ void imp_stack_string(Stack<string> aux) {
 }
 
 /*
-	Se ingresa una expresión matemática para hacer las operaciones correspondientes.
-	arg: expresión en string: 10+21-(31*100+1)/20
+	Se ingresa una expresiï¿½n matemï¿½tica para hacer las operaciones correspondientes.
+	arg: expresiï¿½n en string: 10+21-(31*100+1)/20
 */
 Stack<Token>* process_line(string const& arg) {
 	Stack<string>* stk;
 	Stack <Token>* TKstk;
-	Stack <Token>* shunt; //Creo memoria dinámica.
+	Stack <Token>* shunt; //Creo memoria dinï¿½mica.
 
 
 	string expresion = remove_spaces(arg, WHITESPACES);
@@ -140,12 +140,12 @@ Stack<Token>* process_line(string const& arg) {
 
 	//delete shunt; // Se elimina la memoria dinamica shunt
 	//function = evaluateExpression;
-	//Necesito devolver la expresión matematica para después procesarla en otra función. Tiene que ser memoria dinámica
+	//Necesito devolver la expresiï¿½n matematica para despuï¿½s procesarla en otra funciï¿½n. Tiene que ser memoria dinï¿½mica
 	return shunt;
 }
 
 //Devuelve true cuando se procesa la entrada satisfactoriamente.
-bool process_input(istream *is, ostream *os, size_t precision){
+bool process_input(istream *is, ostream *os){
 	bool st;
 
 	string linea;

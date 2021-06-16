@@ -16,16 +16,9 @@ int main(int argc, char * const argv[]){
 	cmdline cmdl(options);
 	cmdl.parse(argc, argv);
 
-	/*string expresion("	(-1 ) * 5	+	1 + (3	)");
-	cout << "Antes:" << expresion << endl;
-	cout << "Despues:" << remove_spaces(expresion, " \f\r\t\v") << endl;*/
+	cout << method << endl;
 
-	/*Stack<Token>* stk = process_line(expresion);
-	stk->print();
-	bignum ans = evalPostfix(stk);
-
-	cout << "ans: " << ans << endl;*/
-	if (process_input(iss, oss, precision) == false){
+	if (process_input(iss, oss) == false){
 		return 1;
 	}
 	

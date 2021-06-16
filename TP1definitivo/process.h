@@ -23,5 +23,5 @@ Stack<Token>* process_line(string const& arg);
 bool check_precision(const bignum &x, const bignum &y, const size_t &precision);
 bool validate_opts(const char &op);
 bool check_stream(istream* is, ostream* os);
-bool process_input(istream *is, ostream *os, size_t precision);
+bool process_input(istream *is, ostream *os);
 #endif

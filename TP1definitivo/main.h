@@ -23,21 +23,57 @@ using namespace std;
 /***** CMDLINE config ********************************************************/
 static void opt_input(string const&);
 static void opt_output(string const&);
-static void opt_precision(string const&);
 static void opt_help(string const&);
+static void opt_method(string const&);
 
 static option_t options[] = {
+	{1, "m", "method", "-", opt_method, OPT_DEFAULT},
 	{1, "i", "input", "-", opt_input, OPT_DEFAULT},
 	{1, "o", "output", "-", opt_output, OPT_DEFAULT},
-	{1, "p", "precision", "-", opt_precision, OPT_DEFAULT}, /*opt_precision*/
 	{0, "h", "help", NULL, opt_help, OPT_DEFAULT},
 	{0, },
 };
-static size_t precision;
+
+static string method;
 static istream* iss = 0;
 static ostream* oss = 0;
 static fstream ifs;
 static fstream ofs;
+
+static void
+opt_method(string const& arg)
+{
+	istringstream iss(arg);
+	if (arg == "-") {
+		method = "karatsuba";
+		return;
+	}
+
+	if (!(iss >> method)|| !iss.eof()) {
+			cerr << " "
+			<< arg
+			<< "."
+			<< endl;
+			exit(1);
+	}
+
+	if (method != "standard" || method != "karatsuba"){
+					cerr << arg
+					<< " es un metodo incorrecto "
+					<< "."
+					<< endl;
+					exit(1);
+				}
+
+
+	if (iss.bad()) {
+		cerr << "Metodo incorrecto."
+			<< endl;
+		exit(1);
+	}
+}
+
+
 
 static void
 opt_input(string const& arg)
@@ -91,41 +127,11 @@ opt_output(string const& arg)
 	}
 }
 
-static void
-opt_precision(string const& arg)
-{
-	istringstream iss(arg);
-
-	// Intentamos extraer el factor de la l�nea de comandos.
-	// Para detectar argumentos que �nicamente consistan de
-	// n�meros enteros, vamos a verificar que EOF llegue justo
-	// despu�s de la lectura exitosa del escalar.
-	//
-	if (arg == "-") {
-		precision = 10;
-		return;
-	}
-
-	if (!(iss >> precision)
-		|| !iss.eof()) {
-		cerr << "non-integer precision: "
-			<< arg
-			<< "."
-			<< endl;
-		exit(1);
-	}
-
-	if (iss.bad()) {
-		cerr << "cannot read integer precision."
-			<< endl;
-		exit(1);
-	}
-}
 
 static void
 opt_help(string const& arg)
 {
-	cout << "cmdline -p precision [-i file] [-o file]"
+	cout << "cmdline -m method [-i file] [-o file]"
 		<< endl;
 	exit(0);
 }
