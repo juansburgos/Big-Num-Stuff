@@ -5,12 +5,10 @@
 pro::~pro(){}
 
 bignum standard::multi(const bignum& b1, const bignum& b2)const {
-    cout << "MULTI STANDARD" << endl;
     return b1*b2;
 }
 
 bignum karatsuba::multi(const bignum& b1, const bignum& b2)const {
-    cout << "MULTI KARATSUBA" << endl;
     if((b1.get_size() == 1 && b1.get_digit(0) == 0) || (b2.get_size() == 1 && b2.get_digit(0) == 0)) {
 		bignum zero("0");
 		return zero;

@@ -16,8 +16,6 @@ int main(int argc, char * const argv[]){
 	cmdline cmdl(options);
 	cmdl.parse(argc, argv);
 
-	cout << method << endl;
-
 	if (process_input(iss, oss, method) == false){
 		return 1;
 	}
