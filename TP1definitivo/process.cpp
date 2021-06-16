@@ -141,7 +141,7 @@ Stack<Token>* process_line(string const& arg) {
 	//delete shunt; // Se elimina la memoria dinamica shunt
 	//function = evaluateExpression;
 	//Necesito devolver la expresión matematica para después procesarla en otra función. Tiene que ser memoria dinámica
-	return new Stack<Token>(*shunt);
+	return shunt;
 }
 
 //Devuelve true cuando se procesa la entrada satisfactoriamente.
@@ -157,6 +157,7 @@ bool process_input(istream *is, ostream *os, size_t precision){
 
 		bignum ans = evalPostfix(stk);
 		cout << ans << endl;
+		delete stk;
 	}
 	
 	/*if ((st = check_stream(is, os)) == false){
