@@ -14,13 +14,7 @@ private:
     pro *producto_;
 public:
     operaciones(pro *producto = nullptr) : producto_(producto){}
-    ~operaciones(){
-        delete this->producto_;
-    }
-    void set_producto(pro *producto){
-        delete this->producto_;
-        this->producto_ = producto;
-    }
+    ~operaciones(){delete this->producto_;};
     bignum multiplicar(const bignum a, const bignum b) const{
         return this->producto_->multi(a, b);
     }
@@ -28,15 +22,16 @@ public:
 
 class standard : public pro {
 public:
-    standard();
-    ~standard();
+    standard(){};
+    ~standard(){};
     bignum multi(const bignum&, const bignum&)const override;
 };
 
 class karatsuba : public pro {
 public:
-    karatsuba();
-    ~karatsuba();
+    karatsuba(){};
+    ~karatsuba(){};
     bignum multi(const bignum&, const bignum&)const override;
 };
+
 #endif

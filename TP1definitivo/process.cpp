@@ -143,9 +143,9 @@ bool process_input(istream *is, ostream *os, string method){
 	operaciones *ope;
 
 	if(method == "standard")
-		ope = new operaciones (new standard);
-	else
 		ope = new operaciones (new karatsuba);
+	else
+		ope = new operaciones (new standard);
 
 	string linea;
 	while (getline(*is, linea)){
@@ -159,6 +159,7 @@ bool process_input(istream *is, ostream *os, string method){
 		delete stk;
 	}
 
+	delete ope;
 	/*if ((st = check_stream(is, os)) == false){
 		return st;
 	}*/

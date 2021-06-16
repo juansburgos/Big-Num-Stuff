@@ -29,6 +29,12 @@ public:
 
 	//Geters
 	const size_t & get_size() const { return size; }
+	const bool & get_sign() const { return sign; }
+	const unsigned short & get_digit(int i) const { return digits[i]; }
+
+	void set_sign(bool s){
+		this->sign = s;
+	}
 
 	//Operadores
 	bignum const& operator=(const bignum&);
