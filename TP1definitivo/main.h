@@ -56,8 +56,8 @@ opt_method(string const& arg)
 			<< endl;
 			exit(1);
 	}
-
-	if (method != "standard" || method != "karatsuba"){
+		
+	if (method != "standard" && method != "karatsuba"){
 					cerr << arg
 					<< " es un metodo incorrecto "
 					<< "."
