@@ -44,26 +44,6 @@ bool check_stream(istream* is, ostream* os) {
 	return true;
 }
 
-/*La siguiente funcion valida que el stack de tokens posea
-una sola variable y sea varName
-PRECONDICIONES: ninguna
-POSTCONDICIONES: Devuelve true si la variable esta correcta, false si no */
-bool validateVar(const Stack<Token>* stackTK, string varName) {
-
-	Stack<Token> aux = *stackTK; // Se copia el stack para no modificarlo
-
-	while (!aux.empty())
-	{
-		if (aux.top().getType() == Token::VARIABLE)
-		{
-			if (aux.top().getName() != varName)// Si hay una variable distinta
-				return false; // false porque solo se permite a varName
-		}
-		aux.pop();
-	}
-
-	return true;
-}
 
 /*La siguiente funcion evalua una expresion matematica ingresada por argumento
 PRECONDICIONES: Se debe inizializar la variable global postfixStack, no no funciona
@@ -95,9 +75,6 @@ Stack<Token>* process_line(string const& arg) {
 		cout << "Error al leer la expresion" << endl;
 		exit(1);
 	}
-	//cout << "=======STRING======" << endl;
-	//imp_stack_string(*stk);
-	//cout << "<<<<<<TOKENS<<<<<<<" << endl;
 
 	if ((TKstk = createStackTokens(stk)) == nullptr)
 	{
@@ -106,16 +83,6 @@ Stack<Token>* process_line(string const& arg) {
 		exit(1);
 	}
 	delete stk;
-
-	//En este caso no hay variables Z, entonces como vamos a resolver operaciones. Se tiene que sacar.
-	//if (!validateVar(TKstk, variableName)) // Si se ingresa una variable que no es del programa. Tira error.
-	//{
-	//	cout << "Error no se reconocen variables" << endl;
-	//	delete TKstk;
-	//	exit(1);
-	//}
-	//TKstk->print();
-	//cout << ">>>>>>>SHUNTING>>>>>>>>" << endl;
 	if ((shunt = shunting_yard(TKstk)) == nullptr)
 	{
 		cout << "Error al crear stack de tokens" << endl;
@@ -123,18 +90,7 @@ Stack<Token>* process_line(string const& arg) {
 		exit(1);
 	}
 	delete TKstk;
-	//cout << "====SHUNTING====" << endl;
-	//shunt->print();
-	//cout << "====================" << endl;
-	//postfixStack = *shunt; // se inicializa la variable postfixStack
-	//while (!shunt->empty()) {
-	//	//cout<< shunt->top().getName() << endl;
-	//	shunt->top().print();
-	//	shunt->pop();
-	//}
 
-	//delete shunt; // Se elimina la memoria dinamica shunt
-	//Necesito devolver la expresi�n matematica para despu�s procesarla en otra funci�n. Tiene que ser memoria din�mica
 	return shunt;
 }
 
@@ -149,23 +105,16 @@ bool process_input(istream *is, ostream *os, string method){
 
 	string linea;
 	while (getline(*is, linea)){
-		//cout << linea << endl;
-		//cout << "=============================================" << endl;
 		if(!isBalanced(linea)){
 			cerr << "ERROR: Cadena no balanceada" << endl;
 			exit(1);
 		}
 		Stack<Token>* stk = process_line(linea);
-		//stk->print();
-
 		bignum ans = evalPostfix(stk, ope);
 		cout << ans << endl;
 		delete stk;
 	}
-
 	delete ope;
-	/*if ((st = check_stream(is, os)) == false){
-		return st;
-	}*/
+
 	return true;
 }

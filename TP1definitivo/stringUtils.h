@@ -14,11 +14,6 @@ enum SIMB { SIMB_e=0, SIMB_E=1};
 static string WHITESPACES = " \f\r\t\v";
 
 						/*PROTOTIPOS*/
-
-/*Parte un string en separadores, pero manteniendo todos los separadores
-Ejem: "3+3.5*sen(-9^2)", ----> "3", "+", "3.5", "*", "sen", "(", "-", "9", "^", "2", ")"
-siendo que los separadores son "*+-/" etc.
-*/
 Stack<string> * read_math_expression(const string &input);
 string pop_extension(const string& s);
 string pop_n(string ss, int n);
@@ -29,6 +24,5 @@ bool isBalanced(string expr);
 
 string fullTrim(string str);
 string remove_spaces(string s, string cads);
-string replaceAll(string input, string oldPor, string newPor);
 
 #endif

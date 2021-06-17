@@ -1,6 +1,3 @@
-/*Archivo Stack.h
-En este archivo esta definida la clase Stack (Pila).
-Esta clase es una plantilla que permite almacenar variada cantidad de tipos*/
 #ifndef STACK__H
 #define STACK__H
 
@@ -102,8 +99,6 @@ template <typename T>
 Stack<T>::Stack(const Stack & in ) : top_(nullptr), size_(0)
 {
 //Crea un stack y copia el contenido de in
-
-
 	if(!(in.empty()) ) // Si el stack a copiar no está vacío
 	{
 
@@ -129,12 +124,7 @@ Stack<T>::Stack(const Stack & in ) : top_(nullptr), size_(0)
 			size_++;
 
 		}
-
-
-
 	}
-
-
 }
 
 

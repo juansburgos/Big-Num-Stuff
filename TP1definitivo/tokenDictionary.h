@@ -11,7 +11,7 @@ using namespace std;
 
 struct Lexicon{
 	/*Contiene la información de un token*/
-	enum type_t{UNARY_OP, BINARY_OP, CONSTANT, LEFT_PAREN, RIGHT_PAREN, END_DICT };
+	enum type_t{BINARY_OP, LEFT_PAREN, RIGHT_PAREN, END_DICT };
 	enum associativity_t {LEFT, RIGHT, UNDEFINED};
 
 	string name; // Nombre

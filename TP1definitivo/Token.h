@@ -10,15 +10,12 @@ using namespace std;
 class Token
 {
 public:
-    enum type_t 
+    enum type_t
     {
-        UNARY_OP,
         BINARY_OP,
         NUMBER,
-        CONSTANT,
-        VARIABLE, 
-        LEFT_PAREN, 
-        RIGHT_PAREN, 
+        LEFT_PAREN,
+        RIGHT_PAREN,
         UNDEFINED};
     enum associativity_t {LEFT, RIGHT, UNDEF};
 private:
@@ -33,14 +30,13 @@ public:
     Token(string str); // Construye e inicializa parseando
     Token(Token & in); // Constructor copia
     //DESTRUCTOR
-    ~Token(); 
+    ~Token();
 
     //Miembros
-    void init(string str); // Inicializa y parsea 
+    void init(string str); // Inicializa y parsea
     void clear(); // Reinicia los atributos del token
     void print(); // Imprime por pantalla el token
     void operator=(Token &input); // Copia
-    bignum doUnary(bignum z); // Resuelve el token unario
     bignum doBinary(bignum izq, bignum der); // Resuelve el token binario
     bignum getNumber(); // Devuelve el numero
 

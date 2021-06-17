@@ -17,17 +17,5 @@ bignum suma(bignum izq, bignum der);
 bignum resta(bignum izq, bignum der);
 bignum producto(bignum izq, bignum der);
 bignum division(bignum izq, bignum der);
-bignum potencia(bignum izq, bignum der);
-bignum Re( bignum comp);
-bignum Im( bignum comp);
-bignum Abs( bignum comp);
-bignum phase( bignum comp);
-
-
-//Firmas de funciones
-bignum logz(bignum z);
-bignum cosz(bignum z);
-bignum sinz(bignum z);
-bignum expz(bignum z);
 
 #endif

@@ -13,34 +13,15 @@ using namespace std;
 /*Funciones AD HOC*/
 bool isDigit(char c);
 
-/*Constantes del programa*/
-//const bignum PI(3.14159265358979323846 ,0); //Muteado
-//const bignum I(0,1); //Muteado
-
 /*Diccionario con todos los tokens*/
 Lexicon dictionary[] = {
     /*{name, type, priority, value}*/
-    //Operadores
     {"-", Lexicon::BINARY_OP, 4,  Lexicon::LEFT,(void*)resta},
     {"+", Lexicon::BINARY_OP, 4,  Lexicon::LEFT, (void*)suma},
     {"*", Lexicon::BINARY_OP, 5,  Lexicon::LEFT, (void *)producto},
     {"/", Lexicon::BINARY_OP, 5,  Lexicon::LEFT,(void*)division},
-    //{"^", Lexicon::BINARY_OP, 4,  Lexicon::RIGHT,(void*)potencia},
     {")", Lexicon::RIGHT_PAREN, 0, Lexicon::UNDEFINED, nullptr},
     {"(", Lexicon::LEFT_PAREN, 0,  Lexicon::UNDEFINED,nullptr},
-    //Funciones
-    //{"sen", Lexicon::UNARY_OP, 6,  Lexicon::LEFT,(void*) sinz},
-    //{"cos", Lexicon::UNARY_OP, 6,  Lexicon::LEFT,(void*) cosz},
-    //{"exp", Lexicon::UNARY_OP, 6,  Lexicon::LEFT,(void*) expz},
-    //{"log", Lexicon::UNARY_OP, 6,  Lexicon::LEFT,(void*) logz},
-    //{"ln", Lexicon::UNARY_OP, 6,  Lexicon::LEFT, (void*) logz},
-    //{"re", Lexicon::UNARY_OP, 6,  Lexicon::LEFT, (void*) Re},
-    //{"im", Lexicon::UNARY_OP, 6,  Lexicon::LEFT, (void*) Im},
-    //{"abs", Lexicon::UNARY_OP, 6,  Lexicon::LEFT,(void*) Abs},
-    //{"phase", Lexicon::UNARY_OP, 6,  Lexicon::LEFT,(void*) phase},
-    //Constantes
-    //{"i", Lexicon::CONSTANT, 0, Lexicon::UNDEFINED, (void *)&I}, //Muteado
-    //{"PI", Lexicon::CONSTANT, 0, Lexicon::UNDEFINED, (void *)&PI}, //Muteado
     {"", Lexicon::END_DICT, 0, Lexicon::UNDEFINED, nullptr}
 };
 
@@ -76,9 +57,6 @@ Token::Token(Token &in){
         case Token::NUMBER:
             value = (void *) new bignum(*( (bignum*)in.value ) );
             break;
-        case Token::VARIABLE:
-            value = (void *) new string(*( (string *)in.value ) );
-            break;
         default:
             value = in.value;
 
@@ -98,24 +76,9 @@ void Token::init(string str)
     this->clear(); // Limpia el token antes de inicializarlo
 
     name = str;
-    //cout << str << endl;
 
     if(isDigit(str[0]) || isDigit(str[1])) //Si el primer caracter es un numero o es un menos
     {
-        bignum aux;
-
-        //"12345" >> aux;
-
-        //size_t idx;
-        //int number; //Muteado -> antes era double
-        //number = stoi(str, &idx); //Muteado -> antes era stod
-
-        //if(str[idx] != '\0' ) //
-        //{
-        //    type = Token::UNDEFINED; //Las variables comienzan sin numeros
-        //    value = nullptr;
-        //    return;
-        //}
         type = Token::NUMBER;
         value = (void *)new bignum(str); //Si es número lo convierto en bignum
         associativity = Token::UNDEF;
@@ -129,14 +92,8 @@ void Token::init(string str)
         if(str == dictionary[i].name) // Si lo encontraste en el diccionario
         {
             switch(dictionary[i].type){
-                case Lexicon::UNARY_OP:
-                    type = Token::UNARY_OP;
-                    break;
                 case Lexicon::BINARY_OP:
                     type = Token::BINARY_OP;
-                    break;
-                case Lexicon::CONSTANT:
-                    type = Token::CONSTANT;
                     break;
                 case Lexicon::LEFT_PAREN:
                     type = Token::LEFT_PAREN;
@@ -181,9 +138,6 @@ void Token::clear()
         case Token::NUMBER:
             delete (bignum *)value;
             break;
-        case Token::VARIABLE:
-            delete (string *)value;
-            break;
         default:
             break;
     }
@@ -209,9 +163,6 @@ void Token::operator=(Token &input){
             case Token::NUMBER:
                 value = (void *) new bignum(*( (bignum*)input.value ) );
                 break;
-            case Token::VARIABLE:
-                value = (void *) new string(*( (string *)input.value ) );
-                break;
             default:
                 value = input.value;
 
@@ -223,14 +174,6 @@ void Token::operator=(Token &input){
 void Token::print()
 {
     cout << name <<endl;
-}
-
-/*Resuelve una expresion unaria.
-PRECONDICIONES: El token debe ser de tipo unario
-POSTCONDICIONES: Resuelve la exprecion*/
-bignum Token::doUnary(bignum z)
-{
-    return ((unary_t)value)(z);
 }
 
 /*Resuelve una expresion binaria.

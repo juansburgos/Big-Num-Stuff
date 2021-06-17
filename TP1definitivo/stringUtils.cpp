@@ -71,10 +71,8 @@ string pop_n(string ss,int n)
 int remplace_1(string& my_str, const string& sub_str, const char c) {
     int index;
 
-    //replace all Hello with welcome
-    index = my_str.find(c);    //for each location where Hello is found
-    my_str.replace(index, 1, sub_str, 0, sub_str.length()); //remove and replace from that position
-    //my_str.insert(index, sub_str);
+    index = my_str.find(c);
+    my_str.replace(index, 1, sub_str, 0, sub_str.length());
 
     return index;
 }
@@ -113,17 +111,12 @@ void do_math(Stack<string> *stk, string &acumulador, char c, char last_last_c) {
         if (last_last_c < 57 && last_last_c > 48) {
             return;
         }
-        string top = stk->top(); //-sen(..)
+        string top = stk->top();
         stk->pop();
-        /*if (last_last_c != 0) {
-            stk->push(string(1, '+'));
-        }*/
         acumulador.append(top);
     }
     else {
-        //Si es una funcion o una variable, me voy a fijar el X que tenga a la izquierda del operador. Si tiene un X, pusheo +.:
-        stk->pop();//saco el -
-        //const string separators = "+-*/^()"; //GLOBAL
+        stk->pop();
         if (last_last_c != 0 && containChar(MATH_SEPARATORS, last_last_c)==false) {
             stk->push(string(1,'+'));
         }
@@ -137,8 +130,6 @@ bool validate_double_operator(const char &c, const char &lc, const string &opera
 
 /*La siguiente funcion parte un string en separadores, pero manteniendolos
 en donde se encuentren.
-Ejem: "3+3.5*sen(-9^2)", ----> "3", "+", "3.5", "*", "sen", "(", "-", "9", "^", "2", ")"
-siendo que los separadores son "+/-*" etc.
 Luego los almacena en un stack donde el tope es el primer substring obtenida
 y asi siguiendo.
 Precondiciones: input y separators deben estar correctamente inicializados
@@ -212,24 +203,12 @@ Stack<string> * read_math_expression(const string &input)
     stk->invert(); // se invierte el stack
     return stk;
 }
-/*La siguiente funcion verifica si c esta dentro de la cadena
-input
-PRECONDICIONES: NINGUNA
-POSTCONDICIONES: Devuelve true si se encontró el caracter c en input, false en
-caso contrario
-*/
+
 bool containChar(const string & input, char c)
 {
 	return (input.find(c) != input.npos)? true: false;
 }
 
-
-
-/*La siguiente funcion quita los espacios a los extremos de un string
-PRECONDICIONES: NINGUNA
-POSTCONDICIONES: Devuelve la cadena si espacios en los extremos
-"     hola    " --- fullTrim() ---> "hola"
-"     hola que tal   " --- fullTrim() ---> "hola que tal"*/
 string fullTrim(string str){
 	char c;
 	size_t i =0;
@@ -250,8 +229,3 @@ string fullTrim(string str){
 
 	return str;
 }
-
-
-/*La siguiente funcion reemplaza todos las substring oldPor
-que se encuentre */
-string replaceAll(string input, string oldPor, string newPor);
