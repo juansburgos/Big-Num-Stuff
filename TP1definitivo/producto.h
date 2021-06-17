@@ -5,7 +5,7 @@
 
 class pro{
 public:
-    virtual ~pro()=0;
+    virtual ~pro(){};
     virtual bignum multi(const bignum&, const bignum&)const=0;
 };
 
@@ -22,15 +22,11 @@ public:
 
 class standard : public pro {
 public:
-    standard(){};
-    ~standard(){};
     bignum multi(const bignum&, const bignum&)const override;
 };
 
 class karatsuba : public pro {
 public:
-    karatsuba(){};
-    ~karatsuba(){};
     bignum multi(const bignum&, const bignum&)const override;
 };
 

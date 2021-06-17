@@ -99,9 +99,9 @@ bool process_input(istream *is, ostream *os, string method){
 	operaciones *ope;
 
 	if(method == "standard")
-		ope = new operaciones (new karatsuba);
-	else
 		ope = new operaciones (new standard);
+	else
+		ope = new operaciones (new karatsuba);
 
 	string linea;
 	while (getline(*is, linea)){

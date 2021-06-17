@@ -2,8 +2,6 @@
 #include "producto.h"
 #include "bignum.h"
 
-pro::~pro(){}
-
 bignum standard::multi(const bignum& b1, const bignum& b2)const {
     return b1*b2;
 }
@@ -22,6 +20,7 @@ bignum karatsuba::multi(const bignum& b1, const bignum& b2)const {
 		aux_nuevo[0] = (b1.get_digit(0) * b2.get_digit(0))/10;
 		aux_nuevo[1] = (b1.get_digit(0) * b2.get_digit(0))%10;
 		bignum nuevo(signo, 2, aux_nuevo);
+        delete [] aux_nuevo;
 		return nuevo;
 	}
 
