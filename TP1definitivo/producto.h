@@ -28,7 +28,6 @@ public:
     }
 
     void cambiarEstandar() {
-        cout << "a";
         //delete this->producto_;
         this->producto_ = new standard;
     }

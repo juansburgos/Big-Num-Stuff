@@ -46,7 +46,6 @@ opt_method(string const& arg)
 	istringstream iss(arg);
 	if (arg == "-") {
 		method = "karatsuba";
-		inter.cambiarEstandar();
 		return;
 	}
 
@@ -72,8 +71,9 @@ opt_method(string const& arg)
 		exit(1);
 	}
 
-	method = "standard";
-	inter.cambiarEstandar();
+	if (method == "standard") {
+		inter.cambiarEstandar();
+	}
 }
 
 
