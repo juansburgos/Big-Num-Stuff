@@ -18,7 +18,6 @@
 /***** Elementos Globales ****************************************************/
 using namespace std;
 
-
 /***** CMDLINE config ********************************************************/
 static void opt_input(string const&);
 static void opt_output(string const&);
@@ -39,12 +38,15 @@ static fstream ifs;
 static fstream ofs;
 static string method;
 
+extern interfaz inter;
+
 static void
 opt_method(string const& arg)
 {
 	istringstream iss(arg);
 	if (arg == "-") {
 		method = "karatsuba";
+		inter.cambiarEstandar();
 		return;
 	}
 

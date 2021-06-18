@@ -28,8 +28,9 @@ public:
     }
 
     void cambiarEstandar() {
-        delete producto_;
-        producto_ = new standard;
+        cout << "a";
+        //delete this->producto_;
+        this->producto_ = new standard;
     }
 
     ~interfaz() { delete this->producto_; };
@@ -42,7 +43,5 @@ public:
         return *this;
     }
 };
-
-static interfaz inter;
 
 #endif

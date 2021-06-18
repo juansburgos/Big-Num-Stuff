@@ -11,7 +11,6 @@ En este archivo se encuentran definidas todas las funciones que soporta el progr
 typedef bignum(*unary_t)(bignum);
 typedef bignum(*binary_t)(bignum,bignum);
 
-
 //Operadores
 bignum suma(bignum izq, bignum der);
 bignum resta(bignum izq, bignum der);

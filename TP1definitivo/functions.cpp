@@ -2,6 +2,8 @@
 #include "functions.h"
 #include "producto.h"
 
+interfaz inter;
+
 //OPERADORES
 bignum suma(bignum izq, bignum der){
     return izq + der; // Suma sobrecargada
