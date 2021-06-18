@@ -67,15 +67,25 @@ Stack<Token>* process_line(string const& arg) {
 	Stack <Token>* TKstk;
 	Stack <Token>* shunt; //Creo memoria din�mica.
 
-
 	string expresion = remove_spaces(arg, WHITESPACES);
 
+	//Chequea si tiene la misma cantidad de ([{}]).
+	//Complejidad temporal O(n) - Complejidad espacial O(n).
+	if (!isBalanced(expresion)) {
+		cerr << "ERROR: Cadena no balanceada" << endl;
+		exit(1);
+	}
+
+	//Crea un stack de string que tiene la expresión parseada matemáticamente.
+	//O(n) Temporal y O(n) Espacial
 	if ((stk = read_math_expression(expresion)) == nullptr)
 	{
 		cout << "Error al leer la expresion" << endl;
 		exit(1);
 	}
 
+	//Crea un stack de tokens que carga las prioridades
+	//O(n) Temporal y O(2n) Espacial -> O(n) y O(n)
 	if ((TKstk = createStackTokens(stk)) == nullptr)
 	{
 		cout << "Error al crear stack de tokens" << endl;
@@ -83,6 +93,8 @@ Stack<Token>* process_line(string const& arg) {
 		exit(1);
 	}
 	delete stk;
+
+	//O(n) temporal y O(2n) Espacial -> O(n)
 	if ((shunt = shunting_yard(TKstk)) == nullptr)
 	{
 		cout << "Error al crear stack de tokens" << endl;
@@ -95,26 +107,14 @@ Stack<Token>* process_line(string const& arg) {
 }
 
 //Devuelve true cuando se procesa la entrada satisfactoriamente.
-bool process_input(istream *is, ostream *os, string method){
-	operaciones *ope;
-
-	if(method == "standard")
-		ope = new operaciones (new standard);
-	else
-		ope = new operaciones (new karatsuba);
-
+bool process_input(istream *is, ostream *os){
 	string linea;
 	while (getline(*is, linea)){
-		if(!isBalanced(linea)){
-			cerr << "ERROR: Cadena no balanceada" << endl;
-			exit(1);
-		}
 		Stack<Token>* stk = process_line(linea);
-		bignum ans = evalPostfix(stk, ope);
+		bignum ans = evalPostfix(stk);
 		cout << ans << endl;
 		delete stk;
 	}
-	delete ope;
 
 	return true;
 }

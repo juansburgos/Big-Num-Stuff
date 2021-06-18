@@ -16,9 +16,7 @@ int main(int argc, char * const argv[]){
 	cmdline cmdl(options);
 	cmdl.parse(argc, argv);
 
-	if (process_input(iss, oss, method) == false){
-		return 1;
-	}
+	return process_input(iss, oss) == false;
 
 	return 0;
 }

@@ -133,6 +133,7 @@ Stack<Token>* createStackTokens(Stack<string>*input){
         output->push(topToken); // Se hace un push en el stack de tokens
     }
 
+    //O(n) Temporal y O(1) Espacial 
     output->invert(); // Se invierte el stack
 
     return output;
@@ -144,11 +145,10 @@ stackTK es el stack de tokens
 var el valor numerico
 PRECONDICIONES: El stack debe contener una expresion en postfix.
 POSTCONDICIONES: Retorna el valor de la expresion*/
-bignum evalPostfix(Stack<Token> * postfixTK, operaciones * ope){
+bignum evalPostfix(Stack<Token> * postfixTK){
     Stack<bignum> stackNumber;
     bignum izq, der;
     Token::type_t tp;
-    string op = {'*'};
 
     while(!postfixTK->empty()) // Mientras no se termine el stack con los tokens en postfix
     {
@@ -170,10 +170,7 @@ bignum evalPostfix(Stack<Token> * postfixTK, operaciones * ope){
             izq = stackNumber.top();
             stackNumber.pop();
 
-            if(op == postfixTK->top().getName())
-                izq = ope->multiplicar(izq, der);
-            else
-                izq = postfixTK->top().doBinary(izq, der);
+            izq = postfixTK->top().doBinary(izq, der);
 
             postfixTK->pop();
 

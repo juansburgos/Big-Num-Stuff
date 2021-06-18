@@ -20,7 +20,7 @@ string pop_n(string ss, int n);
 string get_files_name(const string& name, const char extract, const string& extension);
 int remplace_1(string& my_str, const string& sub_str, const char c);
 bool containChar(const string & input, char c);
-bool isBalanced(string expr);
+bool isBalanced(const string &expr);
 
 string fullTrim(string str);
 string remove_spaces(string s, string cads);

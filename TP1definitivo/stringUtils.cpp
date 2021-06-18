@@ -10,7 +10,7 @@ const string MATH_SEPARATORS = "+-*/()"; //+-*/()^
 const string MATH_OPT = "+-*/"; //Validar doble operadores
 const string MATH_SIMBOLS = "eE"; // eE
 
-bool isBalanced(string expr){
+bool isBalanced(const string &expr){
 
     // Creo el stack
     Stack<char> s;
@@ -124,6 +124,7 @@ void do_math(Stack<string> *stk, string &acumulador, char c, char last_last_c) {
     }
 }
 
+//
 bool validate_double_operator(const char &c, const char &lc, const string &operators) {
     return containChar(operators, c) && containChar(operators, lc);
 }
@@ -137,20 +138,17 @@ POSTCONDICIONES: Se crea un stack con todas las substrings obtenidas de
 input. El stack USA MEMORIA DINAMICA con lo cual debe eliminarse despues de
 su uso.
 */
+
+//O(n) Temporal y O(n) Espacial si se cuenta el string de input como O(1) ya que es un sólo string.
 Stack<string> * read_math_expression(const string &input)
 {
-
     Stack<string> * stk = new Stack<string>;
     string acumulador; // string donde se iran guardando las substrings de input
 
-    if(containChar(MATH_OPT,input[0])&& input[0] != MATH_SEPARATORS[OP_RESTA] && isdigit(input[1])){
-        cerr << "Falta un numero" << endl;
+    if((containChar(MATH_OPT,input[0])&& input[0] != MATH_SEPARATORS[OP_RESTA] && isdigit(input[1]))
+        || containChar(MATH_OPT, input[input.size() - 1])){
+        cerr << "ERROR: Math Error." << endl;
         exit(1);
-    }
-
-    if(containChar(MATH_OPT,input[input.size()-1])){
-            cerr << "Falta un numero" << endl;
-            exit(1);
     }
 
     if(input.empty() == true)// Si el input está vacío
@@ -159,8 +157,10 @@ Stack<string> * read_math_expression(const string &input)
         return stk;
     }
 
-    size_t i =0;
+    size_t i = 0;
     char c, last_c, last_last_c;
+
+    //Temporal O(n)
     for (i = 0, last_c=0, last_last_c=0; (c = input[i]) != '\0'; i++, last_last_c = last_c, last_c = c) {
 
         if (validate_double_operator(c, last_c, MATH_OPT)) {
@@ -200,10 +200,12 @@ Stack<string> * read_math_expression(const string &input)
         stk->push(acumulador); // se almacena el ultimo string
     }
 
+    //Temporal O(n) - Espacial O(1)
     stk->invert(); // se invierte el stack
     return stk;
 }
 
+//Complejidad Temporal O(k) - Complejidad Espacial O(1). Donde k es un número constante del diccionario -> O(1)
 bool containChar(const string & input, char c)
 {
 	return (input.find(c) != input.npos)? true: false;

@@ -1,5 +1,4 @@
-﻿#pragma once
-#ifndef __MAIN__
+﻿#ifndef __MAIN__
 #define __MAIN__
 
 /***** Bibliotecas Estándar **************************************************/
@@ -34,11 +33,11 @@ static option_t options[] = {
 	{0, },
 };
 
-static string method;
 static istream* iss = 0;
 static ostream* oss = 0;
 static fstream ifs;
 static fstream ofs;
+static string method;
 
 static void
 opt_method(string const& arg)
@@ -63,14 +62,16 @@ opt_method(string const& arg)
 					<< "."
 					<< endl;
 					exit(1);
-				}
-
+	}
 
 	if (iss.bad()) {
 		cerr << "Metodo incorrecto."
 			<< endl;
 		exit(1);
 	}
+
+	method = "standard";
+	inter.cambiarEstandar();
 }
 
 

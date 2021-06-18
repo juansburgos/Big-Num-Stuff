@@ -13,5 +13,5 @@ using namespace std;
 
 Stack<Token>* shunting_yard(Stack<Token> * input);
 Stack<Token>* createStackTokens(Stack<string>*input);
-bignum evalPostfix(Stack<Token> * postfixTK, operaciones * ope);
+bignum evalPostfix(Stack<Token> * postfixTK);
 #endif
